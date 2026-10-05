@@ -1,0 +1,509 @@
+/* ============================================================
+   RideFlow – Dark Mode Overrides
+   All rules scoped under `.dark` class on <html>
+   ============================================================ */
+
+/* ── 1. CSS Variables Override ───────────────────────────── */
+.dark {
+  --bg-white:     #111827;   /* gray-900  */
+  --bg-light:     #0F172A;   /* slate-950 */
+  --bg-card:      #1F2937;   /* gray-800  */
+  --bg-card-alt:  #1A2537;
+
+  --text-dark:    #F9FAFB;   /* gray-50   */
+  --text-mid:     #E5E7EB;   /* gray-200  */
+  --text-muted:   #9CA3AF;   /* gray-400  */
+  --text-light:   #6B7280;   /* gray-500  */
+
+  --border-color: #374151;   /* gray-700  */
+
+  --shadow-sm:    0 1px 3px rgba(0, 0, 0, 0.30);
+  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.40);
+  --shadow-lg:    0 8px 32px rgba(0, 0, 0, 0.50);
+  --shadow-xl:    0 16px 48px rgba(0, 0, 0, 0.55);
+}
+
+/* ── 2. Body & HTML ──────────────────────────────────────── */
+/* The page canvas is pure black.
+   The `[class]` qualifier is deliberate: <body> carries Tailwind's
+   `bg-white dark:bg-gray-900` utilities, and the `dark:bg-gray-900`
+   override below is a two-class selector, so a plain `.dark body`
+   (one class + one element) loses on specificity. */
+.dark body[class] {
+  background-color: #000000 !important;
+}
+
+/* ── 3. Navbar ───────────────────────────────────────────── */
+.dark #navbar {
+  background: rgba(17, 24, 39, 0.95);
+  border-bottom-color: #374151;
+}
+
+.dark .navbar-scrolled,
+.dark #navbar.shadow-md {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ── 4. Cards ────────────────────────────────────────────── */
+.dark .card,
+.dark .stat-card,
+.dark .pricing-card,
+.dark .search-box {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+.dark .card:hover {
+  border-color: #10B981;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.50);
+}
+
+.dark .card-footer {
+  border-top-color: #374151;
+}
+
+/* ── 5. Inputs & Forms ───────────────────────────────────── */
+.dark .form-control {
+  background: #1F2937;
+  border-color: #374151;
+  color: #F9FAFB;
+}
+
+.dark .form-control:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.20);
+}
+
+.dark .form-control::placeholder {
+  color: #6B7280;
+}
+
+.dark .form-label {
+  color: #E5E7EB;
+}
+
+.dark select.form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239CA3AF' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+}
+
+/* ── 6. Tables ───────────────────────────────────────────── */
+.dark .table-wrap {
+  border-color: #374151;
+}
+
+.dark .data-table thead tr {
+  background: #0F172A;
+}
+
+.dark .data-table th {
+  color: #9CA3AF;
+}
+
+.dark .data-table td {
+  color: #F9FAFB;
+  border-top-color: #374151;
+}
+
+.dark .data-table tbody tr:hover {
+  background: #111827;
+}
+
+/* ── 7. Sidebar ──────────────────────────────────────────── */
+.dark .sidebar {
+  background: #0F172A;
+  border-right-color: #1F2937;
+}
+
+.dark .sidebar-link {
+  color: rgba(255, 255, 255, 0.60);
+}
+
+/* The emerald fills are owned by style.css section 23 so light and dark
+   stay in one place; only the shades differ here. #065F46 gives the
+   white label 7.4:1 against the near-black sidebar. */
+.dark .sidebar-link:hover {
+  background: #065F46;
+  color: #ffffff;
+}
+
+.dark .sidebar-link.active {
+  background: #047857;
+  color: #ffffff;
+}
+
+.dark .sidebar-link:hover i,
+.dark .sidebar-link.active i {
+  color: #ffffff;
+}
+
+/* Opt out of the blanket `!important` in section 20
+   (.dark .text-gray-700/.text-gray-600 -> #D1D5DB !important).
+   The active sidebar link still carries text-gray-700 in its markup,
+   and an !important declaration beats any non-important rule no matter
+   how specific it is, so the green fill was getting a gray label in
+   dark mode. Re-asserting white at 0-3-0 !important outranks it. */
+.dark .sidebar-link.active,
+.dark .sidebar-link:hover {
+  color: #ffffff !important;
+}
+
+/* Destructive item: red-400 on the red-900/30 hover fill is 5.6:1,
+   where the light-theme #B91C1C would drop to roughly 1.3:1. */
+.dark .sidebar-link.text-red-500 {
+  color: #F87171;
+}
+
+.dark .sidebar-link.text-red-500:hover,
+.dark .sidebar-link.text-red-500:focus-visible,
+.dark .sidebar-link.text-red-500:hover i {
+  color: #F87171;
+}
+
+/* ── 8. Modal ────────────────────────────────────────────── */
+.dark .modal-box {
+  background: #1F2937;
+  border: 1px solid #374151;
+}
+
+.dark .modal-header {
+  border-bottom-color: #374151;
+}
+
+.dark .modal-footer {
+  border-top-color: #374151;
+}
+
+/* ── 9. Buttons ──────────────────────────────────────────── */
+.dark .btn-outline {
+  color: #10B981;
+  border-color: #10B981;
+}
+
+.dark .btn-outline:hover {
+  background: #10B981;
+  color: #ffffff;
+}
+
+.dark .btn-white {
+  background: #1F2937;
+  color: #10B981;
+  border-color: #374151;
+}
+
+.dark .btn-white:hover {
+  background: #374151;
+  border-color: #10B981;
+}
+
+/* ── 10. Footer ──────────────────────────────────────────── */
+.dark footer {
+  background: #0F172A;
+}
+
+.dark footer .border-t {
+  border-color: #1F2937;
+}
+
+/* ── 11. Badges ──────────────────────────────────────────── */
+.dark .badge-success { background: rgba(16,185,129,0.15); color: #34D399; }
+.dark .badge-danger  { background: rgba(239,68,68,0.15);  color: #FCA5A5; }
+.dark .badge-warning { background: rgba(245,158,11,0.15); color: #FCD34D; }
+.dark .badge-info    { background: rgba(59,130,246,0.15); color: #93C5FD; }
+.dark .badge-gray    { background: #374151; color: #D1D5DB; }
+
+/* ── 12. Toast ───────────────────────────────────────────── */
+.dark .toast {
+  background: #1F2937;
+  border-color: #374151;
+  border-left-color: #10B981;
+  color: #F9FAFB;
+}
+
+/* ── 13. Hero Section ────────────────────────────────────── */
+.dark .hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(6, 78, 59, 0.90) 0%,
+    rgba(16, 185, 129, 0.65) 50%,
+    rgba(6, 78, 59, 0.85) 100%
+  );
+}
+
+/* Photo hero: deepen the scrim in dark mode and dim the photo itself
+   so the white headline keeps the same contrast as in light mode. */
+.dark .hero-image {
+  background-color: #04110E;
+  background-blend-mode: multiply;
+}
+
+.dark .hero-image::before {
+  background:
+    linear-gradient(
+      100deg,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(2, 20, 17, 0.78) 45%,
+      rgba(4, 40, 34, 0.66) 100%
+    );
+}
+
+[dir='rtl'].dark .hero-image::before,
+.dark [dir='rtl'] .hero-image::before {
+  background:
+    linear-gradient(
+      260deg,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(2, 20, 17, 0.78) 45%,
+      rgba(4, 40, 34, 0.66) 100%
+    );
+}
+
+@media (max-width: 1023px) {
+  .dark .hero-image::before {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.86) 0%,
+      rgba(2, 20, 17, 0.78) 100%
+    );
+  }
+}
+
+/* ── 14. Section Label ───────────────────────────────────── */
+.dark .section-label {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+}
+
+/* ── 15. Divider ─────────────────────────────────────────── */
+.dark .divider,
+.dark .divider-vertical {
+  background: #374151;
+}
+
+.dark hr {
+  border-color: #374151;
+}
+
+/* ── 16. Dropdown Menus ──────────────────────────────────── */
+.dark .dropdown-menu,
+.dark [class*="dropdown"] > div {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+/* Tailwind group-hover dropdown backgrounds in dark mode */
+.dark .group:hover > div,
+.dark .group:focus-within > div {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+/* ── 17. Progress Bars ───────────────────────────────────── */
+.dark .progress {
+  background: #374151;
+}
+
+/* ── 18. Skeleton Loader ─────────────────────────────────── */
+.dark .skeleton {
+  background: linear-gradient(90deg, #1F2937 25%, #374151 50%, #1F2937 75%);
+  background-size: 200% 100%;
+}
+
+/* ── 19. Section Background Alternates ───────────────────── */
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  background-color: #0F172A !important;
+}
+
+.dark .bg-white:not(body) {
+  background-color: #1F2937 !important;
+}
+
+/* White-on-white buttons keep a light fill. Without this the .bg-white remap
+   above turns `bg-white text-emerald-800` into dark fill + dark label
+   (1.91:1, effectively invisible). Spec 0,4,0 outranks the 0,3,1 rule. */
+.dark .bg-white.text-emerald-800,
+.dark .bg-white.text-emerald-700,
+.dark .bg-white.text-emerald-600 {
+  background-color: #FFFFFF !important;
+  color: #065F46 !important;
+}
+
+.dark .bg-white.text-emerald-800:hover,
+.dark .bg-white.text-emerald-700:hover,
+.dark .bg-white.text-emerald-600:hover {
+  background-color: #E5E7EB !important;
+}
+
+/* Solid emerald buttons carry small white labels; on a near-black canvas
+   #10B981 only reaches 2.54:1, so deepen the fill to emerald-700 (5.46:1).
+   Paired with the .text-white class on purpose: it leaves the translucent
+   chips (bg-emerald-500/10, /20) and the logo squares untouched. */
+.dark .bg-emerald-500.text-white {
+  background-color: #047857 !important;
+}
+
+.dark .bg-emerald-500.text-white:hover {
+  background-color: #065F46 !important;
+}
+
+/* Same reasoning for the other solid green fills. #059669 (3.35:1) and
+   #10B981 (2.54:1) both fall short of 4.5:1 under a white label. */
+.dark .bg-emerald-400.text-white,
+.dark .bg-emerald-600.text-white {
+  background-color: #047857 !important;
+}
+
+.dark .bg-emerald-400.text-white:hover,
+.dark .bg-emerald-600.text-white:hover {
+  background-color: #065F46 !important;
+}
+
+/* Anchors that only *gain* a green fill on hover — social tiles on
+   bg-gray-800 and card overlays on bg-white/20. These carry no
+   bg-emerald-* class, so the rule above never matched them and they
+   landed on #10B981 with a white label on hover. Deepen the hover
+   fill only; the resting fill is untouched. */
+.dark .hover\:bg-emerald-400:hover,
+.dark .hover\:bg-emerald-500:hover,
+.dark .hover\:bg-emerald-600:hover {
+  background-color: #065F46 !important;
+}
+
+/* Translucent green fills (bg-emerald-700/80 CTAs) are not in the
+   .text-white set above, but they carry a white label too. */
+.dark .bg-emerald-700\/80:hover {
+  background-color: #047857 !important;
+}
+
+/* ── 20. Text Colors ─────────────────────────────────────── */
+.dark .text-gray-900,
+.dark .text-gray-800 {
+  color: #F9FAFB !important;
+}
+
+.dark .text-gray-700,
+.dark .text-gray-600 {
+  color: #D1D5DB !important;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-400 {
+  color: #9CA3AF !important;
+}
+
+/* ── 21. Border Colors ───────────────────────────────────── */
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: #374151 !important;
+}
+
+/* ── 22. Pricing Card Featured ───────────────────────────── */
+.dark .pricing-card.featured {
+  background: linear-gradient(160deg, rgba(16,185,129,0.08), #1F2937);
+}
+
+/* ── 23. Stat Number ─────────────────────────────────────── */
+.dark .stat-number {
+  color: #34D399;
+}
+
+/* ── 24. Tailwind dark: pseudo-class fallback ────────────── */
+/* These ensure Tailwind dark: classes work when darkMode:'class' is set */
+.dark .dark\:bg-gray-900  { background-color: #111827 !important; }
+.dark .dark\:bg-gray-800  { background-color: #1F2937 !important; }
+.dark .dark\:bg-gray-950  { background-color: #0F172A !important; }
+.dark .dark\:text-white   { color: #ffffff !important; }
+.dark .dark\:text-gray-100{ color: #F3F4F6 !important; }
+.dark .dark\:text-gray-400{ color: #9CA3AF !important; }
+.dark .dark\:border-gray-700 { border-color: #374151 !important; }
+
+/* ── 25. Input Autofill Override ─────────────────────────── */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1F2937 inset !important;
+  -webkit-text-fill-color: #F9FAFB !important;
+  border-color: #374151 !important;
+}
+
+/* ── 26. Chart Containers ────────────────────────────────── */
+.dark .chart-container {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+/* ── 27. Tooltips ────────────────────────────────────────── */
+.dark [data-tooltip]::after {
+  background: #F9FAFB;
+  color: #111827;
+}
+
+/* ── 28. Scrollbar ───────────────────────────────────────── */
+.dark * {
+  scrollbar-color: #10B981 #1F2937;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1F2937;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #059669;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #10B981;
+}
+
+/* ── 29. Dashboard specific ──────────────────────────────── */
+.dark .dashboard-header {
+  background: #0F172A;
+  border-bottom-color: #1F2937;
+}
+
+.dark .stat-icon-wrap {
+  background: rgba(16, 185, 129, 0.12);
+}
+
+/* ── 30. Blog / Article ──────────────────────────────────── */
+.dark .blog-card {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+.dark .blog-category {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+}
+
+/* ── 31. Map placeholder ─────────────────────────────────── */
+.dark .map-placeholder {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+/* ── 32. Alert / Notice Boxes ────────────────────────────── */
+.dark .alert-success {
+  background: rgba(16,185,129,0.10);
+  border-color: rgba(16,185,129,0.30);
+  color: #6EE7B7;
+}
+
+.dark .alert-danger {
+  background: rgba(239,68,68,0.10);
+  border-color: rgba(239,68,68,0.30);
+  color: #FCA5A5;
+}
+
+.dark .alert-warning {
+  background: rgba(245,158,11,0.10);
+  border-color: rgba(245,158,11,0.30);
+  color: #FCD34D;
+}
+
+.dark .alert-info {
+  background: rgba(59,130,246,0.10);
+  border-color: rgba(59,130,246,0.30);
+  color: #93C5FD;
+}

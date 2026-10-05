@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – RideFlow | Local Car Pooling & Ride Share</title>
+  <meta name="description" content="Sign in to your RideFlow account to find rides, offer rides, and manage your commute." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Custom Styles (dark mode + RTL) -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <!-- Apply the saved theme + direction before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { /* storage unavailable - fall back to light LTR */ }
+    })();
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .input-focus:focus { outline: none; border-color: #10B981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
+    .social-btn:hover { transform: translateY(-1px); }
+    .social-btn { transition: all 0.2s ease; }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .right-panel-img {
+      background-image: url('images/unsplash-1503376780353-7e6692767b70-w1200.avif');
+      background-size: cover;
+      background-position: center;
+    }
+    /* RTL tweaks */
+    [dir="rtl"] .input-icon-left { left: auto; right: 0.875rem; }
+    [dir="rtl"] .input-pl { padding-left: 1rem; padding-right: 2.75rem; }
+    [dir="rtl"] .input-icon-right { right: auto; left: 0.875rem; }
+    [dir="rtl"] .input-pr { padding-right: 1rem; padding-left: 2.75rem; }
+  </style>
+</head>
+<body class="font-poppins bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+
+  <!-- RTL / Dark Mode toggles (top-right on right panel in desktop, floating on mobile) -->
+  <div class="fixed top-4 right-4 z-50 flex items-center gap-2 lg:hidden">
+    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle w-9 h-9 bg-white/90 dark:bg-gray-800/90 backdrop-blur rounded-lg shadow flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+      <i data-icon class="fas fa-align-right text-sm"></i>
+    </button>
+    <button onclick="toggleDarkMode()" title="Toggle Dark Mode" class="w-9 h-9 bg-white/90 dark:bg-gray-800/90 backdrop-blur rounded-lg shadow flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+      <i id="darkModeIconMobile" class="fas fa-moon text-sm"></i>
+    </button>
+  </div>
+
+  <div class="min-h-screen flex flex-col lg:flex-row">
+
+    <!-- ─── Left Panel ─── -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-16 py-12 bg-white dark:bg-gray-900 fade-in order-2 lg:order-1">
+      <div class="max-w-md w-full mx-auto">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 mb-8">
+          <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center shadow-md">
+            <i class="fas fa-car text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-emerald-600">RideFlow</span>
+        </a>
+
+        <!-- Heading -->
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-1">Welcome Back 👋</h1>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-8">Sign in to continue your journey</p>
+
+        <!-- Error banner -->
+        <div id="errorBanner" class="hidden mb-4 flex items-center gap-2 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 rounded-xl px-4 py-3 text-sm">
+          <i class="fas fa-exclamation-circle flex-shrink-0"></i>
+          <span id="errorMsg"></span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+
+          <!-- Email -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email Address</label>
+            <div class="relative">
+              <span class="input-icon-left absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-sm">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <input id="email" type="email" autocomplete="email" placeholder="you@example.com"
+                class="input-pl input-focus w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 transition-colors" />
+            </div>
+            <p id="emailErr" class="hidden text-red-500 text-xs mt-1 flex items-center gap-1"><i class="fas fa-circle-exclamation"></i> <span></span></p>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Password</label>
+            <div class="relative">
+              <span class="input-icon-left absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-sm">
+                <i class="fas fa-lock"></i>
+              </span>
+              <input id="password" type="password" autocomplete="current-password" placeholder="Enter your password"
+                class="input-pl input-pr input-focus w-full pl-10 pr-12 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 transition-colors" />
+              <button type="button" onclick="togglePassword('password','pwToggleIcon')" class="input-icon-right absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-500 transition-colors">
+                <i id="pwToggleIcon" class="fas fa-eye text-sm"></i>
+              </button>
+            </div>
+            <p id="passwordErr" class="hidden text-red-500 text-xs mt-1 flex items-center gap-1"><i class="fas fa-circle-exclamation"></i> <span></span></p>
+          </div>
+
+          <!-- Remember me + Forgot -->
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="rememberMe" class="w-4 h-4 rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 accent-emerald-500" />
+              <span class="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+            </label>
+            <a href="forgot-password.html" class="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="loginBtn"
+            class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-semibold rounded-xl transition-all shadow-md hover:shadow-emerald-200 dark:hover:shadow-emerald-900 flex items-center justify-center gap-2 text-sm">
+            <i class="fas fa-sign-in-alt"></i>
+            <span id="loginBtnText">Sign In</span>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-6">
+          <div class="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+          <span class="text-xs text-gray-400 dark:text-gray-500 font-medium">or continue with</span>
+          <div class="flex-1 h-px bg-gray-200 dark:bg-gray-700"></div>
+        </div>
+
+        <!-- Social Buttons -->
+        <div class="grid grid-cols-3 gap-3">
+          <button onclick="socialLogin('Google')" class="social-btn flex items-center justify-center gap-2 py-2.5 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-emerald-300 transition-all">
+            <i class="fab fa-google text-red-500"></i>
+            <span class="hidden sm:inline">Google</span>
+          </button>
+          <button onclick="socialLogin('Facebook')" class="social-btn flex items-center justify-center gap-2 py-2.5 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-emerald-300 transition-all">
+            <i class="fab fa-facebook text-blue-600"></i>
+            <span class="hidden sm:inline">Facebook</span>
+          </button>
+          <button onclick="socialLogin('Apple')" class="social-btn flex items-center justify-center gap-2 py-2.5 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-emerald-300 transition-all">
+            <i class="fab fa-apple text-gray-800 dark:text-white"></i>
+            <span class="hidden sm:inline">Apple</span>
+          </button>
+        </div>
+
+        <!-- Sign Up link -->
+        <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+          Don't have an account?
+          <a href="signup.html" class="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">Create one free</a>
+        </p>
+
+        
+
+      </div>
+    </div>
+
+    <!-- ─── Right Panel ─── -->
+    <div class="w-full lg:w-1/2 relative right-panel-img order-1 lg:order-2 min-h-52 lg:min-h-screen">
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/90 via-gray-900/80 to-black/90"></div>
+
+      <!-- Toggle buttons desktop. z-20, not z-10: the content wrapper below is
+           also z-10 but comes later in the DOM, so at equal z-index it paints
+           on top of these buttons and swallowed every click. -->
+      <div class="absolute top-5 right-5 flex items-center gap-2 z-20">
+        <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle w-9 h-9 bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg flex items-center justify-center text-white transition-colors">
+          <i data-icon class="fas fa-align-right text-sm"></i>
+        </button>
+        <button onclick="toggleDarkMode()" title="Toggle Dark Mode" class="w-9 h-9 bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg flex items-center justify-center text-white transition-colors">
+          <i id="darkModeIcon" class="fas fa-moon text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex flex-col justify-center h-full px-10 lg:px-14 py-14 text-white">
+        <div class="max-w-sm">
+          <span class="inline-flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-medium px-3 py-1 rounded-full mb-6">
+            <i class="fas fa-star text-xs"></i> Trusted by 50,000+ commuters
+          </span>
+          <h2 class="text-3xl lg:text-4xl font-bold leading-tight mb-4">
+            Join Thousands of<br /><span class="text-emerald-400">Smart Commuters</span>
+          </h2>
+          <p class="text-gray-300 text-sm leading-relaxed mb-8">
+            RideFlow makes daily commuting affordable, eco-friendly, and social. Connect with neighbours heading the same way.
+          </p>
+
+          <!-- Feature bullets -->
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <div class="w-9 h-9 bg-emerald-500/20 border border-emerald-500/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-piggy-bank text-emerald-400 text-sm"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">Save up to 70% on travel costs</p>
+                <p class="text-gray-400 text-xs mt-0.5">Split fuel & tolls with fellow commuters</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-9 h-9 bg-emerald-500/20 border border-emerald-500/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-shield-alt text-emerald-400 text-sm"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">Verified & safe community</p>
+                <p class="text-gray-400 text-xs mt-0.5">All drivers & passengers are ID-verified</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-9 h-9 bg-emerald-500/20 border border-emerald-500/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-leaf text-emerald-400 text-sm"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">Reduce your carbon footprint</p>
+                <p class="text-gray-400 text-xs mt-0.5">Every shared ride = fewer cars on the road</p>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Stats -->
+          <div class="mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
+            <div>
+              <p class="text-2xl font-bold text-emerald-400">50K+</p>
+              <p class="text-xs text-gray-400 mt-0.5">Active Users</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-emerald-400">120+</p>
+              <p class="text-xs text-gray-400 mt-0.5">Cities</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-emerald-400">4.9★</p>
+              <p class="text-xs text-gray-400 mt-0.5">Rating</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Social login toast -->
+  <div id="socialToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 dark:bg-gray-700 text-white text-sm px-5 py-3 rounded-xl shadow-xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2 z-50">
+    <i class="fas fa-info-circle text-emerald-400"></i>
+    <span id="socialToastMsg"></span>
+  </div>
+
+  <script src="js/rideflow-store.js"></script>
+
+  <script>
+    /* ─── Dark Mode ─── */
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      document.documentElement.classList.toggle('dark', isDark);
+      const icon = document.getElementById('darkModeIcon');
+      const iconMobile = document.getElementById('darkModeIconMobile');
+      if (icon) icon.className = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
+      if (iconMobile) iconMobile.className = isDark ? 'fas fa-sun text-sm' : 'fas fa-moon text-sm';
+    }
+    function toggleDarkMode() {
+      localStorage.setItem('darkMode', localStorage.getItem('darkMode') !== 'true');
+      applyDarkMode();
+    }
+    /* ─── RTL ─── */
+        function applyRTL() {
+         const rtlOn = localStorage.getItem('rtl') === 'true';
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+       }
+    function toggleRTL() {
+      localStorage.setItem('rtl', localStorage.getItem('rtl') !== 'true');
+      applyRTL();
+    }
+    /* ─── Password Toggle ─── */
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash text-sm';
+      } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye text-sm';
+      }
+    }
+    /* ─── Demo Fill ─── */
+    function fillDemo(email, password) {
+      document.getElementById('email').value = email;
+      document.getElementById('password').value = password;
+    }
+    /* ─── Show/hide field error ─── */
+    function showFieldError(fieldId, msg) {
+      const el = document.getElementById(fieldId + 'Err');
+      if (el) {
+        el.querySelector('span').textContent = msg;
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+      }
+    }
+    function clearFieldErrors() {
+      ['email','password'].forEach(id => {
+        const el = document.getElementById(id + 'Err');
+        if (el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+      });
+      const banner = document.getElementById('errorBanner');
+      banner.classList.add('hidden');
+    }
+    function showError(msg) {
+      const banner = document.getElementById('errorBanner');
+      document.getElementById('errorMsg').textContent = msg;
+      banner.classList.remove('hidden');
+      banner.classList.add('flex');
+    }
+    /* ─── Login Handler ─── */
+    function setLoginBusy(busy) {
+      const btn = document.getElementById('loginBtn');
+      const btnText = document.getElementById('loginBtnText');
+      btn.disabled = busy;
+      btn.classList.toggle('opacity-80', busy);
+      btnText.textContent = busy ? 'Signing in…' : 'Sign In';
+      const icon = btn.querySelector('i');
+      if (icon) icon.className = busy ? 'fas fa-spinner fa-spin' : 'fas fa-right-to-bracket';
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      clearFieldErrors();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      let valid = true;
+      if (!email) { showFieldError('email', 'Email address is required'); valid = false; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFieldError('email', 'Enter a valid email address'); valid = false; }
+      if (!password) { showFieldError('password', 'Password is required'); valid = false; }
+      if (!valid) return;
+
+      setLoginBusy(true);
+      try {
+        // Credentials are checked against the local demo store in
+        // js/rideflow-store.js - no server involved.
+        const res = await RideFlowStore.login(email, password);
+
+        if (res.ok) {
+          // The stored session decides the landing page; role picks the panel.
+          window.location.href = res.body.user && res.body.user.role === 'admin'
+            ? 'admin-dashboard.html'
+            : 'user-dashboard.html';
+          return;
+        }
+
+        if (res.status === 400 && res.body.errors) {
+          if (res.body.errors.email) showFieldError('email', res.body.errors.email);
+          if (res.body.errors.password) showFieldError('password', res.body.errors.password);
+        } else {
+          showError(res.body.message || 'We could not sign you in. Please try again.');
+        }
+        setLoginBusy(false);
+      } catch (err) {
+        showError('Something went wrong signing you in. Please try again.');
+        setLoginBusy(false);
+      }
+    }
+    /* ─── Social Login ─── */
+    function socialLogin(provider) {
+      const toast = document.getElementById('socialToast');
+      document.getElementById('socialToastMsg').textContent = provider + ' login is not configured in demo mode.';
+      toast.style.opacity = '1';
+      toast.style.pointerEvents = 'auto';
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.pointerEvents = 'none'; }, 3000);
+    }
+    /* ─── Init ─── */
+    applyDarkMode();
+    applyRTL();
+
+    /* A visitor sent here from a signed-out dashboard should know why. */
+    if (new URLSearchParams(location.search).get('expired')) {
+      showError('Your session ended. Please sign in again.');
+    }
+  </script>
+</body>
+</html>

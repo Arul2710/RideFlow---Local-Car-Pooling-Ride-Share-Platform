@@ -1,0 +1,1368 @@
+/* ============================================================
+   RideFlow – Global Stylesheet
+   Font: Poppins | Palette: Emerald Green
+   ============================================================ */
+
+/* ── 1. Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ── 2. CSS Custom Properties ────────────────────────────── */
+:root {
+  --primary:        #10B981;
+  --primary-dark:   #059669;
+  --primary-light:  #D1FAE5;
+  --secondary:      #064E3B;
+  --accent:         #34D399;
+
+  --bg-white:       #ffffff;
+  --bg-light:       #F9FAFB;
+  --bg-card:        #ffffff;
+
+  --text-dark:      #111827;
+  --text-mid:       #374151;
+  --text-muted:     #6B7280;
+  --text-light:     #9CA3AF;
+
+  --border-color:   #E5E7EB;
+  --shadow-sm:      0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:      0 4px 16px rgba(0, 0, 0, 0.10);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl:      0 16px 48px rgba(0, 0, 0, 0.14);
+
+  --radius-sm:      6px;
+  --radius-md:      12px;
+  --radius-lg:      16px;
+  --radius-xl:      24px;
+  --radius-full:    9999px;
+
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  --navbar-height:  64px;
+  --section-pad:    80px;
+
+  --font-sans: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ── 3. Base Reset ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--bg-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+/* Only tint links that do not declare a text colour of their own.
+   `a:hover` is 0-1-1, which outranks every Tailwind `text-*` utility
+   (0-1-0) no matter which stylesheet loads last — so a link marked
+   `text-white` still got repainted --primary-dark on hover. On an
+   emerald fill that is emerald-600 on emerald-500: unreadable.
+   Scoping the tint to links with no `text-` utility keeps the brand
+   hover colour for plain links and hands the label back to the
+   element's own colour everywhere else.
+
+   The :not() argument is wrapped in :where() so the exclusion costs
+   zero specificity. Without it this selector would be 0-2-1 and would
+   outrank the white-label rules in 7b (0-2-0), reinstating the exact
+   bug it is here to fix. */
+a:hover:not(:where([class*="text-"])) {
+  color: var(--primary-dark);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ── 4. Utility Classes ──────────────────────────────────── */
+.font-poppins {
+  font-family: var(--font-sans);
+}
+
+.text-primary   { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.bg-primary     { background-color: var(--primary); }
+.bg-secondary   { background-color: var(--secondary); }
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px)  { .container { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container { padding-inline: 2rem; } }
+
+.section-padding {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: calc(var(--section-pad) * 0.625);
+    padding-bottom: calc(var(--section-pad) * 0.625);
+  }
+}
+
+/* ── 5. Section Title ────────────────────────────────────── */
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.25rem 0.875rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.section-title span {
+  color: var(--primary);
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header .section-subtitle {
+  margin-inline: auto;
+}
+
+/* ── 6. Navbar ───────────────────────────────────────────── */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: box-shadow var(--transition-base),
+              background var(--transition-base),
+              border-color var(--transition-base);
+}
+
+.navbar-scrolled,
+#navbar.shadow-md {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.10);
+  border-bottom-color: var(--border-color);
+}
+
+.pt-navbar {
+  padding-top: var(--navbar-height);
+}
+
+/* ── 7. Button Styles ────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background var(--transition-base),
+              color var(--transition-base),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base),
+              transform var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.40);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: #ffffff;
+  border-color: var(--secondary);
+}
+
+.btn-secondary:hover {
+  background: #043929;
+  border-color: #043929;
+  box-shadow: 0 4px 14px rgba(6, 78, 59, 0.35);
+  color: #ffffff;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.30);
+}
+
+.btn-white {
+  background: #ffffff;
+  color: var(--primary);
+  border-color: #ffffff;
+}
+
+.btn-white:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.btn-sm {
+  padding: 0.4rem 1rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: 0.875rem 2rem;
+  font-size: 1.0625rem;
+  border-radius: var(--radius-lg);
+}
+
+.btn-icon {
+  padding: 0.625rem;
+  border-radius: var(--radius-md);
+}
+
+/* ── 7b. Button Hover Contract ────────────────────────────── */
+/* Single source of truth for "the label stays readable on hover".
+   Buttons on this site are Tailwind utilities rather than `.btn*`, so
+   this section covers the real markup: solid emerald fills, anchors
+   that only *gain* a green fill on hover, and the dashboard sidebar
+   links. Nothing here changes size, spacing or position.
+
+   Selector notes:
+   - The white-label rules sit at 0-2-0, which beats both `a:hover`
+     (0-1-1) and the `a` element selector (0-0-1) without !important.
+   - Transition defaults are wrapped in :where() (specificity 0) so any
+     Tailwind `transition-*` already on the element still wins. */
+
+/* A label on a solid emerald fill stays white through every state.
+   Covers `bg-emerald-* text-white` and the dashboard sidebar links,
+   which carry no colour utility but sit on a green fill. */
+.bg-emerald-400.text-white,
+.bg-emerald-500.text-white,
+.bg-emerald-600.text-white,
+.bg-emerald-700.text-white,
+.bg-emerald-800.text-white,
+.bg-emerald-900.text-white,
+.bg-primary.text-white,
+.sidebar-link.active,
+.sidebar-link:hover {
+  color: #ffffff;
+}
+
+/* Anchors that are dark tiles and only turn green on hover (social
+   icons, card overlays). The fill needs a white label, otherwise
+   --primary-dark on --primary is emerald on emerald. Scoped to the
+   dark fills actually used: bg-gray-800, bg-white/20, bg-emerald-*.
+   The light `hover:bg-emerald-50/100` tints are deliberately absent —
+   those belong on a light surface and keep their emerald label. */
+.hover\:bg-emerald-400:hover,
+.hover\:bg-emerald-500:hover,
+.hover\:bg-emerald-600:hover,
+.hover\:bg-emerald-700:hover {
+  color: #ffffff;
+}
+
+/* Same guarantee for focus and active, so a keyboard user never lands
+   on an unreadable label either. */
+.bg-emerald-400:focus-visible,
+.bg-emerald-500:focus-visible,
+.bg-emerald-600:focus-visible,
+.bg-emerald-700:focus-visible,
+.bg-emerald-400:active,
+.bg-emerald-500:active,
+.bg-emerald-600:active,
+.bg-emerald-700:active {
+  color: #ffffff;
+}
+
+/* The hover *fill* is deepened so the white label actually clears
+   4.5:1. The three shades rewritten here are the only ones that can sit
+   under a white label too light to read:
+     hover:bg-emerald-400  #34D399 -> 1.90:1
+     hover:bg-emerald-500  #10B981 -> 2.54:1
+     hover:bg-emerald-600  #059669 -> 3.77:1
+   All three become #047857 -> 5.46:1. emerald-700/800/900 are already
+   dark enough, so they are left alone.
+
+   The resting fill is NOT touched: `--primary` #10B981 stays exactly
+   where it was, per the brief to keep the existing green background.
+   Only the hover state moves, and only for the shades that failed.
+
+   The leading `:is(a, button)` contributes a type, lifting the whole
+   selector to 0-2-1 so it outranks Tailwind's own 0-2-0 hover utility
+   without !important. */
+:is(a, button):is(
+    .hover\:bg-emerald-400,
+    .hover\:bg-emerald-500,
+    .hover\:bg-emerald-600
+  ):hover {
+  background-color: #047857;
+}
+
+/* Smooth hover for every control that did not already opt in.
+   199 buttons/links on the site use hover: utilities with no
+   transition, so their fill snapped instead of easing. */
+:where(button, [role="button"]) {
+  transition-property: background-color, background-image, color,
+    border-color, box-shadow, opacity, filter, transform;
+  transition-duration: var(--transition-base);
+  transition-timing-function: ease;
+}
+
+/* Anchors styled as buttons: any element with a fill utility, plus the
+   `.btn*` family. :where(a) contributes 0, :is() takes 0-1-0 from the
+   attribute selector — enough to beat the `a` reset, still tied with
+   Tailwind's own transition utilities so an explicit one takes over. */
+:where(a):is([class*="bg-"], .btn) {
+  transition-property: background-color, background-image, color,
+    border-color, box-shadow, opacity, filter, transform;
+  transition-duration: var(--transition-base);
+  transition-timing-function: ease;
+}
+
+/* Keyboard parity. Most buttons on the site carry `focus:outline-none`
+   with nothing in its place, so focus silently vanished. :focus-visible
+   keeps the ring off mouse clicks. No radius or size is set here, so
+   the element's own shape is untouched. */
+:where(button, [role="button"], a):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Respect a reduced-motion preference: the fill still changes, it just
+   stops animating. */
+@media (prefers-reduced-motion: reduce) {
+  :where(button, [role="button"], a) {
+    transition-duration: 1ms !important;
+  }
+}
+
+/* ── 8. Card Styles ──────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base),
+              border-color var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-light);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Feature Icon Card */
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 1.375rem;
+  flex-shrink: 0;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.card:hover .feature-icon {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* ── 9. Form Styles ──────────────────────────────────────── */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 0.375rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  color: var(--text-dark);
+  background: var(--bg-white);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.form-control::placeholder {
+  color: var(--text-light);
+}
+
+.form-control.error {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.form-error {
+  font-size: 0.8125rem;
+  color: #EF4444;
+  margin-top: 0.25rem;
+}
+
+.form-hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select.form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236B7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+/* ── 10. Hero Section ────────────────────────────────────── */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(6, 78, 59, 0.85) 0%,
+    rgba(16, 185, 129, 0.60) 50%,
+    rgba(6, 78, 59, 0.70) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── 10b. Hero With Background Image ──────────────────────── */
+/* Used by the homepage hero. The photo fills the whole section on
+   every breakpoint; the ::before layer is the readability scrim. */
+.hero-image {
+  position: relative;
+  isolation: isolate;
+  background-color: #064E3B; /* fallback if the photo fails to load */
+  background-image: url('../images/jugnoo-io--cab-booking-software-2-1024x698.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: scroll;
+}
+
+/* Subtle dark overlay so the white hero text always stays readable */
+.hero-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(3, 20, 16, 0.92) 0%,
+      rgba(4, 47, 41, 0.80) 45%,
+      rgba(6, 78, 59, 0.62) 100%
+    );
+  pointer-events: none;
+}
+
+/* Keeps every hero child above the scrim */
+.hero-image > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Tablet — keep the subject centred and the scrim a touch lighter */
+@media (max-width: 1023px) {
+  .hero-image {
+    background-position: center center;
+  }
+
+  .hero-image::before {
+    background: linear-gradient(
+      180deg,
+      rgba(3, 20, 16, 0.88) 0%,
+      rgba(4, 47, 41, 0.78) 100%
+    );
+  }
+}
+
+/* Mobile — extra scrim because the content column is full width */
+@media (max-width: 639px) {
+  .hero-image {
+    background-position: center center;
+  }
+
+  .hero-image::before {
+    background: linear-gradient(
+      180deg,
+      rgba(3, 20, 16, 0.90) 0%,
+      rgba(4, 47, 41, 0.84) 100%
+    );
+  }
+}
+
+/* RTL — mirror the scrim so the darker edge sits on the text side */
+[dir='rtl'] .hero-image::before {
+  background:
+    linear-gradient(
+      260deg,
+      rgba(3, 20, 16, 0.92) 0%,
+      rgba(4, 47, 41, 0.80) 45%,
+      rgba(6, 78, 59, 0.62) 100%
+    );
+}
+
+@media (max-width: 1023px) {
+  [dir='rtl'] .hero-image::before {
+    background: linear-gradient(
+      180deg,
+      rgba(3, 20, 16, 0.88) 0%,
+      rgba(4, 47, 41, 0.78) 100%
+    );
+  }
+}
+
+/* ── 10c. Navbar Layout Toggles (RTL / Dark Mode) ─────────── */
+/* The buttons are plain <button> elements so they need an explicit
+   reset, otherwise the browser default border/background shows up. */
+.layout-toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.layout-toggle:focus-visible {
+  outline: 2px solid #10B981;
+  outline-offset: 2px;
+}
+
+/* Keep the pressed state obvious for keyboard + mouse users alike */
+.layout-toggle[aria-pressed='true'] {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+
+.dark .layout-toggle[aria-pressed='true'] {
+  background-color: rgba(16, 185, 129, 0.25);
+  color: #34D399;
+}
+
+/* ── 11. Gradient Backgrounds ────────────────────────────── */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+}
+
+.gradient-light {
+  background: linear-gradient(135deg, #F0FDF4 0%, #D1FAE5 100%);
+}
+
+/* ── 12. Badges & Tags ───────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.badge-success { background: #D1FAE5; color: #065F46; }
+.badge-danger  { background: #FEE2E2; color: #991B1B; }
+.badge-warning { background: #FEF3C7; color: #92400E; }
+.badge-info    { background: #DBEAFE; color: #1E40AF; }
+.badge-gray    { background: #F3F4F6; color: #374151; }
+
+/* ── 13. Avatar ──────────────────────────────────────────── */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-sm  { width: 32px;  height: 32px;  font-size: 0.75rem; }
+.avatar-md  { width: 40px;  height: 40px;  font-size: 0.875rem; }
+.avatar-lg  { width: 56px;  height: 56px;  font-size: 1.125rem; }
+.avatar-xl  { width: 80px;  height: 80px;  font-size: 1.5rem; }
+
+/* ── 14. Rating Stars ────────────────────────────────────── */
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #F59E0B;
+  font-size: 0.875rem;
+}
+
+/* ── 15. Custom Scrollbar ────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--bg-light);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* ── 16. Divider ─────────────────────────────────────────── */
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--border-color);
+  margin: 1.5rem 0;
+}
+
+.divider-vertical {
+  width: 1px;
+  height: 100%;
+  background: var(--border-color);
+}
+
+/* ── 17. Tooltip ─────────────────────────────────────────── */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--text-dark);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 9999;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* ── 18. Modal ───────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  transform: translateY(20px) scale(0.97);
+  transition: transform var(--transition-base);
+}
+
+.modal-backdrop.open .modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  padding: 1.5rem 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  padding: 0 1.5rem 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* ── 19. Skeleton Loader ─────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ── 20. Progress Bar ────────────────────────────────────── */
+.progress {
+  height: 8px;
+  background: var(--bg-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+}
+
+/* ── 21. Toast Notifications ─────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1.25rem;
+  box-shadow: var(--shadow-lg);
+  min-width: 280px;
+  max-width: 380px;
+  pointer-events: all;
+  animation: slideInRight 0.3s ease;
+}
+
+.toast.error   { border-left-color: #EF4444; }
+.toast.warning { border-left-color: #F59E0B; }
+.toast.info    { border-left-color: #3B82F6; }
+
+/* ── 22. Table ───────────────────────────────────────────── */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.data-table thead tr {
+  background: var(--bg-light);
+}
+
+.data-table th {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-mid);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.875rem 1rem;
+  color: var(--text-dark);
+  border-top: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.data-table tbody tr {
+  transition: background var(--transition-fast);
+}
+
+.data-table tbody tr:hover {
+  background: #F9FAFB;
+}
+
+/* ── 23. Sidebar ─────────────────────────────────────────── */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  background: var(--secondary);
+  transition: width var(--transition-base), transform var(--transition-base);
+}
+
+.sidebar.collapsed {
+  width: 72px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Hover and active are solid emerald, which is what the dashboard pages
+   actually render. The shade is deepened to emerald-700/800 so the
+   white label clears 4.5:1 — #10B981 with white only reaches 2.54:1,
+   which is the unreadable hover the dashboard sidebars were showing.
+   Hover steps one shade darker, mirroring .btn-primary's
+   --primary -> --primary-dark move.
+   These four lines used to be duplicated (and disagreed) inside a
+   <style> block in each dashboard; they live here now so light and
+   dark cannot drift apart again. */
+.sidebar-link:hover {
+  background: #065F46;
+  color: #ffffff;
+}
+
+.sidebar-link.active {
+  background: #047857;
+  color: #ffffff;
+  border-left: 3px solid var(--primary);
+}
+
+.sidebar-link i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.0625rem;
+  flex-shrink: 0;
+  color: #6B7280;
+  transition: color var(--transition-fast);
+}
+
+.sidebar-link:hover i,
+.sidebar-link.active i {
+  color: #ffffff;
+}
+
+/* The destructive item (logout) opts out of the emerald contract — it
+   brings its own light-red hover fill — so it needs a dark label
+   instead. 0-3-0 outranks the white-label rule in 7b (0-2-0). */
+.sidebar-link.text-red-500:hover,
+.sidebar-link.text-red-500:focus-visible,
+.sidebar-link.text-red-500:hover i {
+  color: #B91C1C;
+}
+
+/* ── 24. Keyframe Animations ─────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.50);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.00);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.5); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  80%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Animation Utility Classes */
+.animate-fade-up    { animation: fadeInUp  0.6s ease both; }
+.animate-fade-down  { animation: fadeInDown 0.5s ease both; }
+.animate-fade-left  { animation: fadeInLeft 0.5s ease both; }
+.animate-fade-right { animation: fadeInRight 0.5s ease both; }
+.animate-slide-in   { animation: slideIn   0.35s ease both; }
+.animate-zoom-in    { animation: zoomIn    0.4s ease both; }
+.animate-pulse-green { animation: pulse-green 2s ease infinite; }
+.animate-spin        { animation: spin     1s linear infinite; }
+.animate-bounce-in  { animation: bounceIn  0.6s ease both; }
+
+/* Delay utilities */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* AOS-like — applied by IntersectionObserver in home.js */
+[data-aos] {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-aos="fade-up"]    { transform: translateY(32px); }
+[data-aos="fade-left"]  { transform: translateX(-32px); }
+[data-aos="fade-right"] { transform: translateX(32px); }
+[data-aos="zoom-in"]    { transform: scale(0.85); }
+[data-aos].aos-animate  { opacity: 1; transform: none; }
+
+/* ── 25. Transition Utilities ────────────────────────────── */
+.transition-all  { transition: all var(--transition-base); }
+.transition-fast { transition: all var(--transition-fast); }
+.transition-slow { transition: all var(--transition-slow); }
+
+/* ── 26. Map / Image Overlays ────────────────────────────── */
+.img-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── 27. Stat Card ───────────────────────────────────────── */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 0.375rem;
+}
+
+.stat-label {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ── 28. Pricing Card ────────────────────────────────────── */
+.pricing-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--border-color);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: transform var(--transition-base),
+              border-color var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.pricing-card:hover,
+.pricing-card.featured {
+  border-color: var(--primary);
+  box-shadow: 0 8px 40px rgba(16, 185, 129, 0.18);
+}
+
+.pricing-card.featured {
+  transform: scale(1.04);
+  background: linear-gradient(160deg, #F0FDF4, #ffffff);
+}
+
+/* ── 29. Search Box ──────────────────────────────────────── */
+.search-box {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: 1.75rem;
+}
+
+.search-box .form-control {
+  border-radius: var(--radius-full);
+  padding-left: 2.75rem;
+}
+
+.search-input-wrap {
+  position: relative;
+}
+
+.search-input-wrap i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* ── 30. Responsive Helpers ──────────────────────────────── */
+.hide-mobile  { display: none !important; }
+.show-mobile  { display: block !important; }
+
+@media (min-width: 768px) {
+  .hide-mobile  { display: block !important; }
+  .show-mobile  { display: none !important; }
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ── 31. Print Styles ────────────────────────────────────── */
+@media print {
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  #navbar,
+  .sidebar,
+  footer,
+  .no-print,
+  .btn,
+  .toast-container {
+    display: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+    color: #000;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #555;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  .card {
+    border: 1px solid #ccc !important;
+    page-break-inside: avoid;
+  }
+
+  .data-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ccc !important;
+  }
+}

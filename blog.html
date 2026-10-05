@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" dir="ltr">
+<head>
+
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – RideFlow Carpooling & Ride Share</title>
+  <meta name="description" content="Read the latest tips, news, and insights about carpooling, ride sharing, and urban mobility on the RideFlow blog." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Custom Styles (dark mode + RTL) -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <!-- Apply the saved theme + direction before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { /* storage unavailable - fall back to light LTR */ }
+    })();
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-poppins bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 dark:bg-gray-900/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+            <i class="fas fa-car text-white text-sm"></i>
+          </div>
+          <span class="text-xl font-bold text-emerald-600 font-poppins">RideFlow</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-1">
+          <!-- Home Dropdown -->
+          <div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <span>Home</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="index.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-home text-emerald-500 w-4 text-center"></i>
+                <span>Home</span>
+              </a>
+              <a href="home2.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-layer-group text-emerald-500 w-4 text-center"></i>
+                <span>Home 2</span>
+              </a>
+            </div>
+          </div>
+          <a href="about.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">About</a>
+          <a href="services.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Services</a>
+          <a href="blog.html" class="px-3 py-2 text-emerald-600 font-semibold text-sm transition-colors">Blog</a>
+          <a href="pricing.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Pricing</a>
+          <a href="contact.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</a>
+          <!-- Dashboard Dropdown (moved next to Contact) -->
+<div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <i class="fas fa-tachometer-alt text-emerald-500"></i>
+              <span>Dashboard</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-52 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="user-dashboard.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-user text-emerald-500 w-4 text-center"></i>
+                <span>User Dashboard</span>
+              </a>
+              <a href="admin-dashboard.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-shield-alt text-emerald-500 w-4 text-center"></i>
+                <span>Admin Dashboard</span>
+              </a>
+            </div>
+          </div>        </div>
+        <div class="hidden lg:flex items-center gap-2">
+                    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all" title="Switch to RTL"><i data-icon class="fas fa-align-right"></i></button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all" title="Toggle Dark Mode"><i id="darkModeIcon" class="fas fa-moon dark-mode-icon"></i></button>
+          <a href="login.html" class="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 transition-all"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+          <a href="signup.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all"><i class="fas fa-user-plus mr-1"></i> Sign Up</a>
+        </div>
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-gray-600 hover:text-emerald-600"><i class="fas fa-bars text-xl"></i></button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="lg:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700 shadow-lg">
+      <div class="px-4 py-4 space-y-2">
+        <div>
+          <button onclick="toggleMobileHomeDropdown()" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium text-sm transition-colors">
+            <span class="flex items-center gap-2"><i class="fas fa-home text-emerald-500"></i> Home</span>
+            <i id="mobileHomeChevron" class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+          </button>
+          <div id="mobileHomeMenu" class="hidden pl-6 pr-2 py-1 space-y-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg my-1">
+            <a href="index.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 rounded-md">Home</a>
+            <a href="home2.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 rounded-md">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">About</a>
+        <a href="services.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">Services</a>
+        <a href="blog.html" class="block px-3 py-2 text-emerald-600 font-semibold hover:bg-emerald-50 rounded-lg">Blog</a>
+        <a href="pricing.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">Pricing</a>
+        <a href="contact.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">Contact</a>
+        <hr class="border-gray-200 dark:border-gray-700">
+        <a href="user-dashboard.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg">User Dashboard</a>
+        <a href="admin-dashboard.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg">Admin Dashboard</a>
+        <hr class="border-gray-200 dark:border-gray-700">
+        <div class="flex items-center gap-3 px-3 py-2">
+          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i data-icon class="fas fa-align-right"></i></button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i id="darkModeIconMobile" class="fas fa-moon"></i></button>
+          <a href="login.html" class="flex-1 text-center px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium">Login</a>
+          <a href="signup.html" class="flex-1 text-center px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<!-- HERO SECTION WITH BACKGROUND IMAGE -->
+<section class="relative pt-16 bg-cover bg-center text-white" 
+         style="background-image: linear-gradient(to bottom right, rgba(15, 118, 110, 0.85), rgba(13, 148, 136, 0.85)), url('images/img-freepik-com--group-parents-coordinating-carpool-their-childrens-afterschool-activities.avif');">
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-10">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Blog</h1>
+    <p class="text-emerald-100 text-lg mb-6">Tips, news, and stories from the RideFlow community</p>
+    <nav class="flex items-center justify-center gap-2 text-sm text-emerald-200">
+      <a href="index.html" class="hover:text-white transition-colors">Home</a>
+      <i class="fas fa-chevron-right text-xs"></i>
+      <span class="text-white font-medium">Blog</span>
+    </nav>
+  </div>
+
+</section>
+  <!-- BLOG CONTENT -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-10">
+
+        <!-- MAIN CONTENT (2/3) -->
+        <div class="lg:w-2/3">
+          <!-- Blog Grid -->
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div>
+              <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">Latest Articles</h2>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                <span id="blogResultCount">6</span> article<span id="blogResultPlural">s</span> published
+              </p>
+            </div>
+            <button type="button" id="blogClearFilters"
+                    class="hidden items-center gap-2 px-4 py-2 text-sm font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors">
+              <i class="fas fa-times text-xs"></i>
+              <span>Clear filters</span>
+            </button>
+          </div>
+
+          <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+
+            <!-- Card 1 -->
+            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+              <div class="relative overflow-hidden h-[150px]">
+                <img src="images/transportation-ucla-edu--carpool-0.avif" alt="Carpooling tips" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Tips</span>
+              </div>
+              <div class="p-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">10 Tips for a Better Carpooling Experience</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Discover the top tips that seasoned carpoolers use to make every shared ride comfortable, punctual, and enjoyable for everyone involved.</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="images/unsplash-1494790108377-be9c29b29330-w50.jpg" alt="Sarah J" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                    <div>
+                      <p class="text-xs font-semibold text-gray-800 dark:text-gray-200">Sarah J</p>
+                      <p class="text-xs text-gray-400">Jan 15, 2024</p>
+                    </div>
+                  </div>
+                  <a href="blog-details.html?id=10-tips-better-carpooling" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+              <div class="relative overflow-hidden h-[150px]">
+                <img src="images/img-freepik-com--smart-city-intersection-with-advanced-traffic-management-systems-that-opt-w2000.avif" alt="Urban traffic" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">News</span>
+              </div>
+              <div class="p-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">How RideFlow is Reducing Urban Traffic</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Our platform has helped remove thousands of cars from city roads. Here's the data behind our impact on urban congestion and emissions.</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="images/unsplash-1507003211169-0a1dd7228f2d-w50.jpg" alt="Mike C" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                    <div>
+                      <p class="text-xs font-semibold text-gray-800 dark:text-gray-200">Mike C</p>
+                      <p class="text-xs text-gray-400">Jan 20, 2024</p>
+                    </div>
+                  </div>
+                  <a href="blog-details.html?id=reducing-urban-traffic" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+              <div class="relative overflow-hidden h-[150px]">
+                <img src="images/amani-ai--dr.png" alt="Driver safety" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Safety</span>
+              </div>
+              <div class="p-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">Safety First: Driver Verification Process</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Learn how RideFlow's rigorous 7-step driver verification process ensures that every ride you take is safe, secure, and trustworthy.</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="images/unsplash-1438761681033-6461ffad8d80-w50.jpg" alt="Emma R" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                    <div>
+                      <p class="text-xs font-semibold text-gray-800 dark:text-gray-200">Emma R</p>
+                      <p class="text-xs text-gray-400">Feb 1, 2024</p>
+                    </div>
+                  </div>
+                  <a href="blog-details.html?id=driver-verification" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+              <div class="relative overflow-hidden h-[150px]">
+                <img src="images/parkingmanagementnetwork-co-uk--carpooling.jpg" alt="Save money" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-yellow-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Finance</span>
+              </div>
+              <div class="p-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">Save Money with Smart Carpooling</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Carpooling isn't just eco-friendly — it can save you hundreds of dollars every month. Here's exactly how to maximize your savings.</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="images/unsplash-1500648767791-00dcc994a43e-w50.jpg" alt="David K" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                    <div>
+                      <p class="text-xs font-semibold text-gray-800 dark:text-gray-200">David K</p>
+                      <p class="text-xs text-gray-400">Feb 10, 2024</p>
+                    </div>
+                  </div>
+                  <a href="blog-details.html?id=save-money-smart-carpooling" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+              <div class="relative overflow-hidden h-[150px]">
+                <img src="images/blogger-googleusercontent-com--evolution-of-urban-transportation-navigating-the-future-of-.jpg" alt="Future of mobility" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Trends</span>
+              </div>
+              <div class="p-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">The Future of Urban Mobility</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Electric vehicles, autonomous driving, and micro-mobility: how shared transportation will reshape our cities by 2030.</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="images/unsplash-1487412720507-e7ab37603c6f-w50.jpg" alt="Jessica P" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                    <div>
+                      <p class="text-xs font-semibold text-gray-800 dark:text-gray-200">Jessica P</p>
+                      <p class="text-xs text-gray-400">Feb 15, 2024</p>
+                    </div>
+                  </div>
+                  <a href="blog-details.html?id=future-of-urban-mobility" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+              <div class="relative overflow-hidden h-[150px]">
+                <img src="images/img-freepik-com--group-students-carpooling-class-save-gas-transportation-costs-vector-illu.avif" alt="Student carpooling" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Students</span>
+              </div>
+              <div class="p-5">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">Student Guide to Carpooling</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Your complete guide to using RideFlow as a student — from finding campus rides to setting up recurring commutes with classmates.</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <img src="images/unsplash-1472099645785-5658abf4ff4e-w50.jpg" alt="Tom W" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                    <div>
+                      <p class="text-xs font-semibold text-gray-800 dark:text-gray-200">Tom W</p>
+                      <p class="text-xs text-gray-400">Mar 1, 2024</p>
+                    </div>
+                  </div>
+                  <a href="blog-details.html?id=student-guide-carpooling" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- EMPTY STATE (shown when filters match nothing) -->
+          <div id="blogEmptyState"
+               class="hidden mb-10 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-300 dark:border-gray-600 p-12 text-center">
+            <div class="w-14 h-14 bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl">
+              <i class="fas fa-magnifying-glass"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">No articles found</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 max-w-sm mx-auto">
+              We couldn't match your search. Try a different keyword or browse a category instead.
+            </p>
+            <button type="button" id="blogEmptyClear"
+                    class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg transition-colors">
+              Reset search
+            </button>
+          </div>
+
+          <!-- PAGINATION -->
+          <!-- Only page 1 has content (6 articles, 6 per page), so the
+               other controls are disabled rather than left clickable-but-dead. -->
+          <div id="blogPagination" class="flex items-center justify-center gap-2">
+            <button type="button" data-page-nav="prev" aria-label="Previous page" disabled
+                    class="px-3 py-2 rounded-lg text-gray-300 dark:text-gray-600 cursor-not-allowed text-sm"><i class="fas fa-chevron-left"></i></button>
+            <button type="button" data-page="1" aria-current="page"
+                    class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-semibold">1</button>
+            <button type="button" data-page="2" disabled
+                    class="px-4 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed rounded-lg text-sm">2</button>
+            <button type="button" data-page="3" disabled
+                    class="px-4 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed rounded-lg text-sm">3</button>
+            <span class="px-2 text-gray-400">...</span>
+            <button type="button" data-page-nav="next" disabled
+                    class="px-4 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed rounded-lg text-sm flex items-center gap-1">Next <i class="fas fa-chevron-right text-xs"></i></button>
+          </div>
+        </div>
+
+        <!-- SIDEBAR (1/3) -->
+        <aside class="lg:w-1/3 space-y-8">
+
+          <!-- Search -->
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Search</h3>
+            <form id="blogSearchForm" class="flex gap-2" role="search">
+              <input type="text" id="blogSearchInput" placeholder="Search articles..." aria-label="Search articles"
+                     class="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-200" />
+              <button type="submit" aria-label="Search"
+                      class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition-colors"><i class="fas fa-search text-sm"></i></button>
+            </form>
+          </div>
+
+          <!-- Categories -->
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Categories</h3>
+            <ul class="space-y-3" id="blogCategoryList">
+              <li class="flex items-center justify-between">
+                <a href="#" data-category="tips" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 text-sm flex items-center gap-2"><i class="fas fa-tag text-emerald-500 text-xs"></i> Tips &amp; Tricks</a>
+                <span class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 text-xs font-semibold px-2 py-0.5 rounded-full">12</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <a href="#" data-category="news" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 text-sm flex items-center gap-2"><i class="fas fa-tag text-blue-500 text-xs"></i> News &amp; Updates</a>
+                <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-semibold px-2 py-0.5 rounded-full">8</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <a href="#" data-category="safety" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 text-sm flex items-center gap-2"><i class="fas fa-tag text-red-500 text-xs"></i> Safety</a>
+                <span class="bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 text-xs font-semibold px-2 py-0.5 rounded-full">5</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <a href="#" data-category="finance" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 text-sm flex items-center gap-2"><i class="fas fa-tag text-yellow-500 text-xs"></i> Finance</a>
+                <span class="bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 text-xs font-semibold px-2 py-0.5 rounded-full">7</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <a href="#" data-category="trends" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 text-sm flex items-center gap-2"><i class="fas fa-tag text-purple-500 text-xs"></i> Trends</a>
+                <span class="bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 text-xs font-semibold px-2 py-0.5 rounded-full">9</span>
+              </li>
+              <li class="flex items-center justify-between">
+                <a href="#" data-category="students" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 text-sm flex items-center gap-2"><i class="fas fa-tag text-orange-500 text-xs"></i> Students</a>
+                <span class="bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-400 text-xs font-semibold px-2 py-0.5 rounded-full">4</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Recent Posts -->
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Recent Posts</h3>
+            <div class="space-y-4">
+              <a href="blog-details.html?id=10-tips-better-carpooling" class="flex gap-3 group">
+                <img src="images/transportation-ucla-edu--carpool-0.avif" alt="Recent post" loading="lazy" class="w-16 h-12 rounded-lg object-cover flex-shrink-0" />
+                <div>
+                  <p class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-emerald-600 line-clamp-2 transition-colors">10 Tips for a Better Carpooling Experience</p>
+                  <p class="text-xs text-gray-400 mt-1">Jan 15, 2024</p>
+                </div>
+              </a>
+              
+              <a href="blog-details.html?id=driver-verification" class="flex gap-3 group">
+                <img src="images/amani-ai--dr.png" alt="Recent post" loading="lazy" class="w-16 h-12 rounded-lg object-cover flex-shrink-0" />
+                <div>
+                  <p class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-emerald-600 line-clamp-2 transition-colors">Safety First: Driver Verification Process</p>
+                  <p class="text-xs text-gray-400 mt-1">Feb 1, 2024</p>
+                </div>
+              </a>
+              <a href="blog-details.html?id=save-money-smart-carpooling" class="flex gap-3 group">
+                <img src="images/parkingmanagementnetwork-co-uk--carpooling.jpg" alt="Recent post" loading="lazy" class="w-16 h-12 rounded-lg object-cover flex-shrink-0" />
+                <div>
+                  <p class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-emerald-600 line-clamp-2 transition-colors">Save Money with Smart Carpooling</p>
+                  <p class="text-xs text-gray-400 mt-1">Feb 10, 2024</p>
+                </div>
+              </a>
+              <a href="blog-details.html?id=future-of-urban-mobility" class="flex gap-3 group">
+                <img src="images/blogger-googleusercontent-com--evolution-of-urban-transportation-navigating-the-future-of-.jpg" alt="Recent post" loading="lazy" class="w-16 h-12 rounded-lg object-cover flex-shrink-0" />
+                <div>
+                  <p class="text-sm font-medium text-gray-800 dark:text-gray-200 group-hover:text-emerald-600 line-clamp-2 transition-colors">The Future of Urban Mobility</p>
+                  <p class="text-xs text-gray-400 mt-1">Feb 15, 2024</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Popular Tags</h3>
+            <div class="flex flex-wrap gap-2">
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Carpooling</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">RideShare</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">EcoFriendly</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">SaveMoney</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Urban</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Safety</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Student</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Commute</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Travel</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Green</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Mobility</a>
+              <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-emerald-100 hover:text-emerald-700 rounded-full text-xs font-medium transition-colors">Finance</a>
+            </div>
+          </div>
+
+          
+
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: LATEST POSTS
+  ============================================================ -->
+  <section id="latest-posts" class="py-16 bg-white dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div>
+          <span class="inline-block px-3 py-1 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-md text-xs font-bold uppercase tracking-wider">
+            Fresh Articles
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mt-3">
+            Latest Posts
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base mt-2 max-w-2xl">
+            The newest guides, news and stories published by the RideFlow team.
+          </p>
+        </div>
+        <a href="#latest-posts" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline self-start sm:self-auto">
+          <span>View all articles</span>
+          <i class="fas fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Latest Posts Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Latest 1 -->
+        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-700 transition-all duration-300 overflow-hidden group flex flex-col">
+          <div class="relative overflow-hidden h-[170px]">
+            <img src="images/img-freepik-com--group-students-carpooling-class-save-gas-transportation-costs-vector-illu.avif" alt="Student carpooling" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <span class="absolute top-3 left-3 bg-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Students</span>
+            <span class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 rounded-full">
+              <i class="fas fa-calendar-alt mr-1"></i>Mar 1, 2024
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">Student Guide to Carpooling</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mb-5 line-clamp-3 flex-1">Your complete guide to using RideFlow as a student — from finding campus rides to setting up recurring commutes with classmates.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="images/unsplash-1472099645785-5658abf4ff4e-w50.jpg" alt="Tom W" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                <span class="text-xs font-semibold text-gray-800 dark:text-gray-200">Tom W</span>
+              </div>
+              <a href="blog-details.html?id=student-guide-carpooling" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                More Details <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Latest 2 -->
+        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-700 transition-all duration-300 overflow-hidden group flex flex-col">
+          <div class="relative overflow-hidden h-[170px]">
+            <img src="images/blogger-googleusercontent-com--evolution-of-urban-transportation-navigating-the-future-of-.jpg" alt="Future of mobility" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Trends</span>
+            <span class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 rounded-full">
+              <i class="fas fa-calendar-alt mr-1"></i>Feb 15, 2024
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">The Future of Urban Mobility</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mb-5 line-clamp-3 flex-1">Electric vehicles, autonomous driving, and micro-mobility: how shared transportation will reshape our cities by 2030.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="images/unsplash-1487412720507-e7ab37603c6f-w50.jpg" alt="Jessica P" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                <span class="text-xs font-semibold text-gray-800 dark:text-gray-200">Jessica P</span>
+              </div>
+              <a href="blog-details.html?id=future-of-urban-mobility" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                More Details <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Latest 3 -->
+        <article class="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-700 transition-all duration-300 overflow-hidden group flex flex-col">
+          <div class="relative overflow-hidden h-[170px]">
+            <img src="images/parkingmanagementnetwork-co-uk--carpooling.jpg" alt="Save money" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <span class="absolute top-3 left-3 bg-yellow-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Finance</span>
+            <span class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 rounded-full">
+              <i class="fas fa-calendar-alt mr-1"></i>Feb 10, 2024
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <h3 class="text-base font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">Save Money with Smart Carpooling</h3>
+            <p class="text-gray-500 dark:text-gray-400 text-sm mb-5 line-clamp-3 flex-1">Carpooling isn't just eco-friendly — it can save you hundreds of dollars every month. Here's exactly how to maximize your savings.</p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="images/unsplash-1500648767791-00dcc994a43e-w50.jpg" alt="David K" loading="lazy" class="w-8 h-8 rounded-full object-cover" />
+                <span class="text-xs font-semibold text-gray-800 dark:text-gray-200">David K</span>
+              </div>
+              <a href="blog-details.html?id=save-money-smart-carpooling" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                More Details <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: RELATED CONTENT
+  ============================================================ -->
+  <section id="related-content" class="py-16 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Header -->
+      <div class="max-w-2xl mx-auto text-center mb-12">
+        <span class="inline-block px-3 py-1 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-md text-xs font-bold uppercase tracking-wider">
+          Keep Exploring
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mt-3">
+          Related Content
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base mt-2">
+          Jump into the topics our readers care about most, hand-picked by our editorial team.
+        </p>
+      </div>
+
+      <!-- Related Topic Hubs -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Hub: Safety -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300 p-7 flex flex-col">
+          <div class="w-12 h-12 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center text-xl mb-5">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Ride Safety</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">
+            Verification, emergency contacts and the habits that make every shared ride worry-free.
+          </p>
+          <ul class="space-y-2.5 mb-6 flex-1">
+            <li>
+              <a href="blog-details.html?id=driver-verification" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>Safety First: Driver Verification Process</span>
+              </a>
+            </li>
+            <li>
+              <a href="blog-details.html?id=10-tips-better-carpooling" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>10 Tips for a Better Carpooling Experience</span>
+              </a>
+            </li>
+            <li>
+              <a href="blog-details.html?id=reducing-urban-traffic" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>How RideFlow is Reducing Urban Traffic</span>
+              </a>
+            </li>
+          </ul>
+          <a href="blog.html#latest-posts" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline self-start">
+            <span>All safety articles</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Hub: Money -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300 p-7 flex flex-col">
+          <div class="w-12 h-12 bg-yellow-500/10 text-yellow-500 rounded-xl flex items-center justify-center text-xl mb-5">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Saving Money</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">
+            Split costs the smart way, understand the pricing, and stop overpaying for your commute.
+          </p>
+          <ul class="space-y-2.5 mb-6 flex-1">
+            <li>
+              <a href="blog-details.html?id=save-money-smart-carpooling" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>Save Money with Smart Carpooling</span>
+              </a>
+            </li>
+            <li>
+              <a href="blog-details.html?id=10-tips-better-carpooling" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>10 Tips for a Better Carpooling Experience</span>
+              </a>
+            </li>
+            <li>
+              <a href="pricing.html" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>Compare our plans and fees</span>
+              </a>
+            </li>
+          </ul>
+          <a href="pricing.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline self-start">
+            <span>See pricing plans</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Hub: Mobility -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300 p-7 flex flex-col">
+          <div class="w-12 h-12 bg-purple-500/10 text-purple-500 rounded-xl flex items-center justify-center text-xl mb-5">
+            <i class="fas fa-city"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Urban Mobility</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">
+            Where shared transport is heading, and what it means for the cities we all commute in.
+          </p>
+          <ul class="space-y-2.5 mb-6 flex-1">
+            <li>
+              <a href="blog-details.html?id=future-of-urban-mobility" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>The Future of Urban Mobility</span>
+              </a>
+            </li>
+            <li>
+              <a href="blog-details.html?id=reducing-urban-traffic" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>How RideFlow is Reducing Urban Traffic</span>
+              </a>
+            </li>
+            <li>
+              <a href="blog-details.html?id=student-guide-carpooling" class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 transition-colors">
+                <i class="fas fa-chevron-right text-emerald-500 text-xs mt-1"></i>
+                <span>Student Guide to Carpooling</span>
+              </a>
+            </li>
+          </ul>
+          <a href="blog.html#latest-posts" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline self-start">
+            <span>All mobility articles</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: CTA
+  ============================================================ -->
+  <section id="blog-cta" class="py-16 bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="w-14 h-14 bg-white/15 border border-white/25 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <i class="fas fa-route text-white text-2xl"></i>
+      </div>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight mb-4">
+        Loved our Stories? Ride With Us
+      </h2>
+      <p class="text-emerald-100 max-w-2xl mx-auto text-base mb-8">
+        Reading about smarter commuting is a great start. Join 25,000+ riders and drivers already saving money
+        and cutting traffic with RideFlow.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="signup.html" class="px-8 py-3.5 bg-white text-emerald-800 hover:bg-gray-100 font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+          Sign Up Free
+        </a>
+        <a href="find-ride.html" class="px-8 py-3.5 bg-emerald-700/80 hover:bg-emerald-700 text-white border border-emerald-400/30 font-bold rounded-xl transition-all transform hover:-translate-y-0.5">
+          Find a Ride
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <a href="index.html" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center"><i class="fas fa-car text-white text-sm"></i></div>
+            <span class="text-xl font-bold text-white">RideFlow</span>
+          </a>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Connecting drivers and passengers for smarter, affordable local carpooling and ride-sharing experiences.</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-linkedin-in text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">About Us</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Services</a></li>
+            <li><a href="blog.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Blog</a></li>
+            <li><a href="pricing.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Pricing</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Services</h3>
+          <ul class="space-y-2">
+            <li><a href="find-ride.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Find a Ride</a></li>
+            <li><a href="offer-ride.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Offer a Ride</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Airport Transfers</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Daily Commute</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Corporate Rides</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Student Carpooling</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Contact Us</h3>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-gray-400 text-sm"><i class="fas fa-map-marker-alt text-emerald-400 mt-0.5"></i><span>123 Green Street, Eco City, EC 10001</span></li>
+            <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-phone text-emerald-400"></i><span>+1 (555) 123-4567</span></li>
+            <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-envelope text-emerald-400"></i><span>hello@rideflow.com</span></li>
+          </ul>
+          <h4 class="text-white font-medium mb-2 text-sm">Newsletter</h4>
+          <form id="blogNewsletterForm" class="flex gap-2" novalidate>
+            <input type="email" name="email" required placeholder="Your email" aria-label="Your email" class="flex-1 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg border border-gray-700 focus:outline-none focus:border-emerald-500" />
+            <button type="submit" class="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm transition-colors"><i class="fas fa-paper-plane"></i><span class="sr-only">Subscribe to the newsletter</span></button>
+          </form>
+          <p id="blogNewsletterMsg" role="status" aria-live="polite" class="hidden mt-2 text-xs text-emerald-300"></p>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-gray-400 text-sm">&copy; 2024 RideFlow. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="privacy-policy.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Privacy Policy</a>
+          <a href="terms.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Terms &amp; Conditions</a>
+          <a href="404.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">404</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      document.documentElement.classList.toggle('dark', isDark);
+      const icon = document.getElementById('darkModeIcon');
+      const iconM = document.getElementById('darkModeIconMobile');
+      if (icon) icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      if (iconM) iconM.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    function toggleDarkMode() {
+      localStorage.setItem('darkMode', String(localStorage.getItem('darkMode') !== 'true'));
+      applyDarkMode();
+    }
+        function applyRTL() {
+         const rtlOn = localStorage.getItem('rtl') === 'true';
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+       }
+    function toggleRTL() {
+      localStorage.setItem('rtl', String(localStorage.getItem('rtl') !== 'true'));
+      applyRTL();
+    }
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+    applyDarkMode();
+    applyRTL();
+  </script>
+
+  <!-- ============================================================
+       BLOG PAGE INTERACTIONS
+       Search, category filter, empty state, pagination, newsletter
+  ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      var PAGE_SIZE = 6; // all 6 published articles fit on a single page
+
+      var grid         = document.getElementById('blogGrid');
+      var emptyState   = document.getElementById('blogEmptyState');
+      var pagination   = document.getElementById('blogPagination');
+      var countEl      = document.getElementById('blogResultCount');
+      var pluralEl     = document.getElementById('blogResultPlural');
+      var clearBtn     = document.getElementById('blogClearFilters');
+      var emptyClear   = document.getElementById('blogEmptyClear');
+      var searchForm   = document.getElementById('blogSearchForm');
+      var searchInput  = document.getElementById('blogSearchInput');
+      var catList      = document.getElementById('blogCategoryList');
+      var newsForm     = document.getElementById('blogNewsletterForm');
+      var newsMsg      = document.getElementById('blogNewsletterMsg');
+
+      if (!grid || !searchInput) return;
+
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('article'));
+
+      /* Read the searchable text straight from each card so the markup
+         stays free of duplicated data-* attributes. The badge text is
+         lower-cased to match the sidebar's data-category slugs. */
+      var index = cards.map(function (card) {
+        var titleEl = card.querySelector('h2, h3');
+        var badgeEl = card.querySelector('span.rounded-full');
+        var bodyEl  = card.querySelector('p');
+        return {
+          el: card,
+          title: titleEl ? titleEl.textContent : '',
+          category: badgeEl ? badgeEl.textContent.trim().toLowerCase() : '',
+          body: bodyEl ? bodyEl.textContent : ''
+        };
+      });
+
+      var query = '';
+      var category = '';
+      var page = 1;
+
+      function matches(item) {
+        if (category && item.category !== category) return false;
+        if (!query) return true;
+        var haystack = (item.title + ' ' + item.body + ' ' + item.category).toLowerCase();
+        return haystack.indexOf(query) > -1;
+      }
+
+      function render() {
+        var visible = index.filter(matches);
+        var pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
+        if (page > pages) page = pages;
+
+        var onPage = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+        var shown = new Set(onPage.map(function (i) { return i.el; }));
+
+        index.forEach(function (item) {
+          item.el.classList.toggle('hidden', !shown.has(item.el));
+        });
+
+        /* Result count */
+        if (countEl) countEl.textContent = String(visible.length);
+        if (pluralEl) pluralEl.textContent = visible.length === 1 ? '' : 's';
+
+        /* Empty state */
+        if (emptyState) emptyState.classList.toggle('hidden', visible.length !== 0);
+
+        /* Pagination is pointless with no results */
+        if (pagination) pagination.classList.toggle('hidden', visible.length === 0);
+
+        /* Keep the page buttons honest: only reachable pages stay enabled. */
+        if (pagination) {
+          Array.prototype.forEach.call(pagination.querySelectorAll('button[data-page]'), function (btn) {
+            var n = Number(btn.getAttribute('data-page'));
+            var reachable = n <= pages;
+            btn.disabled = !reachable;
+            btn.setAttribute('aria-disabled', String(!reachable));
+            var isCurrent = n === page;
+            btn.classList.toggle('bg-emerald-500', isCurrent);
+            btn.classList.toggle('text-white', isCurrent);
+            btn.classList.toggle('text-gray-300', !isCurrent && !reachable);
+            btn.classList.toggle('dark:text-gray-600', !isCurrent && !reachable);
+            btn.classList.toggle('cursor-not-allowed', !reachable);
+            btn.classList.toggle('text-gray-700', isCurrent === false && reachable);
+            btn.classList.toggle('dark:text-gray-300', isCurrent === false && reachable);
+            btn.classList.toggle('hover:bg-emerald-50', reachable && !isCurrent);
+            btn.classList.toggle('hover:text-emerald-600', reachable && !isCurrent);
+            if (isCurrent) btn.setAttribute('aria-current', 'page');
+            else btn.removeAttribute('aria-current');
+          });
+
+          Array.prototype.forEach.call(pagination.querySelectorAll('button[data-page-nav]'), function (btn) {
+            var target = btn.getAttribute('data-page-nav') === 'next' ? page + 1 : page - 1;
+            var reachable = target >= 1 && target <= pages;
+            btn.disabled = !reachable;
+            btn.setAttribute('aria-disabled', String(!reachable));
+            btn.classList.toggle('text-gray-300', !reachable);
+            btn.classList.toggle('dark:text-gray-600', !reachable);
+            btn.classList.toggle('cursor-not-allowed', !reachable);
+            btn.classList.toggle('text-gray-500', reachable);
+            btn.classList.toggle('dark:text-gray-400', reachable);
+            btn.classList.toggle('hover:text-emerald-600', reachable);
+          });
+        }
+
+        /* Clear-filters button only when something is active */
+        var filtered = Boolean(query || category);
+        if (clearBtn) clearBtn.classList.toggle('hidden', !filtered);
+        if (clearBtn) clearBtn.classList.toggle('flex', filtered);
+
+        /* Highlight the active category */
+        if (catList) {
+          Array.prototype.forEach.call(catList.querySelectorAll('a[data-category]'), function (link) {
+            var active = link.getAttribute('data-category') === category;
+            link.classList.toggle('bg-emerald-50', active);
+            link.classList.toggle('dark:bg-emerald-900/30', active);
+            link.classList.toggle('text-emerald-600', active);
+            link.classList.toggle('font-semibold', active);
+            link.setAttribute('aria-pressed', String(active));
+          });
+        }
+      }
+
+      function reset() {
+        query = '';
+        category = '';
+        page = 1;
+        searchInput.value = '';
+        render();
+        searchInput.focus();
+      }
+
+      /* ── Search ───────────────────────────────────────────── */
+      if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          query = searchInput.value.trim().toLowerCase();
+          page = 1;
+          render();
+        });
+      }
+
+      /* Live filtering as the user types */
+      searchInput.addEventListener('input', function () {
+        query = searchInput.value.trim().toLowerCase();
+        page = 1;
+        render();
+      });
+
+      /* ── Categories ───────────────────────────────────────── */
+      if (catList) {
+        catList.addEventListener('click', function (e) {
+          var link = e.target.closest('a[data-category]');
+          if (!link) return;
+          e.preventDefault();
+
+          var name = link.getAttribute('data-category');
+
+          /* Clicking the active category clears it. */
+          category = (name === category) ? '' : name;
+          page = 1;
+          render();
+        });
+      }
+
+      /* ── Clear filters ────────────────────────────────────── */
+      if (clearBtn) clearBtn.addEventListener('click', reset);
+      if (emptyClear) emptyClear.addEventListener('click', reset);
+
+      /* ── Pagination ───────────────────────────────────────── */
+      if (pagination) {
+        pagination.addEventListener('click', function (e) {
+          var btn = e.target.closest('button');
+          if (!btn || btn.disabled) return;
+
+          if (btn.hasAttribute('data-page')) {
+            page = Number(btn.getAttribute('data-page'));
+          } else {
+            var nav = btn.getAttribute('data-page-nav');
+            if (nav === 'next') page += 1;
+            else if (nav === 'prev') page -= 1;
+          }
+          render();
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      /* ── Newsletter ───────────────────────────────────────── */
+      if (newsForm && newsMsg) {
+        newsForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = newsForm.querySelector('input[type="email"]');
+          if (!email || !email.value.trim()) return;
+
+          newsMsg.textContent = 'Thanks! We will send the next issue to ' + email.value.trim() + '.';
+          newsMsg.classList.remove('hidden');
+          newsForm.reset();
+        });
+      }
+
+      render();
+    })();
+  </script>
+</body>
+</html>

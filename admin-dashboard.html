@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard – RideFlow</title>
+  <meta name="description" content="RideFlow admin control panel – manage users, drivers, rides, bookings, and analytics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* .sidebar-link colours live in css/style.css (section 23) and
+       css/dark-mode.css so every dashboard shares one hover contract. */
+    #adminSidebar { transition: transform 0.3s ease; }
+    .card-hover { transition: transform 0.2s, box-shadow 0.2s; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(16,185,129,0.15); }
+    .table-row:hover { background: rgba(16,185,129,0.05); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 3px; }
+    .dark ::-webkit-scrollbar-track { background: #1f2937; }
+    .stat-pill { backdrop-filter: blur(4px); }
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+  </style>
+</head>
+<body class="font-poppins bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <!-- Sidebar Overlay -->
+  <div id="adminSidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden" onclick="closeAdminSidebar()"></div>
+
+  <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+  <aside id="adminSidebar" class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-xl z-40 flex flex-col -translate-x-full lg:translate-x-0 overflow-y-auto">
+    <div class="flex items-center gap-3 px-5 py-4 border-b border-gray-100 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
+      <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+        <i class="fas fa-car text-white text-sm"></i>
+      </div>
+      <div>
+         <a href="index.html"><span class="text-lg font-bold text-emerald-600 dark:text-emerald-400">RideFlow</span></a>
+        
+      </div>
+      <button onclick="closeAdminSidebar()" class="ml-auto lg:hidden text-gray-400 hover:text-gray-600">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+      <div class="flex items-center gap-3">
+        <img src="images/unsplash-1472099645785-5658abf4ff4e-w80.jpg" alt="Admin Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-emerald-500" loading="lazy" />
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate">Admin User</p>
+          <p class="text-xs text-emerald-500 font-medium">Super Admin</p>
+        </div>
+        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-3 space-y-0.5">
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">Overview</p>
+
+      <a href="#" onclick="showSection('dashboard')" data-section="dashboard" class="sidebar-link active flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm">
+        <i class="fas fa-chart-line w-4 text-center"></i> Dashboard
+      </a>
+
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 pt-3 pb-1">Management</p>
+
+      <a href="#" onclick="showSection('users')" data-section="users" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-users w-4 text-center"></i> Users Management
+        <span class="ml-auto bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-1.5 py-0.5 rounded-full">12k</span>
+      </a>
+      <a href="#" onclick="showSection('drivers')" data-section="drivers" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-id-card w-4 text-center"></i> Drivers Management
+      </a>
+      <a href="#" onclick="showSection('rides')" data-section="rides" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-car w-4 text-center"></i> Ride Management
+      </a>
+      <a href="#" onclick="showSection('bookings')" data-section="bookings" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-calendar-alt w-4 text-center"></i> Booking Management
+      </a>
+
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 pt-3 pb-1">Finance & Content</p>
+
+      <a href="#" onclick="showSection('payments')" data-section="payments" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-credit-card w-4 text-center"></i> Payments
+      </a>
+      <a href="#" onclick="showSection('reviews')" data-section="reviews" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-star w-4 text-center"></i> Reviews & Ratings
+      </a>
+
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 pt-3 pb-1">System</p>
+
+      <a href="#" onclick="showSection('reports')" data-section="reports" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-chart-bar w-4 text-center"></i> Reports & Analytics
+      </a>
+      <a href="#" onclick="showSection('profile')" data-section="profile" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-user-cog w-4 text-center"></i> Profile Settings
+      </a>
+
+      <hr class="border-gray-200 dark:border-gray-700 my-2" />
+
+      <button onclick="toggleDarkMode()" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i id="adminDarkIcon" class="fas fa-moon w-4 text-center"></i> Dark Mode
+      </button>
+      <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i data-icon class="fas fa-align-right w-4 text-center"></i> <span data-label>RTL</span> RTL Toggle
+      </button>
+      <button onclick="logout()" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-red-500 hover:!bg-red-50 dark:hover:!bg-red-900/30">
+        <i class="fas fa-sign-out-alt w-4 text-center !text-red-500"></i> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <div class="lg:ml-64 min-h-screen flex flex-col">
+
+    <!-- Top Header -->
+    <header class="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700">
+      <div class="flex items-center gap-4 px-4 sm:px-6 h-16">
+        <button onclick="openAdminSidebar()" class="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+
+        <div class="hidden sm:block">
+          <h1 id="pageTitle" class="text-lg font-semibold text-gray-800 dark:text-gray-100">Admin Dashboard</h1>
+          <p class="text-xs text-gray-400">September 27, 2026 · Super Admin</p>
+        </div>
+
+        <div class="flex-1 max-w-md ml-auto sm:ml-6">
+          <div class="relative">
+            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" placeholder="Search users, rides, bookings..." class="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100 dark:placeholder-gray-400" />
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-xl text-xs font-medium">
+          <i class="fas fa-clock"></i> 23 Pending Approvals
+        </div>
+
+        <div class="relative">
+          <button class="p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors relative">
+            <i class="fas fa-bell text-lg"></i>
+            <span class="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">9</span>
+          </button>
+        </div>
+
+        <!-- Admin User Dropdown with Icons -->
+        <div class="relative group">
+          <button class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <img src="images/unsplash-1472099645785-5658abf4ff4e-w80.jpg" alt="Admin" class="w-8 h-8 rounded-full object-cover border-2 border-emerald-500" loading="lazy" />
+            <div class="hidden sm:block text-left">
+              <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 leading-tight">Admin User</p>
+              <p class="text-xs text-emerald-500">Super Admin</p>
+            </div>
+            <i class="fas fa-chevron-down text-xs text-gray-400 hidden sm:block"></i>
+          </button>
+          <div class="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+            <a href="#" onclick="showSection('profile')" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30">
+              <i class="fas fa-user-cog w-4 text-center"></i> Profile Settings
+            </a>
+            <a href="#" onclick="showSection('settings')" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30">
+              <i class="fas fa-sliders-h w-4 text-center"></i> Website Settings
+            </a>
+            <a href="#" onclick="toggleDarkMode()" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30">
+              <i class="fas fa-moon w-4 text-center"></i> Dark Mode
+            </a>
+            <a href="#" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30">
+              <i data-icon class="fas fa-align-right w-4 text-center"></i> <span data-label>RTL</span> Toggle
+            </a>
+            <hr class="border-gray-100 dark:border-gray-700 my-1" />
+            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30">
+              <i class="fas fa-sign-out-alt w-4 text-center"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════════ DASHBOARD SECTION ═══════════════ -->
+    <main id="section-dashboard" class="admin-section active flex-1 p-4 sm:p-6 space-y-6">
+
+      <!-- 6 Stats Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-users text-emerald-600 dark:text-emerald-400"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">12,458</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Total Users</p>
+          <p class="text-xs text-emerald-600 dark:text-emerald-400 mt-1 font-medium"><i class="fas fa-arrow-up text-xs"></i> +8.2% this month</p>
+        </div>
+        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-id-card text-blue-600 dark:text-blue-400"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">1,847</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Total Drivers</p>
+          <p class="text-xs text-blue-600 dark:text-blue-400 mt-1 font-medium"><i class="fas fa-arrow-up text-xs"></i> +3.1% this month</p>
+        </div>
+        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/40 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-car text-purple-600 dark:text-purple-400"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">89,231</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Total Rides</p>
+          <p class="text-xs text-purple-600 dark:text-purple-400 mt-1 font-medium"><i class="fas fa-arrow-up text-xs"></i> +15.4% this month</p>
+        </div>
+        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/40 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-calendar text-orange-600 dark:text-orange-400"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">94,552</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Total Bookings</p>
+          <p class="text-xs text-orange-600 dark:text-orange-400 mt-1 font-medium"><i class="fas fa-arrow-up text-xs"></i> +11.7% this month</p>
+        </div>
+        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-green-100 dark:bg-green-900/40 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-dollar-sign text-green-600 dark:text-green-400"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">$284K</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Total Revenue</p>
+          <p class="text-xs text-green-600 dark:text-green-400 mt-1 font-medium"><i class="fas fa-arrow-up text-xs"></i> +22.3% this month</p>
+        </div>
+        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-red-100 dark:bg-red-900/40 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-clock text-red-600 dark:text-red-400"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">23</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Pending Approvals</p>
+          <p class="text-xs text-red-600 dark:text-red-400 mt-1 font-medium"><i class="fas fa-exclamation-circle text-xs"></i> Needs attention</p>
+        </div>
+      </div>
+
+      <!-- Ride Status Pills -->
+      <div class="flex flex-wrap gap-3">
+        <div class="stat-pill flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-xl shadow-md text-sm font-medium">
+          <i class="fas fa-circle text-xs animate-pulse"></i> Active Rides: <span class="font-bold">127</span>
+        </div>
+        <div class="stat-pill flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-xl shadow-md text-sm font-medium">
+          <i class="fas fa-check text-xs"></i> Completed Today: <span class="font-bold">843</span>
+        </div>
+        <div class="stat-pill flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-xl shadow-md text-sm font-medium">
+          <i class="fas fa-times text-xs"></i> Cancelled: <span class="font-bold">18</span>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div class="xl:col-span-2 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+            <div>
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Revenue Overview</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Monthly revenue for Jan–Dec 2024</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span><span class="text-xs text-gray-500 dark:text-gray-400">Revenue</span></div>
+              <span class="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-lg font-medium">2024</span>
+            </div>
+          </div>
+          <canvas id="revenueChart" height="200"></canvas>
+        </div>
+
+        <div class="xl:col-span-1 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Bookings</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Last 6 months</p>
+            </div>
+            <span class="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-lg font-medium">6M</span>
+          </div>
+          <canvas id="bookingChart" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Recent Bookings Table + New Users -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div class="xl:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 border-b border-gray-100 dark:border-gray-700">
+            <div>
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Recent Bookings</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Latest platform bookings</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="px-3 py-1.5 bg-emerald-500 text-white text-xs font-medium rounded-lg hover:bg-emerald-600 transition-colors whitespace-nowrap">
+                <i class="fas fa-download mr-1"></i> Export
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                  <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">ID</th>
+                  <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">User</th>
+                  <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Driver</th>
+                  <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Amount</th>
+                  <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Status</th>
+                </tr>
+              </thead>
+              <tbody id="adminBookingsTable">
+                <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                  <td class="px-4 py-3 text-xs font-medium text-emerald-600 dark:text-emerald-400">#BK-8842</td>
+                  <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Alex J.</td>
+                  <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Sarah M.</td>
+                  <td class="px-4 py-3 text-xs font-semibold text-gray-800 dark:text-gray-200">$12.00</td>
+                  <td class="px-4 py-3"><span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Confirmed</span></td>
+                </tr>
+                <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                  <td class="px-4 py-3 text-xs font-medium text-emerald-600 dark:text-emerald-400">#BK-8841</td>
+                  <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Maria L.</td>
+                  <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Mike T.</td>
+                  <td class="px-4 py-3 text-xs font-semibold text-gray-800 dark:text-gray-200">$8.50</td>
+                  <td class="px-4 py-3"><span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">Completed</span></td>
+                </tr>
+                <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                  <td class="px-4 py-3 text-xs font-medium text-emerald-600 dark:text-emerald-400">#BK-8840</td>
+                  <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">John D.</td>
+                  <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Emma R.</td>
+                  <td class="px-4 py-3 text-xs font-semibold text-gray-800 dark:text-gray-200">$6.00</td>
+                  <td class="px-4 py-3"><span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 text-xs font-medium rounded-full">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="xl:col-span-1 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="p-5 border-b border-gray-100 dark:border-gray-700">
+            <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">New Users</h2>
+            <p class="text-xs text-gray-400 mt-0.5">Recent registrations</p>
+          </div>
+          <div class="p-4 space-y-4">
+            <div class="flex items-center gap-3">
+              <img src="images/unsplash-1517841905240-472988babdf9-w32.jpg" alt="User" class="w-8 h-8 rounded-full object-cover" loading="lazy" />
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Zara Ali</p>
+                <p class="text-xs text-gray-400">Driver · Dec 15</p>
+              </div>
+              <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Active</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <img src="images/unsplash-1531427186611-ecfd6d936c79-w32.jpg" alt="User" class="w-8 h-8 rounded-full object-cover" loading="lazy" />
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Ben Carter</p>
+                <p class="text-xs text-gray-400">Rider · Dec 14</p>
+              </div>
+              <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Active</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <img src="images/unsplash-1529626455594-4ff0802cfb7e-w32.jpg" alt="User" class="w-8 h-8 rounded-full object-cover" loading="lazy" />
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Maya Patel</p>
+                <p class="text-xs text-gray-400">Driver · Dec 13</p>
+              </div>
+              <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 text-xs font-medium rounded-full">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ USERS MANAGEMENT SECTION ═══════════════ -->
+    <main id="section-users" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">Users Management</h2>
+            <p class="text-sm text-gray-400 mt-1">Manage all platform users</p>
+          </div>
+          <button class="px-4 py-2 bg-emerald-500 text-white text-sm font-medium rounded-xl hover:bg-emerald-600 transition-colors">
+            <i class="fas fa-plus mr-2"></i> Add User
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">ID</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Name</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Email</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Role</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Status</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#USR-001</td>
+                <td class="px-4 py-3 text-sm font-medium text-gray-800 dark:text-gray-200">Alex Johnson</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">alex@example.com</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">Rider</span></td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Active</span></td>
+                <td class="px-4 py-3">
+                  <button class="text-xs text-emerald-600 hover:underline mr-2">Edit</button>
+                  <button class="text-xs text-red-500 hover:underline">Delete</button>
+                </td>
+              </tr>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#USR-002</td>
+                <td class="px-4 py-3 text-sm font-medium text-gray-800 dark:text-gray-200">Maria Lopez</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">maria@example.com</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 text-xs font-medium rounded-full">Driver</span></td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Active</span></td>
+                <td class="px-4 py-3">
+                  <button class="text-xs text-emerald-600 hover:underline mr-2">Edit</button>
+                  <button class="text-xs text-red-500 hover:underline">Delete</button>
+                </td>
+              </tr>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#USR-003</td>
+                <td class="px-4 py-3 text-sm font-medium text-gray-800 dark:text-gray-200">John Doe</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">john@example.com</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">Rider</span></td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 text-xs font-medium rounded-full">Pending</span></td>
+                <td class="px-4 py-3">
+                  <button class="text-xs text-emerald-600 hover:underline mr-2">Edit</button>
+                  <button class="text-xs text-red-500 hover:underline">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ DRIVERS MANAGEMENT SECTION ═══════════════ -->
+    <main id="section-drivers" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">Drivers Management</h2>
+            <p class="text-sm text-gray-400 mt-1">Manage all registered drivers</p>
+          </div>
+          <button class="px-4 py-2 bg-emerald-500 text-white text-sm font-medium rounded-xl hover:bg-emerald-600 transition-colors">
+            <i class="fas fa-plus mr-2"></i> Add Driver
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="border border-gray-100 dark:border-gray-700 rounded-2xl p-4 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <img src="images/unsplash-1507003211169-0a1dd7228f2d-w48.jpg" alt="Driver" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-200">Sarah Miller</p>
+                <p class="text-xs text-gray-400">Toyota Camry · ABC-1234</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-1 text-xs text-yellow-500"><i class="fas fa-star"></i> 4.9</span>
+              <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Active</span>
+            </div>
+          </div>
+          <div class="border border-gray-100 dark:border-gray-700 rounded-2xl p-4 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <img src="images/unsplash-1500648767791-00dcc994a43e-w48.jpg" alt="Driver" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-200">Mike Thompson</p>
+                <p class="text-xs text-gray-400">Honda Civic · XYZ-5678</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-1 text-xs text-yellow-500"><i class="fas fa-star"></i> 4.7</span>
+              <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Active</span>
+            </div>
+          </div>
+          <div class="border border-gray-100 dark:border-gray-700 rounded-2xl p-4 hover:shadow-lg transition-shadow">
+            <div class="flex items-center gap-3 mb-3">
+              <img src="images/unsplash-1544005313-94ddf0286df2-w48.jpg" alt="Driver" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-200">Emma Roberts</p>
+                <p class="text-xs text-gray-400">Tesla Model 3 · EV-9012</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-1 text-xs text-yellow-500"><i class="fas fa-star"></i> 5.0</span>
+              <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 text-xs font-medium rounded-full">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ RIDE MANAGEMENT SECTION ═══════════════ -->
+    <main id="section-rides" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Ride Management</h2>
+        <p class="text-sm text-gray-400 mb-6">Monitor all ongoing and completed rides</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">127</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Active Rides</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">843</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Completed Today</p>
+          </div>
+          <div class="bg-red-50 dark:bg-red-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-red-600 dark:text-red-400">18</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Cancelled</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Ride ID</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Driver</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Route</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#RD-4201</td>
+                <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Sarah Miller</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">Downtown → Airport</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 text-xs font-medium rounded-full">Active</span></td>
+              </tr>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#RD-4200</td>
+                <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Mike Thompson</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">Mall → University</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ BOOKING MANAGEMENT SECTION ═══════════════ -->
+    <main id="section-bookings" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Booking Management</h2>
+        <p class="text-sm text-gray-400 mb-6">View and manage all bookings</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Booking ID</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">User</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Date</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Amount</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#BK-8842</td>
+                <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Alex J.</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">Dec 15, 2024</td>
+                <td class="px-4 py-3 text-xs font-semibold text-gray-800 dark:text-gray-200">$12.00</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Confirmed</span></td>
+              </tr>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#BK-8841</td>
+                <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Maria L.</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">Dec 14, 2024</td>
+                <td class="px-4 py-3 text-xs font-semibold text-gray-800 dark:text-gray-200">$8.50</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs font-medium rounded-full">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ PAYMENTS SECTION ═══════════════ -->
+    <main id="section-payments" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Payments</h2>
+        <p class="text-sm text-gray-400 mb-6">Transaction history and payment management</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">$284K</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Total Revenue</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">$12.4K</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">This Month</p>
+          </div>
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">$1.2K</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Pending Payouts</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Transaction ID</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">User</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Amount</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Date</th>
+                <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-row border-b border-gray-50 dark:border-gray-700/50">
+                <td class="px-4 py-3 text-xs text-emerald-600 dark:text-emerald-400">#TXN-5501</td>
+                <td class="px-4 py-3 text-xs text-gray-700 dark:text-gray-300">Alex J.</td>
+                <td class="px-4 py-3 text-xs font-semibold text-gray-800 dark:text-gray-200">$12.00</td>
+                <td class="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">Dec 15, 2024</td>
+                <td class="px-4 py-3"><span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ REVIEWS & RATINGS SECTION ═══════════════ -->
+    <main id="section-reviews" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Reviews & Ratings</h2>
+        <p class="text-sm text-gray-400 mb-6">User feedback and driver ratings</p>
+        <div class="space-y-4">
+          <div class="border border-gray-100 dark:border-gray-700 rounded-2xl p-4">
+            <div class="flex items-center gap-3 mb-2">
+              <img src="images/unsplash-1507003211169-0a1dd7228f2d-w40.jpg" alt="User" class="w-10 h-10 rounded-full object-cover" loading="lazy" />
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-200">Alex Johnson</p>
+                <div class="flex text-yellow-500 text-xs">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">"Excellent service! Driver was very professional and on time."</p>
+          </div>
+          <div class="border border-gray-100 dark:border-gray-700 rounded-2xl p-4">
+            <div class="flex items-center gap-3 mb-2">
+              <img src="images/unsplash-1544005313-94ddf0286df2-w40.jpg" alt="User" class="w-10 h-10 rounded-full object-cover" loading="lazy" />
+              <div>
+                <p class="font-semibold text-gray-800 dark:text-gray-200">Maria Lopez</p>
+                <div class="flex text-yellow-500 text-xs">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400">"Good ride, but the car was a bit late. Overall satisfied."</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ REPORTS & ANALYTICS SECTION ═══════════════ -->
+    <main id="section-reports" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Reports & Analytics</h2>
+        <p class="text-sm text-gray-400 mb-6">Platform performance metrics and reports</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">98.5%</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Uptime</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">2.3 min</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Avg Pickup Time</p>
+          </div>
+          <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-purple-600 dark:text-purple-400">4.8/5</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Avg Rating</p>
+          </div>
+          <div class="bg-orange-50 dark:bg-orange-900/20 rounded-xl p-4">
+            <p class="text-2xl font-bold text-orange-600 dark:text-orange-400">12.4K</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Monthly Active Users</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ WEBSITE SETTINGS SECTION ═══════════════ -->
+    <main id="section-settings" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Website Settings</h2>
+        <p class="text-sm text-gray-400 mb-6">Configure platform-wide settings</p>
+        <div class="space-y-4 max-w-2xl">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Site Name</label>
+            <input type="text" value="RideFlow" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Support Email</label>
+            <input type="email" value="support@rideflow.com" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Base Fare ($)</label>
+            <input type="number" value="2.50" step="0.50" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+          </div>
+          <button class="px-6 py-2.5 bg-emerald-500 text-white text-sm font-medium rounded-xl hover:bg-emerald-600 transition-colors">
+            <i class="fas fa-save mr-2"></i> Save Settings
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════ PROFILE SETTINGS SECTION ═══════════════ -->
+    <main id="section-profile" class="admin-section flex-1 p-4 sm:p-6 space-y-6">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1">Profile Settings</h2>
+        <p class="text-sm text-gray-400 mb-6">Manage your admin profile</p>
+        <div class="flex items-center gap-6 mb-6">
+          <img src="images/unsplash-1472099645785-5658abf4ff4e-w80.jpg" alt="Admin" class="w-20 h-20 rounded-full object-cover border-4 border-emerald-500" loading="lazy" />
+          <div>
+            <p class="font-semibold text-gray-800 dark:text-gray-200">Admin User</p>
+            <p class="text-sm text-emerald-500">Super Admin</p>
+            <button class="mt-2 text-xs text-emerald-600 hover:underline"><i class="fas fa-camera mr-1"></i> Change Photo</button>
+          </div>
+        </div>
+        <div class="space-y-4 max-w-2xl">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+            <input type="text" value="Admin User" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+            <input type="email" value="admin@rideflow.com" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
+            <input type="password" placeholder="••••••••" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+          </div>
+          <button class="px-6 py-2.5 bg-emerald-500 text-white text-sm font-medium rounded-xl hover:bg-emerald-600 transition-colors">
+            <i class="fas fa-save mr-2"></i> Update Profile
+          </button>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // ─── Auth Guard ───
+    if (!localStorage.getItem('rideflowUser')) {
+      localStorage.setItem('rideflowUser', JSON.stringify({ name: 'Admin User', email: 'admin@rideflow.com', role: 'admin' }));
+    }
+
+    // ─── Dark Mode ───
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      document.documentElement.classList.toggle('dark', isDark);
+      const icon = document.getElementById('adminDarkIcon');
+      if (icon) icon.className = isDark ? 'fas fa-sun w-4 text-center' : 'fas fa-moon w-4 text-center';
+    }
+    function toggleDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      localStorage.setItem('darkMode', !isDark);
+      applyDarkMode();
+      drawRevenueChart();
+      drawBookingChart();
+    }
+
+    // ─── RTL ───
+        function applyRTL() {
+         const rtlOn = localStorage.getItem('rtl') === 'true';
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+       }
+    function toggleRTL() {
+      const isRTL = localStorage.getItem('rtl') === 'true';
+      localStorage.setItem('rtl', !isRTL);
+      applyRTL();
+    }
+
+    // ─── Auth ───
+    function logout() {
+      localStorage.removeItem('rideflowUser');
+      window.location.href = 'login.html';
+    }
+
+    // ─── Sidebar ───
+    function openAdminSidebar() {
+      document.getElementById('adminSidebar').classList.remove('-translate-x-full');
+      document.getElementById('adminSidebarOverlay').classList.remove('hidden');
+    }
+    function closeAdminSidebar() {
+      document.getElementById('adminSidebar').classList.add('-translate-x-full');
+      document.getElementById('adminSidebarOverlay').classList.add('hidden');
+    }
+
+    // ─── SPA Section Switching ───
+    const sectionTitles = {
+      dashboard: 'Admin Dashboard',
+      users: 'Users Management',
+      drivers: 'Drivers Management',
+      rides: 'Ride Management',
+      bookings: 'Booking Management',
+      payments: 'Payments',
+      reviews: 'Reviews & Ratings',
+      reports: 'Reports & Analytics',
+      settings: 'Website Settings',
+      profile: 'Profile Settings'
+    };
+
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.admin-section').forEach(el => el.classList.remove('active'));
+      // Show selected
+      const target = document.getElementById('section-' + sectionId);
+      if (target) target.classList.add('active');
+      // Update page title
+      const titleEl = document.getElementById('pageTitle');
+      if (titleEl && sectionTitles[sectionId]) titleEl.textContent = sectionTitles[sectionId];
+      // Update active sidebar link
+      document.querySelectorAll('.sidebar-link[data-section]').forEach(el => {
+        el.classList.toggle('active', el.dataset.section === sectionId);
+      });
+      // Close mobile sidebar
+      closeAdminSidebar();
+      // Redraw charts if dashboard
+      if (sectionId === 'dashboard') {
+        setTimeout(() => { drawRevenueChart(); drawBookingChart(); }, 50);
+      }
+    }
+
+    // ─── Charts ───
+    function drawRevenueChart() {
+      const canvas = document.getElementById('revenueChart');
+      if (!canvas || canvas.offsetParent === null) return;
+      const ctx = canvas.getContext('2d');
+      const isDark = document.documentElement.classList.contains('dark');
+      const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const data = [18000,22000,19500,28000,32000,29000,35000,38000,31000,42000,39000,45000];
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = rect.width - 40;
+      const H = 200;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr); ctx.clearRect(0, 0, W, H);
+      const padL = 52, padR = 20, padT = 20, padB = 36;
+      const chartW = W - padL - padR, chartH = H - padT - padB;
+      const maxVal = 50000;
+      const textColor = isDark ? '#9CA3AF' : '#6B7280';
+      const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 5; i++) {
+        const y = padT + chartH - (i / 5) * chartH;
+        ctx.strokeStyle = gridColor;
+        ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+        ctx.fillStyle = textColor; ctx.font = '9px Poppins, sans-serif'; ctx.textAlign = 'right';
+        ctx.fillText('$' + (maxVal / 5 * i / 1000).toFixed(0) + 'k', padL - 5, y + 3);
+      }
+      labels.forEach((label, i) => {
+        const x = padL + (i / (labels.length - 1)) * chartW;
+        ctx.fillStyle = textColor; ctx.font = '9px Poppins, sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText(label, x, H - padB + 14);
+      });
+      const grad = ctx.createLinearGradient(0, padT, 0, padT + chartH);
+      grad.addColorStop(0, 'rgba(16,185,129,0.35)'); grad.addColorStop(1, 'rgba(16,185,129,0.0)');
+      ctx.beginPath();
+      data.forEach((val, i) => {
+        const x = padL + (i / (data.length - 1)) * chartW;
+        const y = padT + chartH - (val / maxVal) * chartH;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.lineTo(padL + chartW, padT + chartH); ctx.lineTo(padL, padT + chartH); ctx.closePath();
+      ctx.fillStyle = grad; ctx.fill();
+      ctx.beginPath(); ctx.strokeStyle = '#10B981'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      data.forEach((val, i) => {
+        const x = padL + (i / (data.length - 1)) * chartW;
+        const y = padT + chartH - (val / maxVal) * chartH;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      data.forEach((val, i) => {
+        const x = padL + (i / (data.length - 1)) * chartW;
+        const y = padT + chartH - (val / maxVal) * chartH;
+        ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#10B981'; ctx.fill();
+        ctx.strokeStyle = isDark ? '#1f2937' : '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+      });
+    }
+
+    function drawBookingChart() {
+      const canvas = document.getElementById('bookingChart');
+      if (!canvas || canvas.offsetParent === null) return;
+      const ctx = canvas.getContext('2d');
+      const isDark = document.documentElement.classList.contains('dark');
+      const labels = ['Jul','Aug','Sep','Oct','Nov','Dec'];
+      const data = [7200,8900,7600,10200,9400,11800];
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = rect.width - 40, H = 200;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr); ctx.clearRect(0, 0, W, H);
+      const padL = 46, padR = 10, padT = 20, padB = 36;
+      const chartW = W - padL - padR, chartH = H - padT - padB;
+      const maxVal = 14000;
+      const textColor = isDark ? '#9CA3AF' : '#6B7280';
+      const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+      const barW = chartW / labels.length * 0.55;
+      const gap = chartW / labels.length;
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = padT + chartH - (i / 4) * chartH;
+        ctx.strokeStyle = gridColor;
+        ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+        ctx.fillStyle = textColor; ctx.font = '9px Poppins, sans-serif'; ctx.textAlign = 'right';
+        ctx.fillText((maxVal / 4 * i / 1000).toFixed(0) + 'k', padL - 4, y + 3);
+      }
+      labels.forEach((label, i) => {
+        const x = padL + gap * i + gap * 0.22;
+        const barH = (data[i] / maxVal) * chartH;
+        const y = padT + chartH - barH;
+        const grad = ctx.createLinearGradient(x, y, x, padT + chartH);
+        grad.addColorStop(0, '#3B82F6'); grad.addColorStop(1, 'rgba(59,130,246,0.2)');
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.roundRect(x, y, barW, barH, [4, 4, 0, 0]); ctx.fill();
+        ctx.fillStyle = textColor; ctx.font = '9px Poppins, sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText(label, x + barW / 2, padT + chartH + 14);
+      });
+    }
+
+    // ─── Init ───
+    applyDarkMode();
+    applyRTL();
+    window.addEventListener('load', () => {
+      drawRevenueChart();
+      drawBookingChart();
+    });
+    window.addEventListener('resize', () => {
+      drawRevenueChart();
+      drawBookingChart();
+    });
+  </script>
+</body>
+</html>

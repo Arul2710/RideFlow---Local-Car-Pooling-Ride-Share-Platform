@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | RideFlow</title>
+  <meta name="description" content="Oops! The page you're looking for doesn't exist. Return to RideFlow and find your next ride." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Custom Styles (dark mode + RTL) -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <!-- Apply the saved theme + direction before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { /* storage unavailable - fall back to light LTR */ }
+    })();
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0px) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+    @keyframes road-move {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -40; }
+    }
+    .float-anim { animation: float 3.5s ease-in-out infinite; }
+    .bob-anim { animation: bob 2.8s ease-in-out infinite; }
+    .pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
+    .spin-slow { animation: spin-slow 12s linear infinite; }
+    .road-dash { stroke-dasharray: 20 10; animation: road-move 1s linear infinite; }
+    .num-404 {
+      font-size: clamp(6rem, 18vw, 16rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff 0%, #a7f3d0 50%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.25));
+    }
+    .dark .num-404 {
+      background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #10B981 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body class="font-poppins min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-x-hidden">
+
+  <!-- Full-screen gradient background -->
+  <div class="fixed inset-0 bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-400 dark:from-emerald-900 dark:via-emerald-800 dark:to-teal-900 -z-10"></div>
+
+  <!-- Decorative blobs -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-teal-300/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-400/10 rounded-full blur-3xl"></div>
+    <!-- Floating dots -->
+    <div class="absolute top-20 right-20 w-4 h-4 bg-white/30 rounded-full float-anim" style="animation-delay:0.5s"></div>
+    <div class="absolute top-40 left-16 w-3 h-3 bg-white/20 rounded-full float-anim" style="animation-delay:1s"></div>
+    <div class="absolute bottom-40 left-24 w-5 h-5 bg-white/20 rounded-full float-anim" style="animation-delay:1.5s"></div>
+    <div class="absolute bottom-20 right-32 w-3 h-3 bg-white/30 rounded-full float-anim" style="animation-delay:0.8s"></div>
+    <div class="absolute top-1/3 right-10 w-2 h-2 bg-teal-200/40 rounded-full float-anim" style="animation-delay:2s"></div>
+  </div>
+
+  <!-- Mini Navbar (logo + dark/RTL only) -->
+  <header class="relative z-10 flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30">
+        <i class="fas fa-car text-white text-base"></i>
+      </div>
+      <span class="text-xl font-bold text-white tracking-tight">RideFlow</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-all" title="Switch to RTL">
+        <i data-icon class="fas fa-align-right"></i>
+      </button>
+      <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-all" title="Toggle Dark Mode">
+        <i id="darkModeIcon" class="fas fa-moon dark-icon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-140px)] px-4 py-8 text-center">
+
+    <!-- SVG Illustration -->
+    <div class="float-anim mb-4">
+      <svg width="280" height="160" viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto drop-shadow-2xl">
+        <!-- Road -->
+        <rect x="10" y="120" width="260" height="28" rx="6" fill="rgba(255,255,255,0.15)" />
+        <!-- Road center dashes (animated) -->
+        <line x1="30" y1="134" x2="250" y2="134" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round" class="road-dash" />
+        <!-- Car body -->
+        <rect x="80" y="88" width="120" height="38" rx="10" fill="white" />
+        <!-- Car cabin -->
+        <rect x="100" y="68" width="80" height="28" rx="8" fill="rgba(255,255,255,0.9)" />
+        <!-- Windshields -->
+        <rect x="104" y="72" width="30" height="20" rx="4" fill="#a7f3d0" />
+        <rect x="146" y="72" width="30" height="20" rx="4" fill="#a7f3d0" />
+        <!-- Wheels -->
+        <circle cx="108" cy="126" r="14" fill="#064E3B" />
+        <circle cx="108" cy="126" r="7" fill="rgba(255,255,255,0.3)" />
+        <circle cx="172" cy="126" r="14" fill="#064E3B" />
+        <circle cx="172" cy="126" r="7" fill="rgba(255,255,255,0.3)" />
+        <!-- Headlight -->
+        <ellipse cx="200" cy="107" rx="7" ry="5" fill="#fbbf24" opacity="0.9"/>
+        <polygon points="207,102 225,92 227,112 207,112" fill="rgba(251,191,36,0.25)" />
+        <!-- Tail light -->
+        <ellipse cx="80" cy="107" rx="7" ry="5" fill="#f87171" opacity="0.8"/>
+        <!-- Question mark on car -->
+        <text x="138" y="113" text-anchor="middle" font-size="22" font-weight="bold" fill="#10B981" font-family="Poppins, sans-serif">?</text>
+        <!-- Map pin (lost) -->
+        <g class="bob-anim" style="transform-origin:220px 55px">
+          <circle cx="220" cy="42" r="16" fill="#10B981" />
+          <path d="M220 58 L213 42 Q220 26 227 42 Z" fill="#10B981" />
+          <circle cx="220" cy="42" r="7" fill="white" />
+        </g>
+        <!-- Exclamation in map pin -->
+        <!-- Road lines at edge -->
+        <line x1="10" y1="148" x2="270" y2="148" stroke="rgba(255,255,255,0.1)" stroke-width="2" />
+      </svg>
+    </div>
+
+    <!-- 404 Number -->
+    <div class="num-404 select-none leading-none mb-2">404</div>
+
+    <!-- Heading -->
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-md">
+      Oops! Ride Not Found.
+    </h1>
+
+    <!-- Description -->
+    <p class="text-white/80 text-base sm:text-lg max-w-lg mx-auto leading-relaxed mb-10">
+      Looks like you've taken a wrong turn. The page you're looking for doesn't exist or has been moved to a different route.
+    </p>
+
+    <!-- Decorative divider -->
+    <div class="flex items-center gap-3 mb-10 opacity-50">
+      <div class="w-16 h-px bg-white rounded-full"></div>
+      <i class="fas fa-map-signs text-white text-sm"></i>
+      <div class="w-16 h-px bg-white rounded-full"></div>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 mb-12">
+      <a href="index.html" class="group relative inline-flex items-center gap-2.5 px-8 py-3.5 bg-white text-emerald-700 font-semibold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-200 text-base min-w-[180px] justify-center overflow-hidden">
+        <span class="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></span>
+        <i class="fas fa-home relative z-10 text-emerald-600"></i>
+        <span class="relative z-10">Back to Home</span>
+      </a>
+      <a href="find-ride.html" class="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-transparent text-white font-semibold rounded-2xl border-2 border-white/60 hover:border-white hover:bg-white/10 transition-all duration-200 text-base min-w-[180px] justify-center backdrop-blur-sm">
+        <i class="fas fa-search"></i>
+        <span>Find a Ride</span>
+      </a>
+    </div>
+
+    <!-- Quick navigation suggestions -->
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 max-w-xl w-full">
+      <p class="text-white/70 text-sm font-medium mb-4 uppercase tracking-wider"><i class="fas fa-compass mr-2"></i>Helpful Links</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <a href="about.html" class="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-colors">
+          <i class="fas fa-info-circle text-emerald-300 text-xs"></i> About Us
+        </a>
+        <a href="services.html" class="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-colors">
+          <i class="fas fa-concierge-bell text-emerald-300 text-xs"></i> Services
+        </a>
+        <a href="pricing.html" class="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-colors">
+          <i class="fas fa-tags text-emerald-300 text-xs"></i> Pricing
+        </a>
+        <a href="contact.html" class="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-colors">
+          <i class="fas fa-envelope text-emerald-300 text-xs"></i> Contact
+        </a>
+        <a href="offer-ride.html" class="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-colors">
+          <i class="fas fa-car text-emerald-300 text-xs"></i> Offer Ride
+        </a>
+        <a href="blog.html" class="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm font-medium transition-colors">
+          <i class="fas fa-newspaper text-emerald-300 text-xs"></i> Blog
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mini Footer -->
+  <footer class="relative z-10 py-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-2">
+      <div class="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center"><i class="fas fa-car text-white text-xs"></i></div>
+      <span class="text-white font-bold">RideFlow</span>
+    </div>
+    <p class="text-white/50 text-sm">&copy; 2024 RideFlow. All rights reserved.</p>
+    <div class="flex items-center justify-center gap-4 mt-3">
+      <a href="privacy-policy.html" class="text-white/50 hover:text-white/80 text-xs transition-colors">Privacy Policy</a>
+      <span class="text-white/30">•</span>
+      <a href="terms.html" class="text-white/50 hover:text-white/80 text-xs transition-colors">Terms &amp; Conditions</a>
+      <span class="text-white/30">•</span>
+      <a href="contact.html" class="text-white/50 hover:text-white/80 text-xs transition-colors">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      document.documentElement.classList.toggle('dark', isDark);
+      document.querySelectorAll('.dark-icon').forEach(el => {
+        el.className = (isDark ? 'fas fa-sun' : 'fas fa-moon') + ' dark-icon';
+      });
+    }
+    function toggleDarkMode() {
+      localStorage.setItem('darkMode', String(localStorage.getItem('darkMode') !== 'true'));
+      applyDarkMode();
+    }
+        function applyRTL() {
+         const rtlOn = localStorage.getItem('rtl') === 'true';
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+       }
+    function toggleRTL() {
+      localStorage.setItem('rtl', String(localStorage.getItem('rtl') !== 'true'));
+      applyRTL();
+    }
+    applyDarkMode();
+    applyRTL();
+  </script>
+</body>
+</html>

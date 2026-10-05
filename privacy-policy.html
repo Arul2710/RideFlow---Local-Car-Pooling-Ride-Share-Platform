@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" dir="ltr">
+<head>
+
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | RideFlow</title>
+  <meta name="description" content="RideFlow's Privacy Policy — learn how we collect, use, and protect your personal information." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Custom Styles (dark mode + RTL) -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <!-- Apply the saved theme + direction before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { /* storage unavailable - fall back to light LTR */ }
+    })();
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .toc-link.active { color: #10B981; border-left-color: #10B981; font-weight: 600; }
+    .section-card { scroll-margin-top: 100px; }
+  </style>
+</head>
+<body class="font-poppins bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+            <i class="fas fa-car text-white text-sm"></i>
+          </div>
+          <span class="text-xl font-bold text-emerald-600 font-poppins">RideFlow</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-1">
+          <!-- Home Dropdown -->
+          <div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <span>Home</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="index.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors">
+                <i class="fas fa-home text-emerald-500 w-4 text-center"></i>
+                <span>Home</span>
+              </a>
+              <a href="home2.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors">
+                <i class="fas fa-layer-group text-emerald-500 w-4 text-center"></i>
+                <span>Home 2</span>
+              </a>
+            </div>
+          </div>
+          <a href="about.html" class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">About</a>
+          <a href="services.html" class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">Services</a>
+          <a href="blog.html" class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">Blog</a>
+          <a href="pricing.html" class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">Pricing</a>
+          <a href="contact.html" class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</a>
+          <!-- Dashboard Dropdown (moved next to Contact) -->
+<div class="relative group">
+            <button class="flex items-center gap-1 px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <i class="fas fa-tachometer-alt text-emerald-500"></i> Dashboard <i class="fas fa-chevron-down text-xs"></i>
+            </button>
+            <div class="absolute top-full left-0 z-50 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
+              <a href="user-dashboard.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"><i class="fas fa-user mr-2 text-emerald-500"></i>User Dashboard</a>
+              <a href="admin-dashboard.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"><i class="fas fa-shield-alt mr-2 text-emerald-500"></i>Admin Dashboard</a>
+            </div>
+          </div>        </div>
+        <div class="hidden lg:flex items-center gap-2">
+                    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all" title="Switch to RTL"><i data-icon class="fas fa-align-right"></i></button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all" title="Toggle Dark Mode"><i id="darkModeIcon" class="fas fa-moon dark-icon"></i></button>
+          <a href="login.html" class="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
+          <a href="signup.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all"><i class="fas fa-user-plus mr-1"></i> Sign Up</a>
+        </div>
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-emerald-600"><i class="fas fa-bars text-xl"></i></button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="lg:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-700 shadow-lg">
+      <div class="px-4 py-4 space-y-2">
+        <div>
+          <button onclick="toggleMobileHomeDropdown()" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium text-sm transition-colors">
+            <span class="flex items-center gap-2"><i class="fas fa-home text-emerald-500"></i> Home</span>
+            <i id="mobileHomeChevron" class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+          </button>
+          <div id="mobileHomeMenu" class="hidden pl-6 pr-2 py-1 space-y-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg my-1">
+            <a href="index.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 rounded-md">Home</a>
+            <a href="home2.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 rounded-md">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg">About</a>
+        <a href="services.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg">Services</a>
+        <a href="blog.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg">Blog</a>
+        <a href="contact.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg">Contact</a>
+        <hr class="border-gray-200 dark:border-gray-700">
+        <div class="flex items-center gap-3 px-3 py-2">
+          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i data-icon class="fas fa-align-right"></i></button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i id="darkModeIconMobile" class="fas fa-moon dark-icon"></i></button>
+          <a href="login.html" class="flex-1 text-center px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium">Login</a>
+          <a href="signup.html" class="flex-1 text-center px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="pt-16 bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-400 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-white blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-white blur-3xl"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+      <div class="flex items-center gap-2 text-emerald-100 text-sm mb-4">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <i class="fas fa-chevron-right text-xs"></i>
+        <span class="text-white font-medium">Privacy Policy</span>
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+          <i class="fas fa-shield-alt text-2xl text-white"></i>
+        </div>
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold">Privacy Policy</h1>
+          <p class="text-emerald-100 mt-1 text-sm"><i class="fas fa-calendar-alt mr-1"></i> Last Updated: January 1, 2024</p>
+        </div>
+      </div>
+      <p class="text-emerald-50 max-w-2xl text-base leading-relaxed">
+        Your privacy matters to us. This policy explains how RideFlow collects, uses, and protects your personal information when you use our platform.
+      </p>
+    </div>
+    <div class="h-10 bg-white dark:bg-gray-900" style="clip-path: ellipse(55% 100% at 50% 100%);"></div>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col lg:flex-row gap-10">
+
+      <!-- Sticky TOC Sidebar -->
+      <aside class="lg:w-72 flex-shrink-0">
+        <div class="sticky top-24 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-6">
+          <h3 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <i class="fas fa-list-ul text-emerald-500"></i> Table of Contents
+          </h3>
+          <nav id="toc">
+            <ul class="space-y-1">
+              <li><a href="#introduction" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">1. Introduction</a></li>
+              <li><a href="#info-collect" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">2. Information We Collect</a></li>
+              <li><a href="#how-we-use" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">3. How We Use Your Information</a></li>
+              <li><a href="#data-sharing" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">4. Data Sharing</a></li>
+              <li><a href="#data-security" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">5. Data Security</a></li>
+              <li><a href="#your-rights" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">6. Your Rights (GDPR)</a></li>
+              <li><a href="#cookies" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">7. Cookies Policy</a></li>
+              <li><a href="#third-party" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">8. Third-Party Links</a></li>
+              <li><a href="#children" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">9. Children's Privacy</a></li>
+              <li><a href="#changes" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">10. Changes to Policy</a></li>
+              <li><a href="#contact-info" class="toc-link block pl-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-l-2 border-transparent hover:text-emerald-600 hover:border-emerald-500 transition-all">11. Contact Information</a></li>
+            </ul>
+          </nav>
+          <div class="mt-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+            <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mb-2"><i class="fas fa-info-circle mr-1"></i> Need Help?</p>
+            <p class="text-xs text-gray-600 dark:text-gray-400">If you have questions about this policy, <a href="contact.html" class="text-emerald-600 underline">contact us</a>.</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <div class="flex-1 space-y-6 min-w-0">
+
+        <!-- 1. Introduction -->
+        <div id="introduction" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">1</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Introduction</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Welcome to <strong class="text-gray-900 dark:text-white">RideFlow</strong> ("we," "our," or "us"). We are committed to protecting the privacy and security of your personal information. This Privacy Policy describes how we collect, use, disclose, and safeguard your information when you visit our website or use our mobile application and services.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            By accessing or using RideFlow's platform, you agree to the terms of this Privacy Policy. If you do not agree with the terms stated here, please discontinue use of our services immediately.
+          </p>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            This policy applies to all information collected through our website (<strong>www.rideflow.com</strong>), mobile applications, and any related services, sales, marketing, or events.
+          </p>
+        </div>
+
+        <!-- 2. Information We Collect -->
+        <div id="info-collect" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">2</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Information We Collect</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">We collect information from you in several ways when you use our platform:</p>
+
+          <!-- Personal Info -->
+          <div class="mb-6 p-5 bg-gray-50 dark:bg-gray-700/50 rounded-xl border-l-4 border-emerald-500">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2"><i class="fas fa-user text-emerald-500"></i> Personal Information</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-emerald-500 mt-0.5 flex-shrink-0"></i><span><strong>Account Registration:</strong> Full name, email address, phone number, profile photo, date of birth, and password when you create an account.</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-emerald-500 mt-0.5 flex-shrink-0"></i><span><strong>Identity Verification:</strong> Government-issued ID, driver's license, and vehicle registration details (for drivers).</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-emerald-500 mt-0.5 flex-shrink-0"></i><span><strong>Payment Information:</strong> Credit/debit card details, bank account information (processed securely through our payment partners).</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-emerald-500 mt-0.5 flex-shrink-0"></i><span><strong>Communications:</strong> Messages, reviews, ratings, and support correspondence sent through our platform.</span></li>
+            </ul>
+          </div>
+
+          <!-- Usage Data -->
+          <div class="mb-6 p-5 bg-gray-50 dark:bg-gray-700/50 rounded-xl border-l-4 border-blue-500">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2"><i class="fas fa-chart-bar text-blue-500"></i> Usage Data</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-0.5 flex-shrink-0"></i><span><strong>Log Data:</strong> IP address, browser type, operating system, referring URLs, pages visited, and timestamps.</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-0.5 flex-shrink-0"></i><span><strong>Device Information:</strong> Device identifiers, hardware model, operating system version, and mobile network information.</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-0.5 flex-shrink-0"></i><span><strong>Ride Data:</strong> Trip history, routes taken, ride frequency, ratings given and received, and booking patterns.</span></li>
+            </ul>
+          </div>
+
+          <!-- Location Data -->
+          <div class="p-5 bg-gray-50 dark:bg-gray-700/50 rounded-xl border-l-4 border-purple-500">
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2"><i class="fas fa-map-marker-alt text-purple-500"></i> Location Data</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-purple-500 mt-0.5 flex-shrink-0"></i><span><strong>Real-Time Location:</strong> GPS data during active rides to match drivers with passengers and provide navigation assistance.</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-purple-500 mt-0.5 flex-shrink-0"></i><span><strong>Pickup/Drop-off Points:</strong> Addresses you enter when booking or offering rides, including frequently used locations.</span></li>
+              <li class="flex items-start gap-2"><i class="fas fa-check-circle text-purple-500 mt-0.5 flex-shrink-0"></i><span><strong>Background Location:</strong> With your explicit consent, we may collect location data in the background to improve service matching.</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. How We Use Your Information -->
+        <div id="how-we-use" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">3</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">How We Use Your Information</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">We use the information we collect for the following purposes:</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-2 flex items-center gap-2"><i class="fas fa-cog text-emerald-500"></i> Service Provision</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Process ride bookings, match drivers with passengers, facilitate payments, and provide customer support.</p>
+            </div>
+            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-2 flex items-center gap-2"><i class="fas fa-bell text-blue-500"></i> Communications</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Send ride confirmations, updates, promotional offers, safety alerts, and important account notifications.</p>
+            </div>
+            <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-2 flex items-center gap-2"><i class="fas fa-shield-alt text-purple-500"></i> Safety & Security</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Verify user identities, detect fraud, prevent unauthorized access, and ensure platform safety for all users.</p>
+            </div>
+            <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl">
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-2 flex items-center gap-2"><i class="fas fa-chart-line text-yellow-600"></i> Improvement & Analytics</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Analyze usage patterns, improve our algorithms, conduct research, and enhance overall user experience.</p>
+            </div>
+            <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl">
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-2 flex items-center gap-2"><i class="fas fa-balance-scale text-red-500"></i> Legal Compliance</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Comply with applicable laws, regulations, legal processes, and governmental requests as required.</p>
+            </div>
+            <div class="p-4 bg-teal-50 dark:bg-teal-900/20 rounded-xl">
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-2 flex items-center gap-2"><i class="fas fa-star text-teal-500"></i> Personalization</h4>
+              <p class="text-xs text-gray-600 dark:text-gray-400">Customize your experience, suggest preferred routes, and provide tailored recommendations based on your history.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Data Sharing -->
+        <div id="data-sharing" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">4</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Data Sharing</h2>
+          </div>
+          <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl mb-5 flex gap-3">
+            <i class="fas fa-exclamation-triangle text-amber-500 mt-0.5 flex-shrink-0"></i>
+            <p class="text-sm text-amber-800 dark:text-amber-300"><strong>Important:</strong> We do not sell your personal information to third parties for their marketing purposes.</p>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">We may share your information in the following limited circumstances:</p>
+          <ul class="space-y-4 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
+              <div class="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-users text-emerald-600 text-xs"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">Between Drivers & Passengers</h4>
+                <p class="text-sm">When a ride is booked, we share necessary information (name, photo, vehicle details, rating) between the driver and passenger to facilitate the ride safely.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
+              <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-handshake text-blue-600 text-xs"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">Service Providers</h4>
+                <p class="text-sm">We share data with trusted third-party vendors who assist in payment processing, analytics, email delivery, cloud hosting, and fraud prevention — all bound by confidentiality agreements.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 pb-4 border-b border-gray-100 dark:border-gray-700">
+              <div class="w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-gavel text-red-600 text-xs"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">Legal Requirements</h4>
+                <p class="text-sm">We may disclose information when required by law, court order, or governmental authority, or to protect the rights, property, or safety of RideFlow or our users.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-building text-purple-600 text-xs"></i></div>
+              <div>
+                <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">Business Transfers</h4>
+                <p class="text-sm">In the event of a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. You will be notified of any such change in ownership.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 5. Data Security -->
+        <div id="data-security" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">5</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Data Security</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            We implement robust technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+            <div class="text-center p-5 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl">
+              <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-lock text-emerald-600 text-xl"></i></div>
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">256-bit Encryption</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400">All data transmitted using industry-standard TLS/SSL encryption</p>
+            </div>
+            <div class="text-center p-5 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-server text-blue-600 text-xl"></i></div>
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">Secure Servers</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Data stored on SOC 2 Type II certified cloud infrastructure</p>
+            </div>
+            <div class="text-center p-5 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl">
+              <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/40 rounded-xl flex items-center justify-center mx-auto mb-3"><i class="fas fa-eye text-purple-600 text-xl"></i></div>
+              <h4 class="font-semibold text-gray-900 dark:text-white text-sm mb-1">24/7 Monitoring</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Continuous security monitoring and intrusion detection systems</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 italic">
+            While we strive to protect your data, no method of transmission over the internet is 100% secure. We cannot guarantee absolute security but are committed to promptly notifying you of any breach that may affect you.
+          </p>
+        </div>
+
+        <!-- 6. Your Rights (GDPR) -->
+        <div id="your-rights" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">6</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Your Rights (GDPR)</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            If you are located in the European Economic Area (EEA), you have the following rights under the General Data Protection Regulation (GDPR):
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors">
+              <div class="w-9 h-9 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-eye text-emerald-600 text-sm"></i></div>
+              <div><h4 class="font-semibold text-gray-900 dark:text-white text-sm">Right to Access</h4><p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Request a copy of the personal data we hold about you and how it is being used.</p></div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors">
+              <div class="w-9 h-9 bg-blue-100 dark:bg-blue-900/40 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-edit text-blue-600 text-sm"></i></div>
+              <div><h4 class="font-semibold text-gray-900 dark:text-white text-sm">Right to Rectification</h4><p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Request correction of any inaccurate or incomplete personal data we hold about you.</p></div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors">
+              <div class="w-9 h-9 bg-red-100 dark:bg-red-900/40 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-trash text-red-600 text-sm"></i></div>
+              <div><h4 class="font-semibold text-gray-900 dark:text-white text-sm">Right to Erasure ("Right to be Forgotten")</h4><p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Request deletion of your personal data when it is no longer necessary for the purpose it was collected.</p></div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors">
+              <div class="w-9 h-9 bg-yellow-100 dark:bg-yellow-900/40 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-pause text-yellow-600 text-sm"></i></div>
+              <div><h4 class="font-semibold text-gray-900 dark:text-white text-sm">Right to Restrict Processing</h4><p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Request that we limit the way we use your personal data under certain circumstances.</p></div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors">
+              <div class="w-9 h-9 bg-purple-100 dark:bg-purple-900/40 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-download text-purple-600 text-sm"></i></div>
+              <div><h4 class="font-semibold text-gray-900 dark:text-white text-sm">Right to Data Portability</h4><p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Receive your personal data in a structured, machine-readable format and transfer it to another controller.</p></div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors">
+              <div class="w-9 h-9 bg-teal-100 dark:bg-teal-900/40 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-hand-paper text-teal-600 text-sm"></i></div>
+              <div><h4 class="font-semibold text-gray-900 dark:text-white text-sm">Right to Object</h4><p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Object to the processing of your personal data for direct marketing or where processing is based on legitimate interests.</p></div>
+            </div>
+          </div>
+          <div class="mt-5 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+            <p class="text-sm text-emerald-800 dark:text-emerald-300">To exercise any of these rights, contact our Data Protection Officer at <strong>privacy@rideflow.com</strong>. We will respond within 30 days.</p>
+          </div>
+        </div>
+
+        <!-- 7. Cookies Policy -->
+        <div id="cookies" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">7</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Cookies Policy</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">We use cookies and similar tracking technologies to enhance your experience. Here is a breakdown of the types of cookies we use:</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="bg-gray-50 dark:bg-gray-700">
+                  <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white rounded-tl-lg">Cookie Type</th>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Purpose</th>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white">Duration</th>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white rounded-tr-lg">Required</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Essential</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Authentication, security, and basic platform functionality</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Session</td>
+                  <td class="px-4 py-3"><span class="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded text-xs font-medium">Yes</span></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Analytical</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Understanding user behavior, site performance tracking</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">2 years</td>
+                  <td class="px-4 py-3"><span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded text-xs font-medium">No</span></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Marketing</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Delivering relevant ads, retargeting across platforms</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">1 year</td>
+                  <td class="px-4 py-3"><span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded text-xs font-medium">No</span></td>
+                </tr>
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">Preference</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Remembering your settings, language, and theme preferences</td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">1 year</td>
+                  <td class="px-4 py-3"><span class="px-2 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded text-xs font-medium">No</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">You can manage cookie preferences through your browser settings. Note that disabling certain cookies may impact platform functionality.</p>
+        </div>
+
+        <!-- 8. Third-Party Links -->
+        <div id="third-party" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">8</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Third-Party Links</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Our platform may contain links to third-party websites, services, or applications that are not operated by RideFlow. These may include payment processors, social media platforms, and map services such as:
+          </p>
+          <div class="flex flex-wrap gap-3 mb-5">
+            <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm flex items-center gap-1.5"><i class="fab fa-google text-red-500 text-xs"></i> Google Maps</span>
+            <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm flex items-center gap-1.5"><i class="fab fa-stripe text-blue-500 text-xs"></i> Stripe Payments</span>
+            <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm flex items-center gap-1.5"><i class="fab fa-facebook text-blue-600 text-xs"></i> Facebook Login</span>
+            <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm flex items-center gap-1.5"><i class="fab fa-twitter text-sky-500 text-xs"></i> Twitter/X</span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            We are not responsible for the privacy practices of these third-party services. We encourage you to read the privacy policies of every website or service you visit. Clicking on third-party links does not constitute an endorsement of their privacy practices.
+          </p>
+        </div>
+
+        <!-- 9. Children's Privacy -->
+        <div id="children" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">9</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Children's Privacy</h2>
+          </div>
+          <div class="flex gap-4 p-5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl mb-5">
+            <i class="fas fa-child text-red-500 text-2xl flex-shrink-0 mt-0.5"></i>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Age Restriction — 18+ Only</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">RideFlow is not intended for individuals under the age of 18. We do not knowingly collect, solicit, or process personal information from children under 18 years of age.</p>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            If you are a parent or guardian and believe that your child has provided us with personal information without your consent, please contact us immediately at <strong class="text-gray-900 dark:text-white">privacy@rideflow.com</strong>. We will take prompt steps to delete such information from our systems.
+          </p>
+        </div>
+
+        <!-- 10. Changes to Policy -->
+        <div id="changes" class="section-card bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 font-bold text-lg">10</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Changes to This Policy</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we do, we will:
+          </p>
+          <ul class="space-y-2 text-gray-600 dark:text-gray-400 mb-4">
+            <li class="flex items-center gap-2 text-sm"><i class="fas fa-check text-emerald-500 w-4"></i> Update the "Last Updated" date at the top of this page</li>
+            <li class="flex items-center gap-2 text-sm"><i class="fas fa-check text-emerald-500 w-4"></i> Notify registered users via email of significant changes</li>
+            <li class="flex items-center gap-2 text-sm"><i class="fas fa-check text-emerald-500 w-4"></i> Display a prominent banner on our website</li>
+            <li class="flex items-center gap-2 text-sm"><i class="fas fa-check text-emerald-500 w-4"></i> Request renewed consent where required by law</li>
+          </ul>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Your continued use of the RideFlow platform after the effective date of any changes constitutes your acceptance of the revised Privacy Policy. We encourage you to review this policy periodically.
+          </p>
+        </div>
+
+        <!-- 11. Contact Information -->
+        <div id="contact-info" class="section-card bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl shadow-sm border border-emerald-100 dark:border-emerald-800 p-8">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white font-bold text-lg">11</span>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Contact Information</h2>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please reach out to our Data Protection Officer:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="flex items-start gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-envelope text-emerald-600"></i></div>
+              <div><p class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Email</p><p class="text-sm font-semibold text-gray-900 dark:text-white">privacy@rideflow.com</p></div>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-map-marker-alt text-emerald-600"></i></div>
+              <div><p class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Address</p><p class="text-sm font-semibold text-gray-900 dark:text-white">123 Green Street, Eco City, EC 10001</p></div>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+              <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-phone text-emerald-600"></i></div>
+              <div><p class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Phone</p><p class="text-sm font-semibold text-gray-900 dark:text-white">+1 (555) 123-4567</p></div>
+            </div>
+          </div>
+          <div class="mt-5 flex flex-col sm:flex-row gap-3">
+            <a href="contact.html" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-medium text-sm transition-colors">
+              <i class="fas fa-paper-plane"></i> Contact Us
+            </a>
+            <a href="terms.html" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-xl font-medium text-sm transition-colors">
+              <i class="fas fa-file-alt"></i> Terms & Conditions
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <a href="index.html" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center"><i class="fas fa-car text-white text-sm"></i></div>
+            <span class="text-xl font-bold text-white">RideFlow</span>
+          </a>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Connecting drivers and passengers for smarter, affordable local carpooling and ride-sharing experiences.</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-linkedin-in text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">About Us</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Services</a></li>
+            <li><a href="blog.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Blog</a></li>
+            <li><a href="pricing.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Pricing</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Services</h3>
+          <ul class="space-y-2">
+            <li><a href="find-ride.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Find a Ride</a></li>
+            <li><a href="offer-ride.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Offer a Ride</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Airport Transfers</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Daily Commute</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Corporate Rides</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Student Carpooling</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Contact Us</h3>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-gray-400 text-sm"><i class="fas fa-map-marker-alt text-emerald-400 mt-0.5"></i><span>123 Green Street, Eco City, EC 10001</span></li>
+            <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-phone text-emerald-400"></i><span>+1 (555) 123-4567</span></li>
+            <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-envelope text-emerald-400"></i><span>hello@rideflow.com</span></li>
+          </ul>
+          <h4 class="text-white font-medium mb-2 text-sm">Newsletter</h4>
+          <form class="flex gap-2" onsubmit="event.preventDefault()">
+            <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg border border-gray-700 focus:outline-none focus:border-emerald-500">
+            <button type="submit" class="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm transition-colors"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-gray-400 text-sm">&copy; 2024 RideFlow. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="privacy-policy.html" class="text-emerald-400 text-sm font-medium">Privacy Policy</a>
+          <a href="terms.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Terms &amp; Conditions</a>
+          <a href="404.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">404</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      document.documentElement.classList.toggle('dark', isDark);
+      document.querySelectorAll('.dark-icon').forEach(el => {
+        el.className = (isDark ? 'fas fa-sun' : 'fas fa-moon') + ' dark-icon';
+      });
+    }
+    function toggleDarkMode() {
+      localStorage.setItem('darkMode', String(localStorage.getItem('darkMode') !== 'true'));
+      applyDarkMode();
+    }
+        function applyRTL() {
+         const rtlOn = localStorage.getItem('rtl') === 'true';
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+       }
+    function toggleRTL() {
+      localStorage.setItem('rtl', String(localStorage.getItem('rtl') !== 'true'));
+      applyRTL();
+    }
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+    applyDarkMode();
+    applyRTL();
+
+    // Active TOC on scroll
+    const sections = document.querySelectorAll('.section-card');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-100px 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>

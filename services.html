@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services | RideFlow</title>
+  <meta name="description" content="Explore RideFlow's full range of ride-sharing services: daily commutes, airport transfers, student carpooling, weekend trips, and corporate ride sharing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Custom Styles (dark mode + RTL) -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <!-- Apply the saved theme + direction before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { /* storage unavailable - fall back to light LTR */ }
+    })();
+  </script>
+<script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-poppins bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+            <i class="fas fa-car text-white text-sm"></i>
+          </div>
+          <span class="text-xl font-bold text-emerald-600 font-poppins">RideFlow</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-1">
+          <!-- Home Dropdown -->
+          <div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <span>Home</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="index.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-home text-emerald-500 w-4 text-center"></i>
+                <span>Home</span>
+              </a>
+              <a href="home2.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-layer-group text-emerald-500 w-4 text-center"></i>
+                <span>Home 2</span>
+              </a>
+            </div>
+          </div>
+          <a href="about.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">About</a>
+          <a href="services.html" class="px-3 py-2 text-emerald-600 font-semibold text-sm border-b-2 border-emerald-500">Services</a>
+          <a href="blog.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Blog</a>
+          <a href="pricing.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Pricing</a>
+          <a href="contact.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</a>
+          <!-- Dashboard Dropdown (moved next to Contact) -->
+<div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <i class="fas fa-tachometer-alt text-emerald-500"></i>
+              <span>Dashboard</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-52 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="user-dashboard.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-user text-emerald-500 w-4 text-center"></i>
+                <span>User Dashboard</span>
+              </a>
+              <a href="admin-dashboard.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-shield-alt text-emerald-500 w-4 text-center"></i>
+                <span>Admin Dashboard</span>
+              </a>
+            </div>
+          </div>        </div>
+        <div class="hidden lg:flex items-center gap-2">
+                    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all" title="Switch to RTL">
+            <i data-icon class="fas fa-align-right"></i>
+          </button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all" title="Toggle Dark Mode">
+            <i id="darkModeIcon" class="fas fa-moon dark-mode-icon"></i>
+          </button>
+          <a href="login.html" class="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 transition-all">
+            <i class="fas fa-sign-in-alt mr-1"></i> Login
+          </a>
+          <a href="signup.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">
+            <i class="fas fa-user-plus mr-1"></i> Sign Up
+          </a>
+        </div>
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-gray-600 hover:text-emerald-600">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="lg:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 shadow-lg">
+      <div class="px-4 py-4 space-y-2">
+        <div>
+          <button onclick="toggleMobileHomeDropdown()" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium text-sm transition-colors">
+            <span class="flex items-center gap-2"><i class="fas fa-home text-emerald-500"></i> Home</span>
+            <i id="mobileHomeChevron" class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+          </button>
+          <div id="mobileHomeMenu" class="hidden pl-6 pr-2 py-1 space-y-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg my-1">
+            <a href="index.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 rounded-md">Home</a>
+            <a href="home2.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 rounded-md">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 rounded-lg font-medium">About</a>
+        <a href="services.html" class="block px-3 py-2 text-emerald-600 bg-emerald-50 rounded-lg font-semibold">Services</a>
+        <a href="blog.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 rounded-lg font-medium">Blog</a>
+        <a href="pricing.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 rounded-lg font-medium">Pricing</a>
+        <a href="contact.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 rounded-lg font-medium">Contact</a>
+        <hr class="border-gray-200">
+        <a href="user-dashboard.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg">User Dashboard</a>
+        <a href="admin-dashboard.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg">Admin Dashboard</a>
+        <hr class="border-gray-200">
+        <div class="flex items-center gap-3 px-3 py-2">
+          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i data-icon class="fas fa-align-right"></i></button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i id="darkModeIconMobile" class="fas fa-moon"></i></button>
+          <a href="login.html" class="flex-1 text-center px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium">Login</a>
+          <a href="signup.html" class="flex-1 text-center px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pt-16 text-white relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(to bottom right, rgba(6, 78, 59, 0.92), rgba(6, 95, 70, 0.88), rgba(4, 120, 87, 0.85)), url('images/jugnoo-io--jugnoo-carpool-softwar-owning-the-drive-to-owing-the-ride.png');">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-10 w-96 h-96 bg-emerald-300 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+      <nav class="flex items-center gap-2 text-emerald-200 text-sm mb-6">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <i class="fas fa-chevron-right text-xs"></i>
+        <span class="text-white font-medium">Services</span>
+      </nav>
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6 border border-white/20">
+          <i class="fas fa-cogs text-emerald-300"></i> What We Offer
+        </span>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          Our <span class="text-emerald-300">Services</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-emerald-100 leading-relaxed max-w-2xl">
+          From daily office commutes to weekend adventures — RideFlow has a ride-sharing solution tailored for every journey.
+        </p>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-16 bg-white dark:bg-gray-900" style="clip-path: ellipse(55% 100% at 50% 100%);"></div>
+  </section>
+
+  <!-- SERVICE 1: Daily Office Commute -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-briefcase"></i> Service 01
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Daily Office Commute</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Say goodbye to the stress of solo commuting. RideFlow connects you with verified colleagues and neighbors heading to the same office district every morning and evening. Set your recurring route once and enjoy a stress-free ride every day.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Recurring schedules — set it once, ride every day</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Smart matching with coworkers on the same route</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Save up to 70% on monthly fuel costs</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Real-time ride tracking and arrival notifications</li>
+          </ul>
+          <a href="find-ride.html" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-all">
+            <i class="fas fa-arrow-right"></i> Book Daily Commute
+          </a>
+        </div>
+        <div class="relative">
+          <img src="images/cdn-nwe-io--2766988286acf42669c6e48afd77.jpg" alt="Daily office commute carpooling" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover" loading="lazy">
+          <div class="absolute -bottom-5 -left-5 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg flex items-center justify-center">
+              <i class="fas fa-route text-emerald-500"></i>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Average savings</p>
+              <p class="font-bold text-gray-900 dark:text-white">$250/month</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 2: City-to-City -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 relative">
+          <img src="images/unsplash-1502877338535-766e1452684a-w700.jpg" alt="City to city ride sharing highway" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover" loading="lazy">
+          <div class="absolute -top-5 -right-5 bg-emerald-500 rounded-xl shadow-lg p-4 text-white">
+            <p class="text-xs text-emerald-100">Available routes</p>
+            <p class="font-bold text-lg">500+</p>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-road"></i> Service 02
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">City-to-City Ride Sharing</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Traveling between cities? Find passengers or drivers on your exact intercity route. Split fuel costs and enjoy great company on long-haul journeys. Much cheaper than trains and faster than buses.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> 500+ intercity routes across 100 cities</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Flexible pickup and drop-off points</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Up to 60% cheaper than solo driving</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> In-app messaging with your co-travelers</li>
+          </ul>
+          <a href="find-ride.html" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-all">
+            <i class="fas fa-arrow-right"></i> Find Intercity Ride
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 3: Airport Transfers -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-plane"></i> Service 03
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Airport Transfers</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Never stress about missing a flight again. RideFlow's airport transfer service matches you with punctual drivers heading your way. Share the trip with fellow travelers flying from the same terminal and split the cost.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> All major airports covered in supported cities</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Flight-aware scheduling with delay tracking</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Large vehicles for luggage accommodation</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Book up to 30 days in advance</li>
+          </ul>
+          <a href="find-ride.html" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-all">
+            <i class="fas fa-arrow-right"></i> Book Airport Transfer
+          </a>
+        </div>
+        <div class="relative">
+          <img src="images/mychauffeur-com--airport-transfer.webp" alt="Airport transfers ride sharing" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover" loading="lazy">
+          <div class="absolute -bottom-5 -right-5 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg flex items-center justify-center">
+              <i class="fas fa-clock text-emerald-500"></i>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">On-time rate</p>
+              <p class="font-bold text-gray-900 dark:text-white">98.7%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 4: Student Carpooling -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 relative">
+          <img src="images/accept-aseanenergy-org--carpooling-1.jpg" alt="Student carpooling university" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover" loading="lazy">
+          <div class="absolute -top-5 -right-5 bg-emerald-500 rounded-xl shadow-lg p-4 text-white text-center">
+            <p class="text-xs text-emerald-100">Student discount</p>
+            <p class="font-bold text-lg">25% OFF</p>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-graduation-cap"></i> Service 04
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Student Carpooling</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Designed specifically for university and college students, our student carpooling service makes getting to campus easy and affordable. Verify your student status to unlock exclusive discounts and connect with verified campus peers.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Student ID verification for extra trust</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> 25% discount on all student bookings</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Campus-specific routes and timetables</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Group rides for study teams and sports clubs</li>
+          </ul>
+          <a href="find-ride.html" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-all">
+            <i class="fas fa-arrow-right"></i> Student Ride Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 5: Weekend Trips -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-mountain"></i> Service 05
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Weekend Trips</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Heading to the mountains, the beach, or a national park this weekend? Find adventure buddies heading the same way and share the cost of a fun road trip. RideFlow makes spontaneous weekend getaways affordable for everyone.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Post or find weekend trips up to 2 weeks ahead</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Multi-stop route support for road trips</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Group rides for up to 7 passengers</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Flexible return schedules</li>
+          </ul>
+          <a href="find-ride.html" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-all">
+            <i class="fas fa-arrow-right"></i> Plan Weekend Trip
+          </a>
+        </div>
+        <div class="relative">
+          <img src="images/easymaxicabs-com-au--melbourne-day-trips-maxi-cab-group-transport.jpg" alt="Weekend trips adventure carpooling" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover" loading="lazy">
+          <div class="absolute -bottom-5 -left-5 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg flex items-center justify-center">
+              <i class="fas fa-users text-emerald-500"></i>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Weekend trips last month</p>
+              <p class="font-bold text-gray-900 dark:text-white">3,200+</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 6: Corporate -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1 relative">
+          <img src="images/jaipurcabservices-com--corporatetaxi.webp" alt="Corporate ride sharing business travel" class="rounded-2xl shadow-2xl w-full h-[400px] object-cover" loading="lazy">
+          <div class="absolute -top-5 -left-5 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center">
+              <i class="fas fa-file-invoice text-blue-500"></i>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Business receipts</p>
+              <p class="font-bold text-gray-900 dark:text-white">Auto-generated</p>
+            </div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-building"></i> Service 06
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">Corporate Ride Sharing</h2>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+            Designed for businesses of all sizes, RideFlow Corporate reduces your company's transport costs and carbon footprint. Manage employee rides from a central dashboard, generate expense reports, and earn CSR credits for a greener commute policy.
+          </p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Centralized corporate billing dashboard</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Auto-generated tax-ready receipts</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Employee onboarding and ride management</li>
+            <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check-circle text-emerald-500"></i> Dedicated account manager for enterprise accounts</li>
+          </ul>
+          <a href="contact.html" class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-white rounded-xl font-semibold hover:bg-emerald-600 transition-all">
+            <i class="fas fa-arrow-right"></i> Contact Sales
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID CARDS -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-4">
+          <i class="fas fa-th"></i> All Services
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Book Any Service Now</h2>
+        <p class="mt-4 text-gray-600 dark:text-gray-400 max-w-xl mx-auto">Choose from our full suite of ride-sharing services, each designed to make your journey smoother.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+          <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+            <i class="fas fa-briefcase text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Daily Commute</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Set recurring routes with coworkers and neighbours. Save time and money every single day.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-500 font-bold">From $2/ride</span>
+            <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+          <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+            <i class="fas fa-road text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">City-to-City</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Intercity trips on 500+ routes. Split fuel, make friends, arrive refreshed.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-500 font-bold">From $8/trip</span>
+            <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+          <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+            <i class="fas fa-plane text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Airport Transfers</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Reliable, punctual airport pickups and drop-offs with flight-aware scheduling.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-500 font-bold">From $12/trip</span>
+            <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+          <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+            <i class="fas fa-graduation-cap text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Student Carpooling</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Campus routes with verified students. Get 25% off with a valid student ID.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-500 font-bold">From $1.50/ride</span>
+            <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+          <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+            <i class="fas fa-mountain text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Weekend Trips</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Explore new destinations with adventure-loving co-travelers. Multi-stop routes supported.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-500 font-bold">From $5/seat</span>
+            <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+          <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
+            <i class="fas fa-building text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Corporate Rides</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Business-ready billing, receipts, and employee management for teams of all sizes.</p>
+          <div class="flex items-center justify-between">
+            <span class="text-emerald-500 font-bold">Custom pricing</span>
+            <a href="contact.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO BOOK -->
+  <section class="py-20 bg-gradient-to-br from-emerald-900 to-emerald-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
+          <i class="fas fa-list-ol text-emerald-300"></i> Simple Process
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">How To Book a Ride</h2>
+        <p class="text-emerald-100 max-w-xl mx-auto">Get from search to seat in under 60 seconds.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
+          <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-emerald-600">1</span>
+          </div>
+          <i class="fas fa-search text-4xl text-emerald-300 mb-4 block"></i>
+          <h3 class="text-xl font-bold mb-3">Search Your Route</h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">Enter your pickup point, destination, date, and number of seats needed. Our smart algorithm instantly finds available rides on your route.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
+          <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-emerald-600">2</span>
+          </div>
+          <i class="fas fa-user-check text-4xl text-emerald-300 mb-4 block"></i>
+          <h3 class="text-xl font-bold mb-3">Pick Your Driver</h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">Browse verified driver profiles, ratings, reviews, and vehicle details. Choose the driver you feel most comfortable with and send a booking request.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 text-center">
+          <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold text-emerald-600">3</span>
+          </div>
+          <i class="fas fa-car-side text-4xl text-emerald-300 mb-4 block"></i>
+          <h3 class="text-xl font-bold mb-3">Ride &amp; Enjoy</h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">Get pickup confirmation, track your driver in real time, enjoy the ride, and pay automatically through the app. Then leave a review for your driver!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-medium mb-4">
+          <i class="fas fa-question-circle"></i> FAQ
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+      </div>
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors">
+            How does pricing work on RideFlow?
+            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Pricing is calculated based on distance, route demand, and the number of passengers sharing the ride. Drivers set their own base price per seat, and our platform suggests a fair range. You'll always see the total price before confirming your booking — no hidden fees, ever.
+          </div>
+        </div>
+        <!-- FAQ 2 -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors">
+            Is it safe to ride with strangers?
+            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Your safety is our top priority. All drivers go through a thorough background check, driving license verification, and vehicle inspection. Both drivers and passengers build public profiles with ratings and reviews. Every ride includes live GPS tracking, and our emergency SOS button connects you directly to our safety team and local authorities.
+          </div>
+        </div>
+        <!-- FAQ 3 -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors">
+            How do I verify a driver's credentials?
+            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Every driver's profile shows their verification badge, star rating, total trips completed, and community reviews. You can also see their vehicle make/model/license plate before confirming. A "Verified" badge means they've passed our background check, ID verification, and driving record review.
+          </div>
+        </div>
+        <!-- FAQ 4 -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors">
+            Can I cancel a booking after confirmation?
+            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Yes, you can cancel up to 2 hours before the scheduled departure with a full refund. Cancellations within 2 hours of departure may incur a small fee to compensate the driver. Drivers can also cancel, and you'll be notified immediately with a full refund. Frequent cancellations may affect your trust score.
+          </div>
+        </div>
+        <!-- FAQ 5 -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors">
+            How do I become a driver on RideFlow?
+            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Sign up for a free account, then navigate to "Offer a Ride" and begin the driver onboarding. You'll need to upload your driver's license, vehicle registration, and insurance documents. Our team reviews submissions within 24–48 hours. Once approved, you can start posting rides immediately!
+          </div>
+        </div>
+        <!-- FAQ 6 -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left font-semibold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors">
+            What happens if my driver doesn't show up?
+            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            If your driver doesn't show up, use the "Report No Show" button in the app. You'll receive a full refund within 3–5 business days, and our team will investigate the driver. We take reliability very seriously — repeated no-shows result in permanent account suspension.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="bg-gradient-to-br from-emerald-900 to-emerald-600 rounded-3xl p-12 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute -top-10 -right-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative z-10">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Start Sharing Rides Today</h2>
+          <p class="text-emerald-100 text-lg mb-8 max-w-xl mx-auto">Join thousands of commuters saving money and reducing emissions every day.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="find-ride.html" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-700 font-semibold rounded-xl hover:bg-emerald-50 transition-all shadow-lg">
+              <i class="fas fa-search"></i> Find a Ride
+            </a>
+            <a href="offer-ride.html" class="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-400 transition-all border border-emerald-400">
+              <i class="fas fa-car"></i> Offer a Ride
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <a href="index.html" class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+              <i class="fas fa-car text-white text-sm"></i>
+            </div>
+            <span class="text-xl font-bold text-white">RideFlow</span>
+          </a>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Connecting drivers and passengers for smarter, affordable local carpooling and ride-sharing experiences.</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-emerald-500 rounded-lg flex items-center justify-center transition-colors"><i class="fab fa-linkedin-in text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Home</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">About Us</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Services</a></li>
+            <li><a href="blog.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Blog</a></li>
+            <li><a href="pricing.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Pricing</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Services</h3>
+          <ul class="space-y-2">
+            <li><a href="find-ride.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Find a Ride</a></li>
+            <li><a href="offer-ride.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Offer a Ride</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Airport Transfers</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Daily Commute</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Corporate Rides</a></li>
+            <li><a href="services.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Student Carpooling</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Contact Us</h3>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-gray-400 text-sm"><i class="fas fa-map-marker-alt text-emerald-400 mt-0.5"></i><span>123 Green Street, Eco City, EC 10001</span></li>
+            <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-phone text-emerald-400"></i><span>+1 (555) 123-4567</span></li>
+            <li class="flex items-center gap-2 text-gray-400 text-sm"><i class="fas fa-envelope text-emerald-400"></i><span>hello@rideflow.com</span></li>
+          </ul>
+          <h4 class="text-white font-medium mb-2 text-sm">Newsletter</h4>
+          <form class="flex gap-2" onsubmit="event.preventDefault()">
+            <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg border border-gray-700 focus:outline-none focus:border-emerald-500">
+            <button type="submit" class="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-sm transition-colors"><i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-gray-400 text-sm">&copy; 2024 RideFlow. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="privacy-policy.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Privacy Policy</a>
+          <a href="terms.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">Terms &amp; Conditions</a>
+          <a href="404.html" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">404</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function applyDarkMode() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      document.documentElement.classList.toggle('dark', isDark);
+      const icon = document.getElementById('darkModeIcon');
+      const iconMobile = document.getElementById('darkModeIconMobile');
+      if (icon) icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      if (iconMobile) iconMobile.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    function toggleDarkMode() {
+      localStorage.setItem('darkMode', String(localStorage.getItem('darkMode') !== 'true'));
+      applyDarkMode();
+    }
+        function applyRTL() {
+         const rtlOn = localStorage.getItem('rtl') === 'true';
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+       }
+    function toggleRTL() {
+      localStorage.setItem('rtl', String(localStorage.getItem('rtl') !== 'true'));
+      applyRTL();
+    }
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+    // FAQ accordion
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        const isHidden = content.classList.contains('hidden');
+        // Close all
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-btn i').forEach(i => i.style.transform = 'rotate(0deg)');
+        // Open clicked
+        if (isHidden) {
+          content.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    applyDarkMode();
+    applyRTL();
+  </script>
+</body>
+</html>

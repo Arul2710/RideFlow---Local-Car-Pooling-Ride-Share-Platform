@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" class="" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offer a Ride - RideFlow Local Car Pooling</title>
+  <meta name="description" content="Publish your empty car seats, share travel costs, and connect with passengers on RideFlow.">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+  <!-- Apply the saved theme + direction before first paint (no flash) -->
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { /* storage unavailable - fall back to light LTR */ }
+    })();
+  </script>
+
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { primary: '#10B981', 'primary-dark': '#059669', secondary: '#064E3B' },
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-poppins bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 dark:bg-gray-900/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center shadow-md shadow-emerald-500/20">
+            <i class="fas fa-car text-white text-sm"></i>
+          </div>
+          <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-poppins">RideFlow</span>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-1">
+          <!-- Home Dropdown -->
+          <div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <span>Home</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="index.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-home text-emerald-500 w-4 text-center"></i>
+                <span>Home</span>
+              </a>
+              <a href="home2.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-layer-group text-emerald-500 w-4 text-center"></i>
+                <span>Home 2</span>
+              </a>
+            </div>
+          </div>
+
+          <a href="about.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">About</a>
+          <a href="services.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Services</a>
+          <a href="blog.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Blog</a>
+          <a href="pricing.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Pricing</a>
+          <a href="contact.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</a>
+          <!-- Dashboard Dropdown (moved next to Contact) -->
+<div class="relative group">
+            <button class="flex items-center gap-1.5 px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">
+              <i class="fas fa-tachometer-alt text-emerald-500"></i>
+              <span>Dashboard</span>
+              <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 w-52 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+              <a href="user-dashboard.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-user text-emerald-500 w-4 text-center"></i>
+                <span>User Dashboard</span>
+              </a>
+              <a href="admin-dashboard.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">
+                <i class="fas fa-shield-alt text-emerald-500 w-4 text-center"></i>
+                <span>Admin Dashboard</span>
+              </a>
+            </div>
+          </div>        </div>
+
+        <div class="hidden lg:flex items-center gap-2">
+                    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all"><i data-icon class="fas fa-align-right"></i></button>
+          <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all"><i id="darkModeIcon" class="fas fa-moon dark-mode-icon"></i></button>
+
+          <a href="login.html" class="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 transition-all flex items-center gap-1.5"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="signup.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all flex items-center gap-1.5 shadow-sm"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 focus:outline-none">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileMenu" class="lg:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 shadow-xl max-h-[85vh] overflow-y-auto">
+      <div class="px-4 py-4 space-y-2">
+        <div>
+          <button onclick="toggleMobileHomeDropdown()" class="w-full flex items-center justify-between px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg font-medium text-sm transition-colors">
+            <span class="flex items-center gap-2"><i class="fas fa-home text-emerald-500"></i> Home</span>
+            <i id="mobileHomeChevron" class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+          </button>
+          <div id="mobileHomeMenu" class="hidden pl-6 pr-2 py-1 space-y-1 bg-gray-50 dark:bg-gray-800/50 rounded-lg my-1">
+            <a href="index.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/40 rounded-md">Home</a>
+
+        <hr class="border-gray-100 dark:border-gray-800 my-2">
+
+        <div class="pt-2 flex flex-col gap-2">
+          <div class="flex items-center justify-between px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Theme Controls</span>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL"
+                      class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-white dark:hover:bg-gray-700 shadow-sm">
+                <i data-icon class="fas fa-align-right"></i>
+              </button>
+              <button type="button" onclick="toggleDarkMode()" data-toggle="dark" aria-pressed="false" aria-label="Switch to dark theme" title="Dark Mode"
+                      class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-white dark:hover:bg-gray-700 shadow-sm">
+                <i class="fas fa-moon dark-mode-icon"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+            <a href="home2.html" class="block px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/40 rounded-md">Home 2</a>
+          </div>
+        </div>
+        <a href="about.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 rounded-lg font-medium text-sm">About</a>
+        <a href="services.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 rounded-lg font-medium text-sm">Services</a>
+        <a href="blog.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 rounded-lg font-medium text-sm">Blog</a>
+        <a href="pricing.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 rounded-lg font-medium text-sm">Pricing</a>
+        <a href="contact.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 rounded-lg font-medium text-sm">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pt-28 pb-16 bg-gradient-to-r from-emerald-900 to-emerald-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl sm:text-5xl font-extrabold mb-4">Offer a Ride &amp; Save Petrol Costs</h1>
+      <p class="text-emerald-100 text-base max-w-2xl mx-auto font-light">
+        Driving somewhere with empty seats? Share your route and start receiving earnings instantly.
+      </p>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <section class="py-16 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white dark:bg-gray-800 p-8 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-xl">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+          <i class="fas fa-plus-circle text-emerald-500"></i> Publish New Ride Offer
+        </h2>
+
+        <form onsubmit="event.preventDefault(); showToast('Ride published successfully!', 'success'); setTimeout(()=>window.location.href='user-dashboard.html', 1500);" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Starting Point</label>
+              <input type="text" placeholder="e.g. Suburb Bus Depot" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Destination Point</label>
+              <input type="text" placeholder="e.g. City Tech Park" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Departure Date</label>
+              <input type="date" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Departure Time</label>
+              <input type="time" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Seats Available</label>
+              <select required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+                <option value="1">1 Seat</option>
+                <option value="2">2 Seats</option>
+                <option value="3" selected>3 Seats</option>
+                <option value="4">4 Seats</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Price Per Seat ($)</label>
+              <input type="number" min="1" max="100" value="15" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-2">Vehicle Name</label>
+              <input type="text" placeholder="e.g. Honda Civic (White)" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white text-sm">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg transition-all text-base">
+            Publish Ride Offer
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-8 text-center text-sm">
+    <p>&copy; 2026 RideFlow. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

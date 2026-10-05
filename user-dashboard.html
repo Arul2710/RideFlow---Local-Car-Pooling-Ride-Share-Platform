@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard – RideFlow</title>
+  <meta name="description" content="Manage your rides, bookings, and account settings on RideFlow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/rtl.css">
+
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
+        var isDark = localStorage.getItem('darkMode') === 'true';
+        var isRTL  = localStorage.getItem('rtl') === 'true';
+        root.classList.toggle('dark', isDark);
+        root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      } catch (e) { }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10B981',
+            'primary-dark': '#059669',
+            secondary: '#064E3B',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* .sidebar-link colours live in css/style.css (section 23) and
+       css/dark-mode.css so every dashboard shares one hover contract. */
+    #sidebar { transition: transform 0.3s ease; }
+    .card-hover { transition: transform 0.2s, box-shadow 0.2s; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(16,185,129,0.15); }
+    .table-row:hover { background: rgba(16,185,129,0.05); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 3px; }
+    .dark ::-webkit-scrollbar-track { background: #1f2937; }
+  </style>
+</head>
+<body class="font-poppins bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden" onclick="closeSidebar()"></div>
+
+  <!-- Left Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-xl z-40 flex flex-col -translate-x-full lg:translate-x-0 overflow-y-auto">
+    <div class="flex items-center gap-3 px-6 py-5 border-b border-gray-100 dark:border-gray-700">
+      <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center shadow-md">
+        <i class="fas fa-car text-white text-sm"></i>
+      </div>
+      <div>
+        <a href="index.html"><span class="text-lg font-bold text-emerald-600 dark:text-emerald-400">RideFlow</span></a>
+        
+      </div>
+      <button onclick="closeSidebar()" class="ml-auto lg:hidden text-gray-400 hover:text-gray-600">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="px-4 py-4 border-b border-gray-100 dark:border-gray-700">
+      <div class="flex items-center gap-3">
+        <img id="sidebarAvatar" src="images/unsplash-1507003211169-0a1dd7228f2d-w80.jpg" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-emerald-500 bg-gray-100" />
+        <div class="flex-1 min-w-0">
+          <p id="sidebarUserName" class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate">Alex Johnson</p>
+          <p id="sidebarUserEmail" class="text-xs text-gray-400 truncate">rider@rideflow.com</p>
+        </div>
+        <span class="w-2 h-2 bg-emerald-500 rounded-full shrink-0"></span>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 space-y-1">
+      <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 mb-2">Main Menu</p>
+
+      <a href="#" onclick="showSection('dashboard')" data-view-link="dashboard" class="sidebar-link active flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300 ">
+        <i class="fas fa-tachometer-alt w-4 text-center"></i> Dashboard
+      </a>
+      <a href="#" onclick="showSection('profile')" data-view-link="profile" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-user w-4 text-center"></i> My Profile
+      </a>
+      <a href="#" onclick="showSection('find-ride')" data-view-link="find-ride" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-search w-4 text-center"></i> Find a Ride
+      </a>
+      <a href="#" onclick="showSection('offer-ride')" data-view-link="offer-ride" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-car w-4 text-center"></i> Offer a Ride
+      </a>
+      <a href="#" onclick="showSection('bookings')" data-view-link="bookings" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-calendar-check w-4 text-center"></i> My Bookings
+      </a>
+      <a href="#" onclick="showSection('rides')" data-view-link="rides" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-route w-4 text-center"></i> My Rides
+      </a>
+      <a href="#" onclick="showSection('payments')" data-view-link="payments" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-credit-card w-4 text-center"></i> Payment History
+      </a>
+      <a href="#" onclick="showSection('notifications')" data-view-link="notifications" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-bell w-4 text-center"></i> Notifications
+        <span id="navUnreadBadge" class="ml-auto bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">2</span>
+      </a>
+      <a href="#" onclick="showSection('settings')" data-view-link="settings" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i class="fas fa-cog w-4 text-center"></i> Settings
+      </a>
+
+      <hr class="border-gray-200 dark:border-gray-700 my-2" />
+
+      <button onclick="toggleDarkMode()" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i id="sidebarDarkIcon" class="fas fa-moon w-4 text-center"></i> Dark Mode
+      </button>
+      <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
+        <i data-icon class="fas fa-align-right w-4 text-center"></i> <span data-label>RTL</span> RTL Toggle
+      </button>
+      <button onclick="logout()" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-red-500 hover:!bg-red-50 dark:hover:!bg-red-900/30">
+        <i class="fas fa-sign-out-alt w-4 text-center !text-red-500"></i> Logout
+      </button>
+    </nav>
+  </aside>
+
+  <div class="lg:ml-64 min-h-screen flex flex-col">
+
+    <header class="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-100 dark:border-gray-700">
+      <div class="flex items-center gap-4 px-4 sm:px-6 h-16">
+        <button onclick="openSidebar()" class="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <i class="fas fa-bars text-lg"></i>
+        </button>
+
+        <div class="hidden sm:block">
+          <h1 id="pageTitle" class="text-lg font-semibold text-gray-800 dark:text-gray-100">Dashboard</h1>
+          <p id="pageSubtitle" class="text-xs text-gray-400">Welcome back, Alex!</p>
+        </div>
+
+        <div class="flex-1 max-w-md ml-auto sm:ml-6">
+          <div class="relative">
+            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input id="headerSearch" type="text" placeholder="Search rides, bookings..." class="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100 dark:placeholder-gray-400" />
+          </div>
+        </div>
+
+        <div class="relative">
+          <button onclick="showSection('notifications')" class="p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors relative">
+            <i class="fas fa-bell text-lg"></i>
+            <span id="headerUnreadBadge" class="absolute top-1 right-1 min-w-4 h-4 px-1 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
+          </button>
+        </div>
+
+        <div class="relative group">
+          <button class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <img id="headerAvatar" src="images/unsplash-1507003211169-0a1dd7228f2d-w80.jpg" alt="" class="w-8 h-8 rounded-full object-cover border-2 border-emerald-500 bg-gray-100" />
+            <div class="hidden sm:block text-left">
+              <p id="headerUserName" class="text-sm font-semibold text-gray-800 dark:text-gray-100 leading-tight">Alex Johnson</p>
+              <p id="headerUserRole" class="text-xs text-gray-400">Rider</p>
+            </div>
+            <i class="fas fa-chevron-down text-xs text-gray-400 hidden sm:block"></i>
+          </button>
+          <div class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+            <a href="#" onclick="showSection('profile')" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30"><i class="fas fa-user w-4"></i> My Profile</a>
+            <a href="#" onclick="showSection('settings')" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30"><i class="fas fa-cog w-4"></i> Settings</a>
+            <hr class="border-gray-100 dark:border-gray-700 my-1" />
+            <button onclick="logout()" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30"><i class="fas fa-sign-out-alt w-4"></i> Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 sm:p-6 space-y-6">
+
+      <!-- ══════════════ DASHBOARD ══════════════ -->
+      <section data-view="dashboard" class="space-y-6">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center">
+                <i class="fas fa-route text-emerald-600 dark:text-emerald-400 text-lg"></i>
+              </div>
+              <span class="text-xs font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-lg">All time</span>
+            </div>
+            <p class="text-3xl font-bold text-gray-800 dark:text-gray-100">24</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Rides</p>
+            <div class="mt-3 h-1 bg-gray-100 dark:bg-gray-700 rounded-full"><div class="h-1 bg-emerald-500 rounded-full" style="width:75%"></div></div>
+          </div>
+          <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-xl flex items-center justify-center">
+                <i class="fas fa-calendar text-blue-600 dark:text-blue-400 text-lg"></i>
+              </div>
+              <span class="text-xs font-medium bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-lg">Scheduled</span>
+            </div>
+            <p class="text-3xl font-bold text-gray-800 dark:text-gray-100">3</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Upcoming Rides</p>
+            <div class="mt-3 h-1 bg-gray-100 dark:bg-gray-700 rounded-full"><div class="h-1 bg-blue-500 rounded-full" style="width:20%"></div></div>
+          </div>
+          <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 bg-green-100 dark:bg-green-900/40 rounded-xl flex items-center justify-center">
+                <i class="fas fa-check-circle text-green-600 dark:text-green-400 text-lg"></i>
+              </div>
+              <span class="text-xs font-medium bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 px-2 py-1 rounded-lg">Finished</span>
+            </div>
+            <p class="text-3xl font-bold text-gray-800 dark:text-gray-100">18</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Completed Rides</p>
+            <div class="mt-3 h-1 bg-gray-100 dark:bg-gray-700 rounded-full"><div class="h-1 bg-green-500 rounded-full" style="width:85%"></div></div>
+          </div>
+          <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/40 rounded-xl flex items-center justify-center">
+                <i class="fas fa-dollar-sign text-purple-600 dark:text-purple-400 text-lg"></i>
+              </div>
+              <span class="text-xs font-medium bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 px-2 py-1 rounded-lg">Paid</span>
+            </div>
+            <p class="text-3xl font-bold text-gray-800 dark:text-gray-100">$248</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Spending</p>
+            <div class="mt-3 h-1 bg-gray-100 dark:bg-gray-700 rounded-full"><div class="h-1 bg-purple-500 rounded-full" style="width:60%"></div></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-6">
+          <div class="xl:col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Upcoming Trips</h2>
+              <a href="#" onclick="showSection('find-ride')" class="text-xs text-emerald-600 dark:text-emerald-400 font-medium hover:underline">+ Find Ride</a>
+            </div>
+            <div id="upcomingTrips" class="space-y-4"></div>
+          </div>
+
+          <div class="xl:col-span-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Monthly Spending</h2>
+              <span class="text-xs text-gray-400">Last 6 months</span>
+            </div>
+            <p class="text-xs text-gray-400 mb-4">Your paid bookings per month</p>
+            <canvas id="spendingChart" height="220"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 border-b border-gray-100 dark:border-gray-700">
+            <div>
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Recent Bookings</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Your latest booking history</p>
+            </div>
+            <a href="#" onclick="showSection('bookings')" class="px-3 py-1.5 bg-emerald-500 text-white text-xs font-medium rounded-lg hover:bg-emerald-600 transition-colors">
+              View all
+            </a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Booking ID</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Route</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
+                </tr>
+              </thead>
+              <tbody id="recentBookingsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════ PROFILE ══════════════ -->
+      <section data-view="profile" class="hidden space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 sm:p-6">
+          <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">My Profile</h2>
+          <p class="text-xs text-gray-400 mt-0.5 mb-5">Your details as held on your account</p>
+
+          <div class="flex items-center gap-4 mb-6">
+            <img id="profileAvatar" src="images/unsplash-1507003211169-0a1dd7228f2d-w80.jpg" alt="" class="w-16 h-16 rounded-full object-cover border-2 border-emerald-500 bg-gray-100" />
+            <div class="min-w-0">
+              <p class="font-semibold text-gray-800 dark:text-gray-100 truncate" id="profileDisplayName">Alex Johnson</p>
+              <p class="text-xs text-gray-400 truncate" id="profileDisplayEmail">rider@rideflow.com</p>
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 mt-1">Member since March 2024</p>
+            </div>
+          </div>
+
+          <form id="profileForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4" novalidate>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Full name</label>
+              <input id="pfFullName" type="text" value="Alex Johnson" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+              <p class="hidden text-red-500 text-xs mt-1" data-err="fullName"></p>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Phone</label>
+              <input id="pfPhone" type="tel" value="+1 555 010 2020" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">City</label>
+              <input id="pfCity" type="text" value="Portland" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Email</label>
+              <input id="pfEmail" type="email" value="rider@rideflow.com" disabled class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100 opacity-60" />
+              <p class="text-xs text-gray-400 mt-1">Email is your sign-in identity and cannot be changed here.</p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">About you</label>
+              <textarea id="pfBio" rows="3" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100 resize-y" placeholder="Tell drivers a little about your commuting habits.">Daily commuter. Love podcasts and quiet rides.</textarea>
+            </div>
+            <div class="sm:col-span-2 flex items-center gap-3 pt-1">
+              <button type="submit" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-colors">Save changes</button>
+              <span id="profileStatus" role="status" aria-live="polite" class="text-xs"></span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══════════════ FIND A RIDE ══════════════ -->
+      <section data-view="find-ride" class="hidden space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+          <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Find a Ride</h2>
+          <p class="text-xs text-gray-400 mt-0.5 mb-4">Search trips offered by other members</p>
+          <form id="findRideForm" class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Search</label>
+              <input id="frQuery" type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" placeholder="Place or city" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">From</label>
+              <input id="frFrom" type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" placeholder="Downtown" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">To</label>
+              <input id="frTo" type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" placeholder="Airport" />
+            </div>
+            <div class="sm:col-span-4 flex gap-2">
+              <button type="submit" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-colors"><i class="fas fa-search mr-2"></i>Search rides</button>
+              <button type="button" id="frReset" class="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-xl transition-colors">Clear</button>
+            </div>
+          </form>
+        </div>
+        <div id="findRideResults" class="space-y-3"></div>
+      </section>
+
+      <!-- ══════════════ OFFER A RIDE ══════════════ -->
+      <section data-view="offer-ride" class="hidden space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 sm:p-6">
+          <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Offer a Ride</h2>
+          <p class="text-xs text-gray-400 mt-0.5 mb-5">Publish a trip other members can book</p>
+          <form id="offerRideForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4" novalidate>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Pickup point</label>
+              <input id="orOrigin" type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" placeholder="Downtown Hub" />
+              <p class="hidden text-red-500 text-xs mt-1" data-err="origin"></p>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Destination</label>
+              <input id="orDestination" type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" placeholder="Riverside Park" />
+              <p class="hidden text-red-500 text-xs mt-1" data-err="destination"></p>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Departure</label>
+              <input id="orDepart" type="datetime-local" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+              <p class="hidden text-red-500 text-xs mt-1" data-err="departAt"></p>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Seats available</label>
+              <input id="orSeats" type="number" min="1" max="8" value="3" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+              <p class="hidden text-red-500 text-xs mt-1" data-err="seatsTotal"></p>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Price per seat ($)</label>
+              <input id="orPrice" type="number" min="0" max="500" step="0.5" value="5" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+              <p class="hidden text-red-500 text-xs mt-1" data-err="price"></p>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Notes</label>
+              <input id="orNotes" type="text" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" placeholder="Meet at the north entrance" />
+            </div>
+            <div class="sm:col-span-2 flex items-center gap-3 pt-1">
+              <button type="submit" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-colors">Publish ride</button>
+              <span id="offerRideStatus" role="status" aria-live="polite" class="text-xs"></span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ══════════════ BOOKINGS ══════════════ -->
+      <section data-view="bookings" class="hidden space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 border-b border-gray-100 dark:border-gray-700">
+            <div>
+              <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">My Bookings</h2>
+              <p class="text-xs text-gray-400 mt-0.5" id="bookingsCount">4 bookings on your account</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="relative">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                <input id="bookingSearch" type="text" placeholder="Search bookings..." oninput="filterBookings()" class="pl-8 pr-3 py-1.5 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:border-emerald-500 dark:text-gray-100 w-44" />
+              </div>
+              <button id="exportBookings" class="px-3 py-1.5 bg-emerald-500 text-white text-xs font-medium rounded-lg hover:bg-emerald-600 transition-colors">
+                <i class="fas fa-download mr-1"></i> Export
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Booking ID</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Route</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Seats</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTable"></tbody>
+            </table>
+          </div>
+          <p id="bookingsEmpty" class="hidden px-5 py-10 text-center text-sm text-gray-400">No bookings match your search.</p>
+        </div>
+      </section>
+
+      <!-- ══════════════ RIDES ══════════════ -->
+      <section data-view="rides" class="hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">My Rides</h2>
+            <p class="text-xs text-gray-400 mt-0.5" id="ridesCount">2 trips offered by you</p>
+          </div>
+          <a href="#" onclick="showSection('offer-ride')" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-colors text-xs py-2"><i class="fas fa-plus mr-1"></i> Offer a ride</a>
+        </div>
+        <div id="ridesList" class="space-y-3"></div>
+      </section>
+
+      <!-- ══════════════ PAYMENTS ══════════════ -->
+      <section data-view="payments" class="hidden space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <p class="text-xs text-gray-500 dark:text-gray-400">Total paid</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1" id="payTotal">$34.00</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <p class="text-xs text-gray-500 dark:text-gray-400">Payments made</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1" id="payCount">3</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+            <p class="text-xs text-gray-500 dark:text-gray-400">Refunded</p>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-1" id="payRefunded">$15.00</p>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="p-5 border-b border-gray-100 dark:border-gray-700">
+            <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Payment History</h2>
+            <p class="text-xs text-gray-400 mt-0.5">Every charge and refund on your account</p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Reference</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Method</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody id="paymentsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════ NOTIFICATIONS ══════════════ -->
+      <section data-view="notifications" class="hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Notifications</h2>
+            <p class="text-xs text-gray-400 mt-0.5" id="notificationsCount">2 unread of 4</p>
+          </div>
+          <button id="markAllRead" class="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-xl transition-colors text-xs py-2"><i class="fas fa-check-double mr-1"></i> Mark all read</button>
+        </div>
+        <div id="notificationsList" class="space-y-2"></div>
+      </section>
+
+      <!-- ══════════════ SETTINGS ══════════════ -->
+      <section data-view="settings" class="hidden space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 sm:p-6">
+          <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Appearance</h2>
+          <p class="text-xs text-gray-400 mt-0.5 mb-5">These preferences are stored on this device</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button onclick="toggleDarkMode()" class="flex items-center justify-between gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-xl transition-colors text-left">
+              <span class="flex items-center gap-3">
+                <i id="settingsDarkIcon" class="fas fa-moon text-gray-500 dark:text-gray-400"></i>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Dark Mode</span>
+              </span>
+              <span class="text-xs text-gray-400" id="settingsDarkState"></span>
+            </button>
+            <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="flex items-center justify-between gap-3 px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-xl transition-colors text-left">
+              <span class="flex items-center gap-3">
+                <i data-icon class="fas fa-align-right text-gray-500 dark:text-gray-400"></i>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-200"><span data-label>RTL</span> RTL Toggle</span>
+              </span>
+              <span class="text-xs text-gray-400" id="settingsRtlState"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 sm:p-6">
+          <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Change Password</h2>
+          <p class="text-xs text-gray-400 mt-0.5 mb-5">At least 8 characters, including a letter and a number</p>
+          <form id="passwordForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4" novalidate>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Current password</label>
+              <input id="pwCurrent" type="password" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">New password</label>
+              <input id="pwNew" type="password" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5">Confirm new password</label>
+              <input id="pwConfirm" type="password" class="w-full px-3 py-2.5 bg-gray-50 dark:bg-gray-700 text-sm rounded-xl border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-emerald-500 dark:text-gray-100" />
+            </div>
+            <div class="sm:col-span-2 flex items-center gap-3 pt-1">
+              <button type="submit" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl transition-colors">Update password</button>
+              <span id="passwordStatus" role="status" aria-live="polite" class="text-xs"></span>
+            </div>
+          </form>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 sm:p-6 border-red-200 dark:border-red-900/40">
+          <h2 class="text-base font-semibold text-gray-800 dark:text-gray-100">Sign out</h2>
+          <p class="text-xs text-gray-400 mt-0.5 mb-4">End your session on this device.</p>
+          <button onclick="logout()" class="px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition-colors">
+            <i class="fas fa-sign-out-alt mr-2"></i>Log out
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ══════════════════════════════════════════════════════════════
+       THEME
+       ══════════════════════════════════════════════════════════════ */
+    function isDark() { return localStorage.getItem('darkMode') === 'true'; }
+    function isRTL() { return localStorage.getItem('rtl') === 'true'; }
+
+    function applyDarkMode() {
+      const dark = isDark();
+      document.documentElement.classList.toggle('dark', dark);
+      const icon = document.getElementById('sidebarDarkIcon');
+      if (icon) icon.className = dark ? 'fas fa-sun w-4 text-center' : 'fas fa-moon w-4 text-center';
+      const sIcon = document.getElementById('settingsDarkIcon');
+      if (sIcon) sIcon.className = dark ? 'fas fa-sun text-gray-500 dark:text-gray-400' : 'fas fa-moon text-gray-500 dark:text-gray-400';
+      const sState = document.getElementById('settingsDarkState');
+      if (sState) sState.textContent = dark ? 'On' : 'Off';
+    }
+    function toggleDarkMode() {
+      localStorage.setItem('darkMode', String(!isDark()));
+      applyDarkMode();
+      drawChart();
+    }
+        function applyRTL() {
+         const rtlOn = isRTL();
+         const root = document.documentElement;
+         root.setAttribute('dir', rtlOn ? 'rtl' : 'ltr');
+         root.classList.toggle('rtl', rtlOn);
+         document.querySelectorAll('[data-toggle="rtl"]').forEach(btn => {
+           btn.setAttribute('aria-pressed', String(rtlOn));
+           btn.setAttribute('aria-label', rtlOn ? 'Switch to left-to-right layout' : 'Switch to right-to-left layout');
+           btn.title = rtlOn ? 'Switch to LTR' : 'Switch to RTL';
+           const label = btn.querySelector('[data-label]');
+           if (label) label.textContent = rtlOn ? 'LTR' : 'RTL';
+           const icon = btn.querySelector('[data-icon]');
+           if (icon) {
+             if (!icon.dataset.iconBase) {
+               icon.dataset.iconBase = icon.className.replace(/\bfas\b/, '').replace(/\bfa-(exchange-alt|align-left|align-right)\b/g, '').trim();
+             }
+             icon.className = (icon.dataset.iconBase + ' ' + (rtlOn ? 'fas fa-align-left' : 'fas fa-align-right')).trim();
+           }
+         });
+         const menu = document.getElementById('mobileMenu');
+         if (menu && rtlOn && !menu.classList.contains('hidden')) {
+           menu.classList.add('hidden');
+           if (typeof setMobileMenuIcon === 'function') setMobileMenuIcon(false);
+         }
+         const sState = document.getElementById('settingsRtlState');
+         if (sState) sState.textContent = rtlOn ? 'On' : 'Off';
+       }
+    function toggleRTL() {
+      localStorage.setItem('rtl', String(!isRTL()));
+      applyRTL();
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       DUMMY DATA — everything lives here, no server needed
+       ══════════════════════════════════════════════════════════════ */
+    const DUMMY = {
+      upcomingRides: [
+        { id: 1, origin: 'Downtown Hub', destination: 'Portland Airport', departAt: '2026-10-05 08:30:00', seatsAvailable: 3, price: 12.00, status: 'confirmed' },
+        { id: 2, origin: 'Beaverton TC', destination: 'Downtown Portland', departAt: '2026-10-06 07:15:00', seatsAvailable: 2, price: 6.50, status: 'confirmed' },
+        { id: 3, origin: 'Lake Oswego', destination: 'Pioneer Square', departAt: '2026-10-07 17:45:00', seatsAvailable: 1, price: 9.00, status: 'confirmed' }
+      ],
+      recentBookings: [
+        { id: 8842, origin: 'Downtown Hub', destination: 'Portland Airport', date: '2026-10-05 08:30:00', seats: 1, amount: 12.00, status: 'confirmed' },
+        { id: 8841, origin: 'Beaverton TC', destination: 'Downtown Portland', date: '2026-09-20 07:15:00', seats: 2, amount: 13.00, status: 'completed' },
+        { id: 8840, origin: 'Lake Oswego', destination: 'Pioneer Square', date: '2026-09-15 17:45:00', seats: 1, amount: 9.00, status: 'completed' },
+        { id: 8839, origin: 'Downtown Hub', destination: 'Hillsboro Tech Park', date: '2026-09-10 06:45:00', seats: 1, amount: 15.00, status: 'cancelled' }
+      ],
+      allBookings: [
+        { id: 8842, origin: 'Downtown Hub', destination: 'Portland Airport', date: '2026-10-05 08:30:00', seats: 1, amount: 12.00, status: 'confirmed' },
+        { id: 8841, origin: 'Beaverton TC', destination: 'Downtown Portland', date: '2026-09-20 07:15:00', seats: 2, amount: 13.00, status: 'completed' },
+        { id: 8840, origin: 'Lake Oswego', destination: 'Pioneer Square', date: '2026-09-15 17:45:00', seats: 1, amount: 9.00, status: 'completed' },
+        { id: 8839, origin: 'Downtown Hub', destination: 'Hillsboro Tech Park', date: '2026-09-10 06:45:00', seats: 1, amount: 15.00, status: 'cancelled' },
+        { id: 8838, origin: 'Airport', destination: 'Hotel Row', date: '2026-09-05 14:20:00', seats: 1, amount: 22.00, status: 'completed' }
+      ],
+      myRides: [
+        { id: 101, origin: 'Portland State University', destination: 'Downtown Hub', departAt: '2026-10-10 08:00:00', seatsTotal: 3, seatsAvailable: 2, price: 5.00, notes: 'Meet at the north entrance', status: 'scheduled' },
+        { id: 102, origin: 'Riverside Park', destination: 'Beaverton TC', departAt: '2026-10-12 17:30:00', seatsTotal: 4, seatsAvailable: 4, price: 7.50, notes: 'Coffee stop possible', status: 'scheduled' }
+      ],
+      availableRides: [
+        { id: 201, origin: 'Downtown Hub', destination: 'Portland Airport', departAt: '2026-10-05 08:30:00', seatsAvailable: 3, price: 12.00, notes: 'Meet at the north entrance', status: 'scheduled', driver: { name: 'Sarah Miller', rating: 4.9, city: 'Portland' } },
+        { id: 202, origin: 'Beaverton TC', destination: 'Downtown Portland', departAt: '2026-10-06 07:15:00', seatsAvailable: 2, price: 6.50, notes: 'No smoking please', status: 'scheduled', driver: { name: 'Mike Thompson', rating: 4.7, city: 'Beaverton' } },
+        { id: 203, origin: 'Lake Oswego', destination: 'Pioneer Square', departAt: '2026-10-07 17:45:00', seatsAvailable: 3, price: 9.00, notes: 'EV — smooth & quiet', status: 'scheduled', driver: { name: 'Emma Roberts', rating: 5.0, city: 'Lake Oswego' } },
+        { id: 204, origin: 'Downtown Hub', destination: 'Hillsboro Tech Park', departAt: '2026-10-08 06:45:00', seatsAvailable: 4, price: 15.00, notes: 'Coffee stop possible', status: 'scheduled', driver: { name: 'Sarah Miller', rating: 4.9, city: 'Portland' } }
+      ],
+      payments: [
+        { id: 1, reference: 'TXN-5501', method: 'card', amount: 12.00, status: 'paid', paidAt: '2026-10-05 08:35:00' },
+        { id: 2, reference: 'TXN-5500', method: 'card', amount: 13.00, status: 'paid', paidAt: '2026-09-20 07:20:00' },
+        { id: 3, reference: 'TXN-5499', method: 'wallet', amount: 9.00, status: 'paid', paidAt: '2026-09-15 17:50:00' },
+        { id: 4, reference: 'TXN-5498', method: 'card', amount: 15.00, status: 'refunded', paidAt: '2026-09-10 06:50:00' }
+      ],
+      notifications: [
+        { id: 1, title: 'Booking confirmed', body: 'Your ride to Portland Airport is confirmed for Oct 5.', isRead: false, createdAt: '2026-10-01 09:15:00' },
+        { id: 2, title: 'Driver on the way', body: 'Sarah is 5 minutes away.', isRead: false, createdAt: '2026-10-05 08:20:00' },
+        { id: 3, title: 'Payment received', body: 'Thanks! Your payment of $12.00 was processed.', isRead: true, createdAt: '2026-10-05 08:36:00' },
+        { id: 4, title: 'New ride match', body: 'A new ride matches your saved route.', isRead: true, createdAt: '2026-09-28 12:00:00' }
+      ],
+      stats: { totalRides: 24, upcomingRides: 3, completedRides: 18, totalSpending: 34.00 },
+      spending: {
+        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        series: [0, 0, 22, 0, 13, 12]
+      },
+      user: { fullName: 'Alex Johnson', email: 'rider@rideflow.com', role: 'rider' }
+    };
+
+    /* ══════════════════════════════════════════════════════════════
+       HELPERS
+       ══════════════════════════════════════════════════════════════ */
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v === null || v === undefined ? '' : v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    const CARD = 'card-hover bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700';
+    const EMPTY = 'text-sm text-gray-400 py-8 text-center';
+
+    const BADGE = {
+      confirmed: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
+      scheduled: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
+      paid: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
+      completed: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400',
+      cancelled: 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400',
+      refunded: 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300',
+    };
+    const badge = s =>
+      '<span class="px-2.5 py-1 ' + (BADGE[String(s).toLowerCase()] || BADGE.refunded) +
+      ' text-xs font-medium rounded-full">' + esc(String(s).replace(/_/g, ' ')) + '</span>';
+
+    const money = n => '$' + Number(n || 0).toFixed(2);
+
+    function parseDate(value) {
+      if (!value) return null;
+      const iso = String(value).replace(' ', 'T');
+      const d = new Date(/[Z+]/.test(iso) ? iso : iso + 'Z');
+      return isNaN(d.getTime()) ? null : d;
+    }
+    const fmtDate = v => { const d = parseDate(v); return d ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—'; };
+    const fmtDateTime = v => {
+      const d = parseDate(v);
+      return d ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ', ' +
+        d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '—';
+    };
+    const fmtTime = v => { const d = parseDate(v); return d ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''; };
+
+    const initials = name => String(name || '?').trim().split(/\s+/).slice(0, 2)
+      .map(p => p[0]).join('').toUpperCase() || '?';
+
+    function setStatus(el, msg, kind) {
+      if (!el) return;
+      el.textContent = msg || '';
+      el.className = 'text-xs ' + (kind === 'ok' ? 'text-emerald-600 dark:text-emerald-400'
+        : kind === 'err' ? 'text-red-500' : 'text-gray-400');
+    }
+
+    function showFieldErrors(form, errors) {
+      form.querySelectorAll('[data-err]').forEach(p => {
+        p.classList.add('hidden');
+        p.textContent = '';
+      });
+      if (!errors) return;
+      Object.keys(errors).forEach(key => {
+        const p = form.querySelector('[data-err="' + key + '"]');
+        if (p) { p.textContent = errors[key]; p.classList.remove('hidden'); }
+      });
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       STATE + ROUTING
+       ══════════════════════════════════════════════════════════════ */
+    const state = { view: 'dashboard', bookings: [], rides: [], payments: [], notifications: [] };
+
+    const VIEW_META = {
+      dashboard: ['Dashboard', 'Welcome back, Alex!'],
+      profile: ['My Profile', 'Your account details'],
+      'find-ride': ['Find a Ride', 'Trips offered by other members'],
+      'offer-ride': ['Offer a Ride', 'Publish a trip for others to book'],
+      bookings: ['My Bookings', 'Every booking on your account'],
+      rides: ['My Rides', 'Trips you have offered'],
+      payments: ['Payment History', 'Charges and refunds'],
+      notifications: ['Notifications', 'Activity on your account'],
+      settings: ['Settings', 'Preferences and security'],
+    };
+
+    function showSection(view) {
+      if (!VIEW_META[view]) view = 'dashboard';
+      state.view = view;
+
+      document.querySelectorAll('[data-view]').forEach(sec => {
+        sec.classList.toggle('hidden', sec.getAttribute('data-view') !== view);
+      });
+
+      document.querySelectorAll('[data-view-link]').forEach(link => {
+        const isActive = link.getAttribute('data-view-link') === view;
+        link.classList.toggle('active', isActive);
+      });
+
+      const meta = VIEW_META[view];
+      const title = $('pageTitle');
+      if (title) title.textContent = meta[0];
+      const sub = $('pageSubtitle');
+      if (sub) sub.textContent = meta[1];
+
+      if (history.replaceState) history.replaceState(null, '', '#' + view);
+      else location.hash = view;
+
+      if (window.innerWidth < 1024) closeSidebar();
+
+      if (view === 'dashboard') {
+        setTimeout(() => drawChart(), 50);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RENDERERS
+       ══════════════════════════════════════════════════════════════ */
+    function renderUpcoming(rides) {
+      const host = $('upcomingTrips');
+      if (!rides.length) {
+        host.innerHTML = '<p class="' + EMPTY + ' ' + CARD + '">No upcoming trips.</p>';
+        return;
+      }
+      host.innerHTML = rides.slice(0, 3).map(r =>
+        '<div class="' + CARD + '">' +
+          '<div class="flex items-start gap-3">' +
+            '<span class="w-11 h-11 rounded-full bg-emerald-500 text-white flex items-center justify-center font-semibold shrink-0 border-2 border-emerald-400">AJ</span>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-center justify-between gap-2">' +
+                '<p class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate">' + esc(r.origin) + '</p>' +
+                '<span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm whitespace-nowrap">' + money(r.price) + '</span>' +
+              '</div>' +
+              '<div class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mt-0.5">' +
+                '<i class="fas fa-map-marker-alt text-red-400"></i>' +
+                '<span class="truncate">' + esc(r.destination) + '</span>' +
+              '</div>' +
+              '<div class="flex items-center gap-3 mt-2 flex-wrap">' +
+                '<span class="text-xs text-gray-500 dark:text-gray-400"><i class="fas fa-calendar-alt mr-1 text-emerald-500"></i>' + esc(fmtDate(r.departAt)) + '</span>' +
+                '<span class="text-xs text-gray-500 dark:text-gray-400"><i class="fas fa-clock mr-1 text-blue-500"></i>' + esc(fmtTime(r.departAt)) + '</span>' +
+                '<span class="text-xs text-gray-500 dark:text-gray-400"><i class="fas fa-chair mr-1 text-purple-500"></i>' + r.seatsAvailable + ' free</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex gap-2 mt-3">' +
+            '<a href="ride-details.html" class="flex-1 text-center py-1.5 bg-emerald-500 text-white text-xs font-medium rounded-lg hover:bg-emerald-600 transition-colors">View Details</a>' +
+            '<button onclick="showSection(\'rides\')" class="flex-1 py-1.5 bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">Manage</button>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function bookingRow(b, withAction) {
+      return '<tr class="table-row border-b border-gray-50 dark:border-gray-700/50">' +
+        '<td class="px-5 py-3.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">#BK-' + String(b.id).padStart(4, '0') + '</td>' +
+        '<td class="px-5 py-3.5 text-sm text-gray-600 dark:text-gray-400">' + esc(b.origin) + ' → ' + esc(b.destination) + '</td>' +
+        '<td class="px-5 py-3.5 text-sm text-gray-600 dark:text-gray-400">' + esc(fmtDate(b.date)) + '</td>' +
+        '<td class="px-5 py-3.5 text-sm text-gray-600 dark:text-gray-400">' + b.seats + '</td>' +
+        '<td class="px-5 py-3.5 text-sm font-medium text-gray-800 dark:text-gray-200">' + money(b.amount) + '</td>' +
+        '<td class="px-5 py-3.5">' + badge(b.status) + '</td>' +
+        (withAction ? '<td class="px-5 py-3.5"><a href="ride-details.html" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-medium">View</a></td>' : '') +
+      '</tr>';
+    }
+
+    function renderRecentBookings(bookings) {
+      const host = $('recentBookingsBody');
+      if (!bookings.length) {
+        host.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-sm text-gray-400">No bookings yet.</td></tr>';
+        return;
+      }
+      host.innerHTML = bookings.map(b => bookingRow(b, true)).join('');
+    }
+
+    function loadBookings() {
+      state.bookings = DUMMY.allBookings.slice();
+      $('bookingsCount').textContent = state.bookings.length + ' bookings on your account';
+      filterBookings();
+    }
+
+    function filterBookings() {
+      const input = $('bookingSearch');
+      const q = (input ? input.value : '').trim().toLowerCase();
+      const host = $('bookingsTable');
+      if (!host) return;
+
+      const rows = state.bookings.filter(b =>
+        !q || (b.origin + ' ' + b.destination + ' ' + b.status + ' ' + b.id).toLowerCase().includes(q));
+
+      host.innerHTML = rows.length
+        ? rows.map(b => bookingRow(b, false)).join('')
+        : '';
+      $('bookingsEmpty').classList.toggle('hidden', rows.length > 0);
+    }
+
+    function exportBookings() {
+      if (!state.bookings.length) return;
+      const head = ['Booking ID', 'Route', 'Date', 'Seats', 'Amount', 'Status'];
+      const lines = [head.join(',')].concat(state.bookings.map(b =>
+        ['#BK-' + String(b.id).padStart(4, '0'),
+         b.origin + ' -> ' + b.destination,
+         fmtDate(b.date), b.seats, b.amount.toFixed(2), b.status
+        ].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')));
+
+      const blob = new Blob([lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'rideflow-bookings.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function loadRides() {
+      state.rides = DUMMY.myRides.slice();
+      const host = $('ridesList');
+      $('ridesCount').textContent = state.rides.length + ' trips offered by you';
+
+      if (!state.rides.length) {
+        host.innerHTML = '<p class="' + EMPTY + ' ' + CARD + '">You have not offered any trips yet.</p>';
+        return;
+      }
+      host.innerHTML = state.rides.map(r =>
+        '<div class="' + CARD + '">' +
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div class="min-w-0">' +
+              '<p class="font-semibold text-sm text-gray-800 dark:text-gray-100 truncate">' + esc(r.origin) + ' → ' + esc(r.destination) + '</p>' +
+              '<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">' + esc(fmtDateTime(r.departAt)) + '</p>' +
+              (r.notes ? '<p class="text-xs text-gray-400 mt-1">' + esc(r.notes) + '</p>' : '') +
+            '</div>' +
+            badge(r.status) +
+          '</div>' +
+          '<div class="flex items-center gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400 flex-wrap">' +
+            '<span><i class="fas fa-chair mr-1 text-purple-500"></i>' + r.seatsAvailable + ' of ' + r.seatsTotal + ' free</span>' +
+            '<span><i class="fas fa-dollar-sign mr-1 text-emerald-500"></i>' + money(r.price) + ' / seat</span>' +
+            '<a href="ride-details.html" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline ml-auto">View details</a>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function loadPayments() {
+      state.payments = DUMMY.payments.slice();
+      const host = $('paymentsTable');
+
+      const paid = state.payments.filter(p => p.status === 'paid');
+      const refunded = state.payments.filter(p => p.status === 'refunded');
+      $('payTotal').textContent = money(paid.reduce((a, p) => a + p.amount, 0));
+      $('payCount').textContent = paid.length;
+      $('payRefunded').textContent = money(refunded.reduce((a, p) => a + p.amount, 0));
+
+      host.innerHTML = state.payments.map(p =>
+        '<tr class="table-row border-b border-gray-50 dark:border-gray-700/50">' +
+          '<td class="px-5 py-3.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">' + esc(p.reference) + '</td>' +
+          '<td class="px-5 py-3.5 text-sm text-gray-600 dark:text-gray-400">' + esc(fmtDate(p.paidAt)) + '</td>' +
+          '<td class="px-5 py-3.5 text-sm text-gray-600 dark:text-gray-400 capitalize">' + esc(p.method) + '</td>' +
+          '<td class="px-5 py-3.5 text-sm font-medium text-gray-800 dark:text-gray-200">' + money(p.amount) + '</td>' +
+          '<td class="px-5 py-3.5">' + badge(p.status) + '</td>' +
+        '</tr>'
+      ).join('');
+    }
+
+    function loadNotifications() {
+      state.notifications = DUMMY.notifications.slice();
+      const host = $('notificationsList');
+      const unread = state.notifications.filter(n => !n.isRead).length;
+      $('notificationsCount').textContent = unread
+        ? unread + ' unread of ' + state.notifications.length
+        : state.notifications.length + ' notifications';
+      paintUnread(unread);
+
+      if (!state.notifications.length) {
+        host.innerHTML = '<p class="' + EMPTY + ' ' + CARD + '">Nothing here yet.</p>';
+        return;
+      }
+      host.innerHTML = state.notifications.map(n =>
+        '<div class="' + CARD + ' flex items-start gap-3' + (n.isRead ? ' opacity-70' : '') + '">' +
+          '<span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 ' +
+            (n.isRead ? 'bg-gray-100 dark:bg-gray-700 text-gray-400' : 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400') + '">' +
+            '<i class="fas fa-bell"></i>' +
+          '</span>' +
+          '<div class="flex-1 min-w-0">' +
+            '<p class="text-sm font-semibold text-gray-800 dark:text-gray-100">' + esc(n.title) + '</p>' +
+            '<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">' + esc(n.body) + '</p>' +
+            '<p class="text-[11px] text-gray-400 mt-1">' + esc(fmtDateTime(n.createdAt)) + '</p>' +
+          '</div>' +
+          (n.isRead ? '' : '<button onclick="markRead(' + n.id + ')" class="text-xs text-emerald-600 dark:text-emerald-400 font-medium hover:underline shrink-0">Mark read</button>') +
+        '</div>'
+      ).join('');
+    }
+
+    function markRead(id) {
+      const n = state.notifications.find(x => x.id === id);
+      if (n) n.isRead = true;
+      loadNotifications();
+    }
+
+    function markAllRead() {
+      state.notifications.forEach(n => n.isRead = true);
+      loadNotifications();
+    }
+
+    function paintUnread(count) {
+      const nav = $('navUnreadBadge');
+      const head = $('headerUnreadBadge');
+      [nav, head].forEach(el => {
+        if (!el) return;
+        el.textContent = count > 99 ? '99+' : String(count);
+        if (count === 0) el.classList.add('hidden');
+        else el.classList.remove('hidden');
+      });
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       MARKETPLACE
+       ══════════════════════════════════════════════════════════════ */
+    function loadAvailable() {
+      const q = $('frQuery').value.trim().toLowerCase();
+      const from = $('frFrom').value.trim().toLowerCase();
+      const to = $('frTo').value.trim().toLowerCase();
+
+      const rows = DUMMY.availableRides.filter(r => {
+        if (from && !r.origin.toLowerCase().includes(from)) return false;
+        if (to && !r.destination.toLowerCase().includes(to)) return false;
+        if (q && !((r.origin + ' ' + r.destination + ' ' + r.notes).toLowerCase().includes(q))) return false;
+        return true;
+      });
+
+      const host = $('findRideResults');
+      if (!rows.length) {
+        host.innerHTML = '<p class="' + EMPTY + ' ' + CARD + '">No rides match your search right now.</p>';
+        return;
+      }
+      host.innerHTML = rows.map(r =>
+        '<div class="' + CARD + '">' +
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div class="min-w-0">' +
+              '<p class="font-semibold text-sm text-gray-800 dark:text-gray-100">' + esc(r.origin) + ' → ' + esc(r.destination) + '</p>' +
+              '<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">' + esc(fmtDateTime(r.departAt)) + '</p>' +
+              (r.notes ? '<p class="text-xs text-gray-400 mt-1">' + esc(r.notes) + '</p>' : '') +
+            '</div>' +
+            '<span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm whitespace-nowrap">' + money(r.price) + '</span>' +
+          '</div>' +
+          '<div class="flex items-center gap-3 mt-3 flex-wrap">' +
+            '<span class="flex items-center gap-2">' +
+              '<span class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center font-semibold text-[10px]">' + esc(initials(r.driver.name)) + '</span>' +
+              '<span class="text-xs text-gray-600 dark:text-gray-300">' + esc(r.driver.name) +
+              (r.driver.rating ? ' <span class="text-amber-500"><i class="fas fa-star text-[10px]"></i> ' + Number(r.driver.rating).toFixed(1) + '</span>' : '') +
+              '</span>' +
+            '</span>' +
+            '<span class="text-xs text-gray-500 dark:text-gray-400"><i class="fas fa-chair mr-1 text-purple-500"></i>' + r.seatsAvailable + ' free</span>' +
+            (r.driver.city ? '<span class="text-xs text-gray-500 dark:text-gray-400"><i class="fas fa-location-dot mr-1"></i>' + esc(r.driver.city) + '</span>' : '') +
+            '<button onclick="bookRide(' + r.id + ')" class="ml-auto px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium rounded-lg transition-colors">Book</button>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function bookRide(rideId) {
+      const ride = DUMMY.availableRides.find(r => r.id === rideId);
+      if (!ride) return;
+      if (ride.seatsAvailable < 1) { alert('Not enough seats available.'); return; }
+      ride.seatsAvailable -= 1;
+
+      const nextId = 9000 + DUMMY.allBookings.length + 1;
+      const booking = {
+        id: nextId,
+        origin: ride.origin,
+        destination: ride.destination,
+        date: ride.departAt,
+        seats: 1,
+        amount: ride.price,
+        status: 'confirmed'
+      };
+      DUMMY.allBookings.unshift(booking);
+      DUMMY.recentBookings.unshift(booking);
+      DUMMY.payments.unshift({
+        id: DUMMY.payments.length + 1,
+        reference: 'TXN-' + (5500 + DUMMY.payments.length),
+        method: 'card',
+        amount: ride.price,
+        status: 'paid',
+        paidAt: new Date().toISOString().replace('T', ' ').slice(0, 19)
+      });
+      DUMMY.notifications.unshift({
+        id: DUMMY.notifications.length + 1,
+        title: 'Booking confirmed',
+        body: 'Your ride from ' + ride.origin + ' to ' + ride.destination + ' is confirmed.',
+        isRead: false,
+        createdAt: new Date().toISOString().replace('T', ' ').slice(0, 19)
+      });
+
+      state.bookings = DUMMY.allBookings.slice();
+      loadNotifications();
+      loadPayments();
+      loadAvailable();
+      showSection('bookings');
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       FORMS
+       ══════════════════════════════════════════════════════════════ */
+    function saveProfile(e) {
+      e.preventDefault();
+      const status = $('profileStatus');
+      const name = $('pfFullName').value.trim();
+      showFieldErrors(e.target, null);
+      if (name.length < 2) {
+        showFieldErrors(e.target, { fullName: 'Please enter your full name.' });
+        setStatus(status, 'Please fix the highlighted fields.', 'err');
+        return;
+      }
+      DUMMY.user.fullName = name;
+      $('sidebarUserName').textContent = name;
+      $('headerUserName').textContent = name;
+      $('profileDisplayName').textContent = name;
+      setStatus(status, 'Saved.', 'ok');
+    }
+
+    function changePassword(e) {
+      e.preventDefault();
+      const status = $('passwordStatus');
+      const next = $('pwNew').value;
+      const cur = $('pwCurrent').value;
+      if (!cur) { setStatus(status, 'Current password is required.', 'err'); return; }
+      if (next !== $('pwConfirm').value) { setStatus(status, 'New passwords do not match.', 'err'); return; }
+      if (next.length < 8 || !/[A-Za-z]/.test(next) || !/\d/.test(next)) {
+        setStatus(status, 'At least 8 characters, including a letter and a number.', 'err');
+        return;
+      }
+      e.target.reset();
+      setStatus(status, 'Password updated.', 'ok');
+    }
+
+    function offerRide(e) {
+      e.preventDefault();
+      const form = e.target;
+      const status = $('offerRideStatus');
+      const origin = $('orOrigin').value.trim();
+      const destination = $('orDestination').value.trim();
+      const departAt = $('orDepart').value;
+      const seats = Number($('orSeats').value);
+      const price = Number($('orPrice').value);
+      const notes = $('orNotes').value.trim();
+
+      const errors = {};
+      if (origin.length < 2) errors.origin = 'Please enter a pickup point.';
+      if (destination.length < 2) errors.destination = 'Please enter a destination.';
+      if (!departAt) errors.departAt = 'Please choose a departure time.';
+      if (!seats || seats < 1 || seats > 8) errors.seatsTotal = 'Seats must be 1–8.';
+      if (price == null || price < 0 || price > 500) errors.price = 'Price must be 0–500.';
+
+      showFieldErrors(form, null);
+      if (Object.keys(errors).length) {
+        showFieldErrors(form, errors);
+        setStatus(status, 'Please fix the highlighted fields.', 'err');
+        return;
+      }
+
+      DUMMY.myRides.unshift({
+        id: 100 + DUMMY.myRides.length + 1,
+        origin: origin,
+        destination: destination,
+        departAt: departAt.replace('T', ' ') + ':00',
+        seatsTotal: seats,
+        seatsAvailable: seats,
+        price: price,
+        notes: notes,
+        status: 'scheduled'
+      });
+      form.reset();
+      $('orSeats').value = '3';
+      $('orPrice').value = '5';
+      setStatus(status, 'Ride published.', 'ok');
+      state.rides = DUMMY.myRides.slice();
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       SIDEBAR
+       ══════════════════════════════════════════════════════════════ */
+    function openSidebar() {
+      $('sidebar').classList.remove('-translate-x-full');
+      $('sidebarOverlay').classList.remove('hidden');
+    }
+    function closeSidebar() {
+      $('sidebar').classList.add('-translate-x-full');
+      $('sidebarOverlay').classList.add('hidden');
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       LOGOUT — no redirect, just a message
+       ══════════════════════════════════════════════════════════════ */
+    function logout() {
+      // In this demo, there is no login page, so just show a message.
+      if (confirm('Log out of the demo dashboard?')) {
+        alert('This is a demo — no login page is required. Reload to continue.');
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       SPENDING CHART
+       ══════════════════════════════════════════════════════════════ */
+    function drawChart() {
+      const canvas = $('spendingChart');
+      if (!canvas || canvas.offsetParent === null) return;
+      const ctx = canvas.getContext('2d');
+      const isDarkMode = document.documentElement.classList.contains('dark');
+
+      const labels = DUMMY.spending.labels;
+      const data = DUMMY.spending.series;
+
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = Math.max(240, rect.width - 40);
+      const H = 220;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+
+      const padL = 46, padR = 20, padT = 24, padB = 40;
+      const chartW = W - padL - padR;
+      const chartH = H - padT - padB;
+      const maxVal = Math.max(10, Math.ceil(Math.max.apply(null, data.concat([0])) / 10) * 10);
+      const gap = chartW / Math.max(1, labels.length);
+      const barW = gap * 0.5;
+
+      const gridColor = isDarkMode ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+      const textColor = isDarkMode ? '#9CA3AF' : '#6B7280';
+      ctx.strokeStyle = gridColor;
+      ctx.lineWidth = 1;
+      ctx.fillStyle = textColor;
+      ctx.font = '10px Poppins, sans-serif';
+      for (let i = 0; i <= 4; i++) {
+        const y = padT + chartH - (i / 4) * chartH;
+        ctx.beginPath();
+        ctx.moveTo(padL, y);
+        ctx.lineTo(W - padR, y);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.fillText('$' + Math.round(maxVal / 4 * i), padL - 6, y + 4);
+      }
+
+      labels.forEach((label, i) => {
+        const x = padL + gap * i + gap * 0.25;
+        const barH = (data[i] / maxVal) * chartH;
+        const y = padT + chartH - barH;
+
+        const grad = ctx.createLinearGradient(x, y, x, padT + chartH);
+        grad.addColorStop(0, '#10B981');
+        grad.addColorStop(1, 'rgba(16,185,129,0.2)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, y, barW, Math.max(barH, 1), [4, 4, 0, 0]);
+        else ctx.rect(x, y, barW, Math.max(barH, 1));
+        ctx.fill();
+
+        ctx.fillStyle = textColor;
+        ctx.font = '11px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, x + barW / 2, padT + chartH + 16);
+
+        if (data[i] > 0) {
+          ctx.fillStyle = isDarkMode ? '#D1FAE5' : '#065F46';
+          ctx.font = 'bold 10px Poppins, sans-serif';
+          ctx.fillText('$' + data[i], x + barW / 2, y - 5);
+        }
+      });
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       WIRING + BOOT
+       ══════════════════════════════════════════════════════════════ */
+    $('profileForm').addEventListener('submit', saveProfile);
+    $('passwordForm').addEventListener('submit', changePassword);
+    $('offerRideForm').addEventListener('submit', offerRide);
+    $('findRideForm').addEventListener('submit', e => { e.preventDefault(); loadAvailable(); });
+    $('frReset').addEventListener('click', () => {
+      $('frQuery').value = ''; $('frFrom').value = ''; $('frTo').value = '';
+      loadAvailable();
+    });
+    $('markAllRead').addEventListener('click', markAllRead);
+    $('exportBookings').addEventListener('click', exportBookings);
+
+    const headerSearch = $('headerSearch');
+    if (headerSearch) {
+      headerSearch.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        showSection('bookings');
+        $('bookingSearch').value = e.target.value;
+        filterBookings();
+      });
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeSidebar();
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => drawChart(), 150);
+    });
+
+    window.addEventListener('hashchange', () => {
+      const view = location.hash.replace('#', '');
+      if (view && view !== state.view) showSection(view);
+    });
+
+    // Apply theme first
+    applyDarkMode();
+    applyRTL();
+
+    // Boot: render dummy data into every section, no API calls, no redirects
+    state.bookings = DUMMY.allBookings.slice();
+    state.rides = DUMMY.myRides.slice();
+    state.payments = DUMMY.payments.slice();
+    state.notifications = DUMMY.notifications.slice();
+
+    renderUpcoming(DUMMY.upcomingRides);
+    renderRecentBookings(DUMMY.recentBookings);
+    loadBookings();
+    loadRides();
+    loadPayments();
+    loadNotifications();
+    loadAvailable();
+
+    const start = location.hash.replace('#', '');
+    showSection(start && VIEW_META[start] ? start : 'dashboard');
+
+    setTimeout(() => drawChart(), 100);
+
+    /* Expose for inline onclick handlers */
+    window.showSection = showSection;
+    window.toggleDarkMode = toggleDarkMode;
+    window.toggleRTL = toggleRTL;
+    window.logout = logout;
+    window.openSidebar = openSidebar;
+    window.closeSidebar = closeSidebar;
+    window.filterBookings = filterBookings;
+    window.markRead = markRead;
+    window.bookRide = bookRide;
+  })();
+  </script>
+</body>
+</html>

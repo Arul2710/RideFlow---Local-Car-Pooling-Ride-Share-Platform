@@ -1,0 +1,278 @@
+/* ============================================================
+   RideFlow – RTL (Right-to-Left) Overrides
+   ------------------------------------------------------------
+   Everything here is scoped to `[dir='rtl']` which main.js (or the
+   small inline <head> snippet) sets on <html> when RTL is active.
+
+   IMPORTANT DESIGN NOTE
+   ---------------------
+   Setting `dir="rtl"` already flips the *inline* axis, so flex rows,
+   grids, floats, inline elements, table columns and text flow
+   right-to-left automatically. This file therefore does NOT set
+   `flex-direction: row-reverse` anywhere — doing so would apply a
+   second, cancelling flip and leave the page looking left-to-right.
+
+   What is left for CSS to fix are Tailwind's *physical* utilities
+   (ml-*, mr-*, pl-*, pr-*, left-*, right-*, border-l-*, rounded-r-*)
+   which are not direction aware.
+   ============================================================ */
+
+/* ── 1. Base Direction ─────────────────────────────────────── */
+[dir='rtl'] {
+  direction: rtl;
+}
+
+/* ── 2. Text Alignment ──────────────────────────────────────── */
+/* `direction: rtl` already resolves the default `text-align: start`
+   to "right", so headings, paragraphs, lists, tables and form fields
+   are aligned correctly with no extra CSS.
+   Only *physical* alignment values need mirroring — Tailwind's
+   .text-left / .text-right are exactly that. */
+[dir='rtl'] .text-left  { text-align: right; }
+[dir='rtl'] .text-right { text-align: left;  }
+
+/* Explicitly centred blocks (and their inherited children) stay centred. */
+[dir='rtl'] .text-center { text-align: center; }
+
+/* ── 3. Navbar ─────────────────────────────────────────────── */
+/* Logo / nav / controls order is handled by the inherited
+   direction, so only dropdown positioning needs mirroring. */
+[dir='rtl'] .group > div[class*='absolute'] {
+  left: auto;
+  right: 0;
+}
+
+/* Chevrons sit after their label automatically via direction. */
+[dir='rtl'] button .fa-chevron-down {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+/* ── 4. Margin Utilities ────────────────────────────────────── */
+[dir='rtl'] .ml-0     { margin-left: 0;      margin-right: 0px;     }
+[dir='rtl'] .ml-1     { margin-left: 0;      margin-right: 0.25rem; }
+[dir='rtl'] .ml-1.5   { margin-left: 0;      margin-right: 0.375rem;}
+[dir='rtl'] .ml-2     { margin-left: 0;      margin-right: 0.5rem;  }
+[dir='rtl'] .ml-auto  { margin-left: 0;      margin-right: auto;   }
+
+[dir='rtl'] .mr-0     { margin-right: 0;     margin-left: 0px;      }
+[dir='rtl'] .mr-1     { margin-right: 0;     margin-left: 0.25rem;  }
+[dir='rtl'] .mr-2     { margin-right: 0;     margin-left: 0.5rem;   }
+[dir='rtl'] .mr-3     { margin-right: 0;     margin-left: 0.75rem;  }
+[dir='rtl'] .mr-auto  { margin-right: 0;     margin-left: auto;    }
+
+/* ── 5. Padding Utilities ───────────────────────────────────── */
+[dir='rtl'] .pl-0     { padding-left: 0;      padding-right: 0px;     }
+[dir='rtl'] .pl-1     { padding-left: 0;      padding-right: 0.25rem; }
+[dir='rtl'] .pl-2     { padding-left: 0;      padding-right: 0.5rem;  }
+[dir='rtl'] .pl-3     { padding-left: 0;      padding-right: 0.75rem; }
+[dir='rtl'] .pl-4     { padding-left: 0;      padding-right: 1rem;    }
+[dir='rtl'] .pl-5     { padding-left: 0;      padding-right: 1.25rem; }
+[dir='rtl'] .pl-6     { padding-left: 0;      padding-right: 1.5rem;  }
+[dir='rtl'] .pl-7     { padding-left: 0;      padding-right: 1.75rem; }
+[dir='rtl'] .pl-8     { padding-left: 0;      padding-right: 2rem;    }
+[dir='rtl'] .pl-9     { padding-left: 0;      padding-right: 2.25rem; }
+[dir='rtl'] .pl-10    { padding-left: 0;      padding-right: 2.5rem;  }
+[dir='rtl'] .pl-11    { padding-left: 0;      padding-right: 2.75rem; }
+[dir='rtl'] .pl-12    { padding-left: 0;      padding-right: 3rem;    }
+[dir='rtl'] .pl-14    { padding-left: 0;      padding-right: 3.5rem;  }
+
+[dir='rtl'] .pr-0     { padding-right: 0;     padding-left: 0px;      }
+[dir='rtl'] .pr-1     { padding-right: 0;     padding-left: 0.25rem;  }
+[dir='rtl'] .pr-2     { padding-right: 0;     padding-left: 0.5rem;   }
+[dir='rtl'] .pr-3     { padding-right: 0;     padding-left: 0.75rem;  }
+[dir='rtl'] .pr-4     { padding-right: 0;     padding-left: 1rem;     }
+[dir='rtl'] .pr-5     { padding-right: 0;     padding-left: 1.25rem; }
+[dir='rtl'] .pr-6     { padding-right: 0;     padding-left: 1.5rem;   }
+[dir='rtl'] .pr-8     { padding-right: 0;     padding-left: 2rem;     }
+[dir='rtl'] .pr-10    { padding-right: 0;     padding-left: 2.5rem;   }
+[dir='rtl'] .pr-12    { padding-right: 0;     padding-left: 3rem;     }
+
+/* `space-x-*` adds margin-left to every sibling after the first */
+[dir='rtl'] .-space-x-2 > * + * { margin-left: 0; margin-right: -0.5rem; }
+
+/* ── 6. Absolute / Fixed Positioning ───────────────────────── */
+/* NOTE: `left-1/2`, `right-1/2` and the paired `-translate-x-1/2`
+   are intentionally NOT mirrored — they are centring utilities. */
+[dir='rtl'] .left-0     { left: auto;  right: 0; }
+[dir='rtl'] .right-0    { right: auto; left: 0; }
+[dir='rtl'] .left-1     { left: auto;  right: 0.25rem; }
+[dir='rtl'] .right-1    { right: auto; left: 0.25rem; }
+[dir='rtl'] .left-2.5   { left: auto;  right: 0.625rem; }
+[dir='rtl'] .right-2    { right: auto; left: 0.5rem; }
+[dir='rtl'] .left-3     { left: auto;  right: 0.75rem; }
+[dir='rtl'] .right-3    { right: auto; left: 0.75rem; }
+[dir='rtl'] .left-3.5   { left: auto;  right: 0.875rem; }
+[dir='rtl'] .right-3.5  { right: auto; left: 0.875rem; }
+[dir='rtl'] .left-4     { left: auto;  right: 1rem; }
+[dir='rtl'] .right-4    { right: auto; left: 1rem; }
+[dir='rtl'] .left-5     { left: auto;  right: 1.25rem; }
+[dir='rtl'] .right-5    { right: auto; left: 1.25rem; }
+[dir='rtl'] .left-6     { left: auto;  right: 1.5rem; }
+[dir='rtl'] .right-6    { right: auto; left: 1.5rem; }
+[dir='rtl'] .left-8     { left: auto;  right: 2rem; }
+[dir='rtl'] .right-8    { right: auto; left: 2rem; }
+[dir='rtl'] .left-10    { left: auto;  right: 2.5rem; }
+[dir='rtl'] .right-10   { right: auto; left: 2.5rem; }
+[dir='rtl'] .left-16    { left: auto;  right: 4rem; }
+[dir='rtl'] .right-16   { right: auto; left: 4rem; }
+[dir='rtl'] .left-20    { left: auto;  right: 5rem; }
+[dir='rtl'] .right-20   { right: auto; left: 5rem; }
+[dir='rtl'] .left-24    { left: auto;  right: 6rem; }
+[dir='rtl'] .right-24   { right: auto; left: 6rem; }
+[dir='rtl'] .left-32    { left: auto;  right: 8rem; }
+[dir='rtl'] .right-32   { right: auto; left: 8rem; }
+[dir='rtl'] .-left-3    { left: auto;  right: -0.75rem; }
+[dir='rtl'] .-right-3   { right: auto; left: -0.75rem; }
+[dir='rtl'] .-left-5    { left: auto;  right: -1.25rem; }
+[dir='rtl'] .-right-5   { right: auto; left: -1.25rem; }
+[dir='rtl'] .-left-6    { left: auto;  right: -1.5rem; }
+[dir='rtl'] .-right-6   { right: auto; left: -1.5rem; }
+[dir='rtl'] .-left-10   { left: auto;  right: -2.5rem; }
+[dir='rtl'] .-right-10  { right: auto; left: -2.5rem; }
+[dir='rtl'] .-left-32   { left: auto;  right: -8rem; }
+[dir='rtl'] .-right-32  { right: auto; left: -8rem; }
+
+/* ── 7. Borders & Radii ─────────────────────────────────────── */
+[dir='rtl'] .border-l-2 { border-left-width: 0;  border-right-width: 2px; }
+[dir='rtl'] .border-l-4 { border-left-width: 0;  border-right-width: 4px; }
+[dir='rtl'] .rounded-r-lg { border-top-right-radius: 0;    border-bottom-right-radius: 0;   border-top-left-radius: 0.5rem;    border-bottom-left-radius: 0.5rem; }
+[dir='rtl'] .rounded-l-lg { border-top-left-radius: 0;     border-bottom-left-radius: 0;    border-top-right-radius: 0.5rem;   border-bottom-right-radius: 0.5rem; }
+
+/* ── 8. Icon Flipping ──────────────────────────────────────── */
+/* Only genuinely directional glyphs are mirrored. */
+[dir='rtl'] .fa-arrow-right,
+[dir='rtl'] .fa-arrow-left,
+[dir='rtl'] .fa-chevron-right,
+[dir='rtl'] .fa-chevron-left,
+[dir='rtl'] .fa-caret-right,
+[dir='rtl'] .fa-caret-left,
+[dir='rtl'] .fa-angle-right,
+[dir='rtl'] .fa-angle-left,
+[dir='rtl'] .fa-long-arrow-alt-right,
+[dir='rtl'] .fa-long-arrow-alt-left,
+[dir='rtl'] .fa-chevron-circle-right,
+[dir='rtl'] .fa-chevron-circle-left,
+[dir='rtl'] .fa-step-forward,
+[dir='rtl'] .fa-step-backward {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+/* Horizontal (two-way) arrows must NOT flip — they would look broken. */
+[dir='rtl'] .fa-exchange-alt,
+[dir='rtl'] .fa-right-left,
+[dir='rtl'] .fa-arrows-left-right {
+  transform: none;
+  display: inline-block;
+}
+
+/* ── 9. Sidebar / Off-canvas Panels ────────────────────────── */
+[dir='rtl'] .sidebar {
+  border-right: none;
+  border-left: 1px solid var(--border-color, #E5E7EB);
+}
+
+[dir='rtl'] .sidebar-link {
+  text-align: right;
+}
+
+[dir='rtl'] .sidebar-link.active {
+  border-left: none;
+  border-right: 3px solid var(--primary, #10B981);
+}
+
+/* Dashboard sidebar is `fixed left-0` + `-translate-x-full` when closed.
+   Re-anchor it to the right edge and slide it off the right side. */
+[dir='rtl'] aside.fixed.left-0 {
+  left: auto;
+  right: 0;
+}
+
+[dir='rtl'] aside.fixed.left-0.-translate-x-full {
+  transform: translateX(100%);
+}
+
+@media (min-width: 1024px) {
+  [dir='rtl'] aside.fixed.left-0.lg\:translate-x-0 {
+    transform: translateX(0);
+  }
+}
+
+/* ── 10. Forms ─────────────────────────────────────────────── */
+[dir='rtl'] input:not([type='checkbox']):not([type='radio']),
+[dir='rtl'] select,
+[dir='rtl'] textarea {
+  text-align: right;
+}
+
+[dir='rtl'] input::placeholder,
+[dir='rtl'] textarea::placeholder {
+  text-align: right;
+}
+
+[dir='rtl'] input[type='date'] {
+  direction: rtl;
+}
+
+/* Native select arrow is drawn on the right by default */
+[dir='rtl'] select.form-control,
+[dir='rtl'] select {
+  background-position: left 1rem center;
+  padding-right: 1rem;
+  padding-left: 2.5rem;
+}
+
+/* ── 11. Cards & Sections ──────────────────────────────────── */
+/* Text is already right-aligned by the inherited direction. */
+
+/* ── 12. Hero Section ──────────────────────────────────────── */
+/* The hero is left-aligned in LTR; mirror it to the right. */
+[dir='rtl'] .hero-content .text-left {
+  text-align: right;
+}
+
+/* ── 13. Footer ────────────────────────────────────────────── */
+[dir='rtl'] footer ul {
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+/* ── 14. Tables ────────────────────────────────────────────── */
+/* Column order and cell alignment are handled by the inherited
+   direction, so no extra rules are required. */
+
+/* ── 15. Modal ─────────────────────────────────────────────── */
+
+/* ── 16. Toasts (created at runtime by showToast) ──────────── */
+[dir='rtl'] .toast-container {
+  right: auto;
+  left: 1.5rem;
+  align-items: flex-start;
+}
+
+[dir='rtl'] .toast {
+  border-left-width: 1px;
+  border-right-width: 4px;
+  border-right-color: var(--primary, #10B981);
+}
+
+[dir='rtl'] .toast.error   { border-right-color: #EF4444; }
+[dir='rtl'] .toast.warning { border-right-color: #F59E0B; }
+[dir='rtl'] .toast.info    { border-right-color: #3B82F6; }
+
+/* ── 17. Mobile Menu ───────────────────────────────────────── */
+[dir='rtl'] #mobileMenu a {
+  text-align: right;
+}
+
+[dir='rtl'] #mobileMenu .flex.items-center.justify-between > span {
+  text-align: right;
+}
+
+/* ── 18. Misc Utility Overrides ────────────────────────────── */
+[dir='rtl'] .float-left  { float: right; }
+[dir='rtl'] .float-right { float: left;  }
+
+[dir='rtl'] .border-l { border-left-width: 0;  border-right-width: 1px; }
+[dir='rtl'] .border-r { border-right-width: 0; border-left-width: 1px;  }
