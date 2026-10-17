@@ -41,6 +41,7 @@
 
   --navbar-height:  64px;
   --section-pad:    80px;
+  --hero-min-height: 340px;
 
   --font-sans: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -221,6 +222,36 @@ button {
 
 .pt-navbar {
   padding-top: var(--navbar-height);
+}
+
+/* Between 1024px and 1279px the full desktop menu, the theme/RTL
+   toggles and the auth buttons all share one row. Tighten the
+   horizontal padding there so the row never crowds or overflows
+   the container (the `hidden lg:flex` groups keep their display). */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #navbar .hidden.lg\:flex > a,
+  #navbar .hidden.lg\:flex > div > button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* ── 7b. Header control buttons (RTL / Theme / CTA) ────────── */
+/* The public pages each carry their own copy of the header, so the
+   theme, RTL and auth buttons drift apart in height and radius. They
+   are normalised once here (one height, one radius, centred) instead
+   of re-tuning every page. Dashboard headers are a separate layout
+   and are not affected (`#navbar` scopes this to the public nav). */
+#navbar button[onclick^="toggleRTL"],
+#navbar button[onclick^="toggleDarkMode"],
+#navbar a[href="login.html"],
+#navbar a[href="signup.html"] {
+  height: 2.25rem;
+  min-height: 2.25rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── 7. Button Styles ────────────────────────────────────── */
@@ -677,6 +708,17 @@ select.form-control {
       rgba(4, 47, 41, 0.78) 100%
     );
   }
+}
+
+/* ── 10b-2. Shared Page Hero ─────────────────────────────── */
+/* Every non-homepage hero (About, Services, Blog, Pricing, …)
+   shares one minimum height so short and tall banners line up
+   consistently. Each page still owns its own padding + artwork. */
+.page-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--hero-min-height);
 }
 
 /* ── 10c. Navbar Layout Toggles (RTL / Dark Mode) ─────────── */

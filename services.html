@@ -101,7 +101,7 @@
           </div>        </div>
         <div class="hidden lg:flex items-center gap-2">
                     <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all" title="Switch to RTL">
-            <i data-icon class="fas fa-align-right"></i>
+            <i class="fas fa-right-left"></i>
           </button>
           <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all" title="Toggle Dark Mode">
             <i id="darkModeIcon" class="fas fa-moon dark-mode-icon"></i>
@@ -140,7 +140,7 @@
         <a href="admin-dashboard.html" class="block px-3 py-2 text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg">Admin Dashboard</a>
         <hr class="border-gray-200">
         <div class="flex items-center gap-3 px-3 py-2">
-          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i data-icon class="fas fa-align-right"></i></button>
+          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i class="fas fa-right-left"></i></button>
           <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i id="darkModeIconMobile" class="fas fa-moon"></i></button>
           <a href="login.html" class="flex-1 text-center px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium">Login</a>
           <a href="signup.html" class="flex-1 text-center px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium">Sign Up</a>
@@ -150,7 +150,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="pt-16 text-white relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(to bottom right, rgba(6, 78, 59, 0.92), rgba(6, 95, 70, 0.88), rgba(4, 120, 87, 0.85)), url('images/jugnoo-io--jugnoo-carpool-softwar-owning-the-drive-to-owing-the-ride.png');">
+  <section class="page-hero pt-16 text-white relative overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(to bottom right, rgba(6, 78, 59, 0.92), rgba(6, 95, 70, 0.88), rgba(4, 120, 87, 0.85)), url('images/jugnoo-io--jugnoo-carpool-softwar-owning-the-drive-to-owing-the-ride.png');">
     <div class="absolute inset-0 opacity-10">
       <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
       <div class="absolute bottom-0 right-10 w-96 h-96 bg-emerald-300 rounded-full blur-3xl"></div>
@@ -406,73 +406,73 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Card 1 -->
-        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 flex flex-col">
           <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
             <i class="fas fa-briefcase text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
           </div>
           <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Daily Commute</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Set recurring routes with coworkers and neighbours. Save time and money every single day.</p>
-          <div class="flex items-center justify-between">
+          <div class="mt-auto flex items-center justify-between">
             <span class="text-emerald-500 font-bold">From $2/ride</span>
             <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
           </div>
         </div>
         <!-- Card 2 -->
-        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 flex flex-col">
           <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
             <i class="fas fa-road text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
           </div>
           <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">City-to-City</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Intercity trips on 500+ routes. Split fuel, make friends, arrive refreshed.</p>
-          <div class="flex items-center justify-between">
+          <div class="mt-auto flex items-center justify-between">
             <span class="text-emerald-500 font-bold">From $8/trip</span>
             <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
           </div>
         </div>
         <!-- Card 3 -->
-        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 flex flex-col">
           <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
             <i class="fas fa-plane text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
           </div>
           <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Airport Transfers</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Reliable, punctual airport pickups and drop-offs with flight-aware scheduling.</p>
-          <div class="flex items-center justify-between">
+          <div class="mt-auto flex items-center justify-between">
             <span class="text-emerald-500 font-bold">From $12/trip</span>
             <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
           </div>
         </div>
         <!-- Card 4 -->
-        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 flex flex-col">
           <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
             <i class="fas fa-graduation-cap text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
           </div>
           <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Student Carpooling</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Campus routes with verified students. Get 25% off with a valid student ID.</p>
-          <div class="flex items-center justify-between">
+          <div class="mt-auto flex items-center justify-between">
             <span class="text-emerald-500 font-bold">From $1.50/ride</span>
             <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
           </div>
         </div>
         <!-- Card 5 -->
-        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 flex flex-col">
           <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
             <i class="fas fa-mountain text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
           </div>
           <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Weekend Trips</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Explore new destinations with adventure-loving co-travelers. Multi-stop routes supported.</p>
-          <div class="flex items-center justify-between">
+          <div class="mt-auto flex items-center justify-between">
             <span class="text-emerald-500 font-bold">From $5/seat</span>
             <a href="find-ride.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Book Now</a>
           </div>
         </div>
         <!-- Card 6 -->
-        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+        <div class="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 flex flex-col">
           <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
             <i class="fas fa-building text-xl text-emerald-500 group-hover:text-white transition-colors duration-300"></i>
           </div>
           <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Corporate Rides</h3>
           <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">Business-ready billing, receipts, and employee management for teams of all sizes.</p>
-          <div class="flex items-center justify-between">
+          <div class="mt-auto flex items-center justify-between">
             <span class="text-emerald-500 font-bold">Custom pricing</span>
             <a href="contact.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all">Contact Us</a>
           </div>

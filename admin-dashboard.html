@@ -102,7 +102,7 @@
 
       <a href="#" onclick="showSection('users')" data-section="users" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
         <i class="fas fa-users w-4 text-center"></i> Users Management
-        <span class="ml-auto bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-1.5 py-0.5 rounded-full">12k</span>
+        <span class="ms-auto bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-1.5 py-0.5 rounded-full">12k</span>
       </a>
       <a href="#" onclick="showSection('drivers')" data-section="drivers" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
         <i class="fas fa-id-card w-4 text-center"></i> Drivers Management
@@ -134,12 +134,6 @@
 
       <hr class="border-gray-200 dark:border-gray-700 my-2" />
 
-      <button onclick="toggleDarkMode()" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
-        <i id="adminDarkIcon" class="fas fa-moon w-4 text-center"></i> Dark Mode
-      </button>
-      <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-gray-700 dark:text-gray-300">
-        <i data-icon class="fas fa-align-right w-4 text-center"></i> <span data-label>RTL</span> RTL Toggle
-      </button>
       <button onclick="logout()" class="sidebar-link w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-red-500 hover:!bg-red-50 dark:hover:!bg-red-900/30">
         <i class="fas fa-sign-out-alt w-4 text-center !text-red-500"></i> Logout
       </button>
@@ -171,6 +165,15 @@
         <div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-xl text-xs font-medium">
           <i class="fas fa-clock"></i> 23 Pending Approvals
         </div>
+
+        <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <i class="fas fa-right-left" aria-hidden="true"></i>
+          <span data-label class="sr-only">RTL</span>
+        </button>
+
+        <button type="button" onclick="toggleDarkMode()" data-toggle="dark" aria-pressed="false" aria-label="Switch to dark theme" title="Dark Mode" class="p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <i id="headerDarkIcon" class="fas fa-moon"></i>
+        </button>
 
         <div class="relative">
           <button class="p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors relative">
@@ -773,8 +776,13 @@
     function applyDarkMode() {
       const isDark = localStorage.getItem('darkMode') === 'true';
       document.documentElement.classList.toggle('dark', isDark);
-      const icon = document.getElementById('adminDarkIcon');
-      if (icon) icon.className = isDark ? 'fas fa-sun w-4 text-center' : 'fas fa-moon w-4 text-center';
+      const icon = document.getElementById('headerDarkIcon');
+      if (icon) icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      document.querySelectorAll('[data-toggle="dark"]').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(isDark));
+        btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+        btn.title = isDark ? 'Light Mode' : 'Dark Mode';
+      });
     }
     function toggleDarkMode() {
       const isDark = localStorage.getItem('darkMode') === 'true';

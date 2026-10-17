@@ -211,7 +211,10 @@
   text-align: right;
 }
 
-[dir='rtl'] input[type='date'] {
+[dir='rtl'] input[type='date'],
+[dir='rtl'] input[type='datetime-local'],
+[dir='rtl'] input[type='time'],
+[dir='rtl'] input[type='month'] {
   direction: rtl;
 }
 

@@ -122,7 +122,7 @@
         <div class="hidden lg:flex items-center gap-2">
           <!-- RTL Toggle -->
           <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all" title="Switch to RTL">
-            <i data-icon class="fas fa-align-right"></i>
+            <i class="fas fa-right-left"></i>
           </button>
 
           <!-- Dark Mode Toggle -->
@@ -195,7 +195,7 @@
             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Theme Controls</span>
             <div class="flex items-center gap-2">
               <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 shadow-sm" title="Switch to RTL">
-                <i data-icon class="fas fa-align-right"></i>
+                <i class="fas fa-right-left"></i>
               </button>
               <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 shadow-sm" title="Toggle Dark Mode">
                 <i id="darkModeIconMobile" class="fas fa-moon dark-mode-icon"></i>
@@ -218,7 +218,7 @@
   <!-- ============================================================
       SECTION 1: HERO VARIANT (SPLIT HERO + FLOATING CARDS)
   ============================================================ -->
-  <section class="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden text-white min-h-[85vh] flex items-center bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(to bottom right, rgba(17, 24, 39, 0.9), rgba(6, 78, 59, 0.85), rgba(17, 24, 39, 0.9)), url('images/suffescom-com--ride-share-banner.webp');">
+  <section class="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden text-white min-h-[90vh] flex items-center bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(to bottom right, rgba(17, 24, 39, 0.9), rgba(6, 78, 59, 0.85), rgba(17, 24, 39, 0.9)), url('images/suffescom-com--ride-share-banner.webp');">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -302,6 +302,67 @@
           </form>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 1b: HOW IT WORKS (added for Home 2 content parity)
+  ============================================================ -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-md text-xs font-bold uppercase tracking-wider">
+          Simple Process
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mt-3">
+          How RideFlow Works in 4 Easy Steps
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base mt-4">
+          Whether you need a seat or you have empty ones, the flow is the same:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step 1 -->
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">1</div>
+          <div class="text-2xl text-emerald-500 mb-3"><i class="fas fa-search"></i></div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Search or Post</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Enter your pick-up, drop-off, date and time to find seats — or post your route if you are driving.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">2</div>
+          <div class="text-2xl text-emerald-500 mb-3"><i class="fas fa-user-check"></i></div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Compare &amp; Match</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            See price per seat, departure times, and verified driver ratings side by side.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">3</div>
+          <div class="text-2xl text-emerald-500 mb-3"><i class="fas fa-ticket-alt"></i></div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Book &amp; Pay</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Reserve a seat and pay securely online. Drivers earn from every seat they share.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+          <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">4</div>
+          <div class="text-2xl text-emerald-500 mb-3"><i class="fas fa-car-side"></i></div>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Ride &amp; Rate</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Meet at the agreed spot, enjoy the trip, and leave mutual feedback afterwards.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -502,6 +563,84 @@
             24/7 in-app emergency button lets you share live location directly with trusted contacts.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4b: FAQ (added for Home 2 content parity)
+  ============================================================ -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-md text-xs font-bold uppercase tracking-wider">
+          Good to Know
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mt-3">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-6 py-5 text-left">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">What is RideFlow?</span>
+            <i class="fas fa-chevron-down text-emerald-500 text-sm transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <p class="px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            RideFlow is a local car pooling and ride share platform for everyday commuters. It connects riders heading the same way with drivers who have empty seats, so they can share the trip and split the cost.
+          </p>
+        </details>
+
+        <details class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-6 py-5 text-left">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">How do I find a ride?</span>
+            <i class="fas fa-chevron-down text-emerald-500 text-sm transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <p class="px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Open Find a Ride and enter your pick-up point, destination, and travel date. You can compare available seats, price per seat, departure times, and verified driver ratings before you choose.
+          </p>
+        </details>
+
+        <details class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-6 py-5 text-left">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">How do I offer a ride and earn?</span>
+            <i class="fas fa-chevron-down text-emerald-500 text-sm transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <p class="px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Use Offer a Ride to share your route and departure time. Riders can then book the empty seats in your car, and you set the price per seat.
+          </p>
+        </details>
+
+        <details class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-6 py-5 text-left">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">How are payments and payouts handled?</span>
+            <i class="fas fa-chevron-down text-emerald-500 text-sm transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <p class="px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Seats are paid securely online when a rider books, and drivers receive their earnings for every seat they share.
+          </p>
+        </details>
+
+        <details class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-6 py-5 text-left">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">How does RideFlow keep the community safe?</span>
+            <i class="fas fa-chevron-down text-emerald-500 text-sm transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <p class="px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Every member completes identity and driving checks, riders and drivers rate each other after each trip, and an in-app emergency button helps you share your live location with trusted contacts.
+          </p>
+        </details>
+
+        <details class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-6 py-5 text-left">
+            <span class="font-semibold text-gray-900 dark:text-white text-base">Can I manage a trip after booking?</span>
+            <i class="fas fa-chevron-down text-emerald-500 text-sm transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <p class="px-6 pb-5 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            Yes. Open My Bookings in your dashboard to review your upcoming and past trips, and manage your rides from there.
+          </p>
+        </details>
       </div>
     </div>
   </section>

@@ -75,7 +75,7 @@
         </a>
 
         <!-- Desktop Navigation -->
-        <div class="hidden lg:flex items-center gap-1">
+        <div class="hidden lg:flex items-center gap-1 whitespace-nowrap">
           <!-- Home Dropdown -->
           <div class="relative group">
             <button class="flex items-center gap-1.5 px-3 py-2 text-emerald-600 dark:text-emerald-400 font-semibold text-sm transition-colors">
@@ -123,20 +123,21 @@
         <div class="hidden lg:flex items-center gap-2">
           <!-- RTL Toggle -->
           <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL"
-                  class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all">
-            <i data-icon class="fas fa-align-right"></i>
+                  class="h-9 inline-flex items-center justify-center gap-1.5 px-3 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all text-sm font-medium whitespace-nowrap">
+            <i class="fas fa-right-left" aria-hidden="true"></i>
+            <span data-label>RTL</span>
           </button>
 
           <!-- Dark Mode Toggle -->
           <button type="button" onclick="toggleDarkMode()" data-toggle="dark" aria-pressed="false" aria-label="Switch to dark theme" title="Dark Mode"
-                  class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all">
+                  class="layout-toggle w-9 h-9 inline-flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all">
             <i id="darkModeIcon" class="fas fa-moon dark-mode-icon"></i>
           </button>
 
-          <a href="login.html" class="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all flex items-center gap-1.5">
+          <a href="login.html" class="h-9 inline-flex items-center gap-1.5 px-4 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all whitespace-nowrap">
             <i class="fas fa-sign-in-alt"></i> Login
           </a>
-          <a href="signup.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all shadow-sm shadow-emerald-500/20 flex items-center gap-1.5">
+          <a href="signup.html" class="h-9 inline-flex items-center gap-1.5 px-4 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all shadow-sm shadow-emerald-500/20 whitespace-nowrap">
             <i class="fas fa-user-plus"></i> Sign Up
           </a>
         </div>
@@ -199,7 +200,8 @@
             <div class="flex items-center gap-2">
               <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL"
                       class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 shadow-sm">
-                <i data-icon class="fas fa-align-right"></i>
+                <i class="fas fa-right-left" aria-hidden="true"></i>
+                <span data-label class="sr-only">RTL</span>
               </button>
               <button type="button" onclick="toggleDarkMode()" data-toggle="dark" aria-pressed="false" aria-label="Switch to dark theme" title="Dark Mode"
                       class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 shadow-sm">
@@ -417,87 +419,129 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Service 1 -->
-        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
-          <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-            <i class="fas fa-briefcase"></i>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
+          <div class="relative">
+            <div class="h-40 overflow-hidden">
+              <img src="images/accept-aseanenergy-org--carpooling-1.jpg" alt="Commuters sharing a daily office carpool" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute -bottom-6 left-6 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg ring-4 ring-gray-50 dark:ring-gray-800">
+              <i class="fas fa-briefcase"></i>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Daily Office Commute</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-            Find colleagues and commuters heading to your office district. Share fixed weekly schedules easily.
-          </p>
-          <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Explore Commutes <i class="fas fa-chevron-right text-xs"></i>
-          </a>
+          <div class="p-8 pt-12 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Daily Office Commute</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+              Find colleagues and commuters heading to your office district. Share fixed weekly schedules easily.
+            </p>
+            <a href="services.html" class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Explore Commutes <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+          </div>
         </div>
 
         <!-- Service 2 -->
-        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
-          <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-            <i class="fas fa-road"></i>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
+          <div class="relative">
+            <div class="h-40 overflow-hidden">
+              <img src="images/easymaxicabs-com-au--melbourne-day-trips-maxi-cab-group-transport.jpg" alt="Shared long-distance road trip between cities" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute -bottom-6 left-6 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg ring-4 ring-gray-50 dark:ring-gray-800">
+              <i class="fas fa-road"></i>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">City-to-City Sharing</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-            Inter-city travel made affordable. Book comfortable seats for long-distance highway routes.
-          </p>
-          <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Explore Routes <i class="fas fa-chevron-right text-xs"></i>
-          </a>
+          <div class="p-8 pt-12 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">City-to-City Sharing</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+              Inter-city travel made affordable. Book comfortable seats for long-distance highway routes.
+            </p>
+            <a href="services.html" class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Explore Routes <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+          </div>
         </div>
 
         <!-- Service 3 -->
-        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
-          <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-            <i class="fas fa-plane"></i>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
+          <div class="relative">
+            <div class="h-40 overflow-hidden">
+              <img src="images/mychauffeur-com--airport-transfer.webp" alt="Airport transfer car waiting for passengers" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute -bottom-6 left-6 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg ring-4 ring-gray-50 dark:ring-gray-800">
+              <i class="fas fa-plane"></i>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Airport Transfers</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-            Punctual airport pick-ups and drops. Split expensive taxi fares with fellow travelers.
-          </p>
-          <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Book Airport Ride <i class="fas fa-chevron-right text-xs"></i>
-          </a>
+          <div class="p-8 pt-12 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Airport Transfers</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+              Punctual airport pick-ups and drops. Split expensive taxi fares with fellow travelers.
+            </p>
+            <a href="services.html" class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Book Airport Ride <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+          </div>
         </div>
 
         <!-- Service 4 -->
-        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
-          <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-            <i class="fas fa-graduation-cap"></i>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
+          <div class="relative">
+            <div class="h-40 overflow-hidden">
+              <img src="images/img-freepik-com--group-students-carpooling-class-save-gas-transportation-costs-vector-illu.avif" alt="Students carpooling to class together" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute -bottom-6 left-6 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg ring-4 ring-gray-50 dark:ring-gray-800">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Student Carpooling</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-            Verified campus networks for university students and staff with special student discounts.
-          </p>
-          <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Campus Rides <i class="fas fa-chevron-right text-xs"></i>
-          </a>
+          <div class="p-8 pt-12 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Student Carpooling</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+              Verified campus networks for university students and staff with special student discounts.
+            </p>
+            <a href="services.html" class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Campus Rides <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+          </div>
         </div>
 
         <!-- Service 5 -->
-        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
-          <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-            <i class="fas fa-mountain"></i>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
+          <div class="relative">
+            <div class="h-40 overflow-hidden">
+              <img src="images/midpenrideshare-org--carpooling-image-four-young-people-scaled.jpg" alt="Group of friends heading out on a weekend trip" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute -bottom-6 left-6 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg ring-4 ring-gray-50 dark:ring-gray-800">
+              <i class="fas fa-mountain"></i>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Weekend Trips</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-            Heading out of town for the weekend? Find friendly co-passengers and share road trip fun.
-          </p>
-          <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
-            Plan Trip <i class="fas fa-chevron-right text-xs"></i>
-          </a>
+          <div class="p-8 pt-12 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Weekend Trips</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+              Heading out of town for the weekend? Find friendly co-passengers and share road trip fun.
+            </p>
+            <a href="services.html" class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              Plan Trip <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+          </div>
         </div>
 
         <!-- Service 6 -->
-        <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
-          <div class="w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
-            <i class="fas fa-building"></i>
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
+          <div class="relative">
+            <div class="h-40 overflow-hidden">
+              <img src="images/jaipurcabservices-com--corporatetaxi.webp" alt="Corporate taxi used for business commutes" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="absolute -bottom-6 left-6 w-14 h-14 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg ring-4 ring-gray-50 dark:ring-gray-800">
+              <i class="fas fa-building"></i>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Corporate Sharing</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
-            Dedicated enterprise commute solutions with corporate billing, analytics, and employee perks.
-          </p>
-          <a href="services.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
-            For Companies <i class="fas fa-chevron-right text-xs"></i>
-          </a>
+          <div class="p-8 pt-12 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Corporate Sharing</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">
+              Dedicated enterprise commute solutions with corporate billing, analytics, and employee perks.
+            </p>
+            <a href="services.html" class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              For Companies <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>

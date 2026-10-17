@@ -80,7 +80,7 @@
           </div>
           <a href="about.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">About</a>
           <a href="services.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Services</a>
-          <a href="blog.html" class="px-3 py-2 text-emerald-600 font-semibold text-sm transition-colors">Blog</a>
+          <a href="blog.html" aria-current="page" class="px-3 py-2 text-emerald-600 font-semibold text-sm transition-colors">Blog</a>
           <a href="pricing.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Pricing</a>
           <a href="contact.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</a>
           <!-- Dashboard Dropdown (moved next to Contact) -->
@@ -102,7 +102,7 @@
             </div>
           </div>        </div>
         <div class="hidden lg:flex items-center gap-2">
-                    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all" title="Switch to RTL"><i data-icon class="fas fa-align-right"></i></button>
+                    <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" class="layout-toggle p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all" title="Switch to RTL"><i class="fas fa-right-left"></i></button>
           <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-all" title="Toggle Dark Mode"><i id="darkModeIcon" class="fas fa-moon dark-mode-icon"></i></button>
           <a href="login.html" class="px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium hover:bg-emerald-50 transition-all"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
           <a href="signup.html" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-all"><i class="fas fa-user-plus mr-1"></i> Sign Up</a>
@@ -124,7 +124,7 @@
         </div>
         <a href="about.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">About</a>
         <a href="services.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">Services</a>
-        <a href="blog.html" class="block px-3 py-2 text-emerald-600 font-semibold hover:bg-emerald-50 rounded-lg">Blog</a>
+        <a href="blog.html" aria-current="page" class="block px-3 py-2 text-emerald-600 font-semibold hover:bg-emerald-50 rounded-lg">Blog</a>
         <a href="pricing.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">Pricing</a>
         <a href="contact.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg font-medium">Contact</a>
         <hr class="border-gray-200 dark:border-gray-700">
@@ -132,7 +132,7 @@
         <a href="admin-dashboard.html" class="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg">Admin Dashboard</a>
         <hr class="border-gray-200 dark:border-gray-700">
         <div class="flex items-center gap-3 px-3 py-2">
-          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i data-icon class="fas fa-align-right"></i></button>
+          <button type="button" onclick="toggleRTL()" data-toggle="rtl" aria-pressed="false" aria-label="Switch to right-to-left layout" title="Switch to RTL" class="layout-toggle p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i class="fas fa-right-left"></i></button>
           <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"><i id="darkModeIconMobile" class="fas fa-moon"></i></button>
           <a href="login.html" class="flex-1 text-center px-4 py-2 text-emerald-600 border border-emerald-600 rounded-lg text-sm font-medium">Login</a>
           <a href="signup.html" class="flex-1 text-center px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium">Sign Up</a>
@@ -142,17 +142,17 @@
   </nav>
 
 <!-- HERO SECTION WITH BACKGROUND IMAGE -->
-<section class="relative pt-16 bg-cover bg-center text-white" 
+<section class="page-hero relative pt-16 bg-cover bg-center text-white" 
          style="background-image: linear-gradient(to bottom right, rgba(15, 118, 110, 0.85), rgba(13, 148, 136, 0.85)), url('images/img-freepik-com--group-parents-coordinating-carpool-their-childrens-afterschool-activities.avif');">
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Blog</h1>
-    <p class="text-emerald-100 text-lg mb-6">Tips, news, and stories from the RideFlow community</p>
-    <nav class="flex items-center justify-center gap-2 text-sm text-emerald-200">
+    <nav class="flex items-center justify-center gap-2 text-sm text-emerald-200 mb-4" aria-label="Breadcrumb">
       <a href="index.html" class="hover:text-white transition-colors">Home</a>
       <i class="fas fa-chevron-right text-xs"></i>
       <span class="text-white font-medium">Blog</span>
     </nav>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Blog</h1>
+    <p class="text-emerald-100 text-lg">Tips, news, and stories from the RideFlow community</p>
   </div>
 
 </section>
@@ -330,22 +330,8 @@
             </button>
           </div>
 
-          <!-- PAGINATION -->
-          <!-- Only page 1 has content (6 articles, 6 per page), so the
-               other controls are disabled rather than left clickable-but-dead. -->
-          <div id="blogPagination" class="flex items-center justify-center gap-2">
-            <button type="button" data-page-nav="prev" aria-label="Previous page" disabled
-                    class="px-3 py-2 rounded-lg text-gray-300 dark:text-gray-600 cursor-not-allowed text-sm"><i class="fas fa-chevron-left"></i></button>
-            <button type="button" data-page="1" aria-current="page"
-                    class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-semibold">1</button>
-            <button type="button" data-page="2" disabled
-                    class="px-4 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed rounded-lg text-sm">2</button>
-            <button type="button" data-page="3" disabled
-                    class="px-4 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed rounded-lg text-sm">3</button>
-            <span class="px-2 text-gray-400">...</span>
-            <button type="button" data-page-nav="next" disabled
-                    class="px-4 py-2 text-gray-300 dark:text-gray-600 cursor-not-allowed rounded-lg text-sm flex items-center gap-1">Next <i class="fas fa-chevron-right text-xs"></i></button>
-          </div>
+          <!-- PAGINATION (rendered dynamically from the filtered result set) -->
+          <nav id="blogPagination" class="flex items-center justify-center gap-2" aria-label="Blog pagination"></nav>
         </div>
 
         <!-- SIDEBAR (1/3) -->
@@ -838,7 +824,7 @@
     (function () {
       'use strict';
 
-      var PAGE_SIZE = 6; // all 6 published articles fit on a single page
+      var PAGE_SIZE = 4; // 6 published articles -> 2 real, working pages
 
       var grid         = document.getElementById('blogGrid');
       var emptyState   = document.getElementById('blogEmptyState');
@@ -883,6 +869,102 @@
         return haystack.indexOf(query) > -1;
       }
 
+      /* ── URL state ──────────────────────────────────────────
+         The active search / category / page are mirrored into the
+         query string so a filtered view can be linked, refreshed
+         and navigated with the browser back/forward buttons. */
+      function readURL() {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var rawQ = params.get('q') || '';
+          query = rawQ.trim().toLowerCase();
+          category = (params.get('category') || '').trim().toLowerCase();
+          var p = parseInt(params.get('page'), 10);
+          page = (p && p > 0) ? p : 1;
+          if (searchInput) searchInput.value = rawQ;
+        } catch (e) { /* URLSearchParams unavailable - ignore */ }
+      }
+
+      function writeURL() {
+        if (!window.history || !history.replaceState) return;
+        try {
+          var params = new URLSearchParams();
+          if (query) params.set('q', query);
+          if (category) params.set('category', category);
+          if (page > 1) params.set('page', String(page));
+          var qs = params.toString();
+          var url = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+          history.replaceState(null, '', url);
+        } catch (e) { /* file:// or sandboxed history - ignore */ }
+      }
+
+      /* ── Pagination rendering ─────────────────────────────── */
+      var PAGE_BTN = 'px-4 py-2 rounded-lg text-sm';
+      var NAV_BTN  = 'px-3 py-2 rounded-lg text-sm flex items-center gap-1';
+      var HOVER    = ' text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-emerald-600';
+
+      /* Page numbers to show, collapsing long runs with ellipses. */
+      function pageSequence(current, pages) {
+        if (pages <= 7) {
+          var all = [];
+          for (var i = 1; i <= pages; i++) all.push(i);
+          return all;
+        }
+        var list = [1];
+        var start = Math.max(2, current - 1);
+        var end = Math.min(pages - 1, current + 1);
+        if (start > 2) list.push('gap');
+        for (var j = start; j <= end; j++) list.push(j);
+        if (end < pages - 1) list.push('gap');
+        list.push(pages);
+        return list;
+      }
+
+      function buildPageButton(n, isCurrent) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('data-page', String(n));
+        if (isCurrent) b.setAttribute('aria-current', 'page');
+        b.className = PAGE_BTN + (isCurrent ? ' bg-emerald-500 text-white font-semibold' : HOVER);
+        b.textContent = String(n);
+        return b;
+      }
+
+      function buildNavButton(dir, reachable) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('data-page-nav', dir);
+        b.disabled = !reachable;
+        b.setAttribute('aria-label', dir === 'next' ? 'Next page' : 'Previous page');
+        b.className = NAV_BTN + (reachable ? HOVER : ' text-gray-300 dark:text-gray-600 cursor-not-allowed');
+        b.innerHTML = dir === 'next'
+          ? 'Next <i class="fas fa-chevron-right text-xs"></i>'
+          : '<i class="fas fa-chevron-left"></i>';
+        return b;
+      }
+
+      function renderPagination(pages) {
+        if (!pagination) return;
+        pagination.innerHTML = '';
+        if (pages <= 1) {
+          pagination.classList.add('hidden');
+          return;
+        }
+        pagination.classList.remove('hidden');
+        pagination.appendChild(buildNavButton('prev', page > 1));
+        pageSequence(page, pages).forEach(function (n) {
+          if (n === 'gap') {
+            var span = document.createElement('span');
+            span.className = 'px-2 text-gray-400';
+            span.textContent = '…';
+            pagination.appendChild(span);
+          } else {
+            pagination.appendChild(buildPageButton(n, n === page));
+          }
+        });
+        pagination.appendChild(buildNavButton('next', page < pages));
+      }
+
       function render() {
         var visible = index.filter(matches);
         var pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
@@ -902,43 +984,8 @@
         /* Empty state */
         if (emptyState) emptyState.classList.toggle('hidden', visible.length !== 0);
 
-        /* Pagination is pointless with no results */
-        if (pagination) pagination.classList.toggle('hidden', visible.length === 0);
-
-        /* Keep the page buttons honest: only reachable pages stay enabled. */
-        if (pagination) {
-          Array.prototype.forEach.call(pagination.querySelectorAll('button[data-page]'), function (btn) {
-            var n = Number(btn.getAttribute('data-page'));
-            var reachable = n <= pages;
-            btn.disabled = !reachable;
-            btn.setAttribute('aria-disabled', String(!reachable));
-            var isCurrent = n === page;
-            btn.classList.toggle('bg-emerald-500', isCurrent);
-            btn.classList.toggle('text-white', isCurrent);
-            btn.classList.toggle('text-gray-300', !isCurrent && !reachable);
-            btn.classList.toggle('dark:text-gray-600', !isCurrent && !reachable);
-            btn.classList.toggle('cursor-not-allowed', !reachable);
-            btn.classList.toggle('text-gray-700', isCurrent === false && reachable);
-            btn.classList.toggle('dark:text-gray-300', isCurrent === false && reachable);
-            btn.classList.toggle('hover:bg-emerald-50', reachable && !isCurrent);
-            btn.classList.toggle('hover:text-emerald-600', reachable && !isCurrent);
-            if (isCurrent) btn.setAttribute('aria-current', 'page');
-            else btn.removeAttribute('aria-current');
-          });
-
-          Array.prototype.forEach.call(pagination.querySelectorAll('button[data-page-nav]'), function (btn) {
-            var target = btn.getAttribute('data-page-nav') === 'next' ? page + 1 : page - 1;
-            var reachable = target >= 1 && target <= pages;
-            btn.disabled = !reachable;
-            btn.setAttribute('aria-disabled', String(!reachable));
-            btn.classList.toggle('text-gray-300', !reachable);
-            btn.classList.toggle('dark:text-gray-600', !reachable);
-            btn.classList.toggle('cursor-not-allowed', !reachable);
-            btn.classList.toggle('text-gray-500', reachable);
-            btn.classList.toggle('dark:text-gray-400', reachable);
-            btn.classList.toggle('hover:text-emerald-600', reachable);
-          });
-        }
+        /* Pagination is rebuilt from the filtered result set */
+        renderPagination(visible.length === 0 ? 0 : pages);
 
         /* Clear-filters button only when something is active */
         var filtered = Boolean(query || category);
@@ -956,6 +1003,8 @@
             link.setAttribute('aria-pressed', String(active));
           });
         }
+
+        writeURL();
       }
 
       function reset() {
@@ -1035,6 +1084,14 @@
         });
       }
 
+      /* ── Back / forward buttons ───────────────────────────── */
+      window.addEventListener('popstate', function () {
+        readURL();
+        render();
+      });
+
+      /* First paint: honour any ?q= / ?category= / ?page= in the URL */
+      readURL();
       render();
     })();
   </script>

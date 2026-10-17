@@ -78,6 +78,37 @@
   color: #6B7280;
 }
 
+/* ── 5b. Native date / time pickers ──────────────────────── */
+/* Native date, datetime-local and time inputs draw their own
+   calendar / clock glyph plus a popup panel. Opting the field into
+   the dark colour-scheme makes the browser render BOTH the popup and
+   the ::-webkit-calendar-picker-indicator glyph with a dark-theme
+   palette (i.e. a light glyph), so the icon stays visible on the dark
+   input surface. The indicator must NOT also be `filter: invert()`ed:
+   that would flip the already-light glyph back to dark and hide it
+   against the dark input. */
+.dark input[type='date'],
+.dark input[type='datetime-local'],
+.dark input[type='time'],
+.dark input[type='month'],
+.dark input[type='week'] {
+  color-scheme: dark;
+}
+
+.dark input[type='date']::-webkit-calendar-picker-indicator,
+.dark input[type='datetime-local']::-webkit-calendar-picker-indicator,
+.dark input[type='time']::-webkit-calendar-picker-indicator,
+.dark input[type='month']::-webkit-calendar-picker-indicator,
+.dark input[type='week']::-webkit-calendar-picker-indicator {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.dark input[type='date']::-webkit-calendar-picker-indicator:hover,
+.dark input[type='datetime-local']::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 .dark .form-label {
   color: #E5E7EB;
 }
